@@ -1,0 +1,16 @@
+package com.fciencias.cienciastop.models.service;
+
+import java.util.List;
+
+import com.fciencias.cienciastop.models.entity.Producto;
+
+public interface IProductoService {
+   
+    public List<Producto> findAll();
+
+    public Producto findById(Long id);
+
+    public Producto save(Producto producto);
+
+    public void delete(Long id);
+}
