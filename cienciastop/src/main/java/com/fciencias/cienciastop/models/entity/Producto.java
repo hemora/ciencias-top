@@ -4,75 +4,208 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Clase para representar un producto de Ciencias Top.
+ */
 @Entity
 @Table(name="productos")
 public class Producto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	/* Codigo de longitud 12 del producto. */
+	@Id
+	private String codigo;
+	/* Nombre del producto. */
+	@Column(name="nombre")
+	private String nombre;
+	/* Stock inicial del producto. */
+	@Column(name="stockInicial")
+	private int stockInicial;	
+	/* Stock actual del prodcuto. */
+	@Column(name="currentStock")
+	private int currentStock;	
+	/* Precio del prodcuto. */
+	@Column(name="precio")
+	private double precio;	
+	/* Descripcion del prodcuto. */
+	@Column(name="descripcion")
+	private String descripcion;	
+	/* Ruta de la imagen del prodcuto. */
+	@Column(name="imagen")
+	private String imagen;	
+	/* Tipo del producto. */
+	@Column(name="tipo")
+	private String tipo;	
+	/* Categoria del producto. */
+	@Column(name="categoria")
+	private String categoria;	
+	/* Periodo de renta del producto. */
+	@Column(name="periodoRenta")
+	private int periodoRenta;
+	
+	/**
+	 * Regresa el nombre del producto.
+	 * @return el nombre del producto.
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    @Column(name="nombre")
-    private String nombre;
-    @Column(name="codigo")
-    private String codigo;
-    @Column(name="stock")
-    private Integer stock;
-    @Column(name="precio")
-    private Double precio;
-    @Column(name="descripcion")
-    private String descripcion;
+	/**
+	 * Define el nuevo nombre del producto.
+	 * @param nombre el nuevo nombre del producto.
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * Regresa el codigo del producto.
+	 * @return el codigo del producto.
+	 */
+	public String getCodigo() {
+		return codigo;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * Define el nuevo codigo del producto.
+	 * @param codigo el nuevo codigo del producto.
+	 */
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
-    public String getCodigo() {
-        return codigo;
-    }
+	/**
+	 * Regresa el stock inicial del producto.
+	 * @return el stock inicial del producto.
+	 */
+	public int getStockInicial() {
+		return stockInicial;
+	}
 
-    public Integer getStock() {
-        return stock;
-    }
+	/**
+	 * Define el nuevo stock inicial del producto.
+	 * @param stockInicial el nuevo stock inicial del producto.
+	 */
+	public void setStockInicial(int stockInicial) {
+		this.stockInicial = stockInicial;
+	}
 
-    public Double getPrecio() {
-        return precio;
-    }
+	/**
+	 * Regresa el stock actual del producto.
+	 * @return el stock actual del producto.
+	 */
+	public int getCurrentStock() {
+		return currentStock;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	/**
+	 * Define el nuevo stock actual del producto.
+	 * @param currentStock el nuevo stock actual del producto.
+	 */
+	public void setCurrentStock(int currentStock) {
+		this.currentStock = currentStock;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * Regresa el precio del producto.
+	 * @return el precio del producto.
+	 */
+	public double getPrecio() {
+		return precio;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	/**
+	 * Define el nuevo precio del producto.
+	 * @param precio el nuevo precio del producto.
+	 */
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
+	/**
+	 * Regresa la descripcion del producto.
+	 * @return la descripcion del producto.
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
+	/**
+	 * Define la nueva descripcion del producto.
+	 * @param descripcion la nueva descripcion del producto.
+	 */
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
+	/**
+	 * Regresa la ruta de la imagen del producto.
+	 * @return la ruta de la imagen del producto.
+	 */
+	public String getImagen() {
+		return imagen;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	/**
+	 * Define la nueva ruta de la imagen del producto.
+	 * @param imagen la nueva ruta de la imagen del producto.
+	 */
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
+	/**
+	 * Regresa el tipo del producto.
+	 * @return el tipo del producto.
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * Define el nuevo tipo del producto.
+	 * @param tipo el nuevo tipo del producto.
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	/**
+	 * Regresa la categoria del producto.
+	 * @return la categoria del producto.
+	 */
+	public String getCategoria() {
+		return categoria;
+	}
+
+	/**
+	 * Define la nueva categoria del producto.
+	 * @param categoria la nueva categoria del producto.
+	 */
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	/**
+	 * Regresa el perido de renta del producto.
+	 * @return el perido de renta del producto.
+	 */
+	public int getPeriodoRenta() {
+		return periodoRenta;
+	}
+
+	/**
+	 * Define el nuevo periodo de renta del producto.
+	 * @param periodoRenta el nuevo periodo de renta del producto.
+	 */
+	public void setPeriodoRenta(int periodoRenta) {
+		this.periodoRenta = periodoRenta;
+	}
 }
