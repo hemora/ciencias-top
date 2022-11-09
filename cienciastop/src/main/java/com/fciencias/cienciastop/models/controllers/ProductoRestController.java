@@ -32,8 +32,8 @@ public class ProductoRestController {
 	}
 	
 	@GetMapping("/productos/{codigo}")
-	public Producto show(@PathVariable String id) {
-		return productoService.findByCodigo(id);
+	public Producto show(@PathVariable String codigo) {
+		return productoService.findByCodigo(codigo);
 	}
 	
 	@PostMapping("/productos")
@@ -47,7 +47,7 @@ public class ProductoRestController {
 	public Producto update(@RequestBody Producto producto, @PathVariable String codigo) {
 		Producto currentProducto = this.productoService.findByCodigo(codigo);
 		currentProducto.setNombre(producto.getCodigo());
-		currentProducto.setCodigo(producto.getCodigo());
+		currentProducto.setCodigo(producto.getNombre());
 		currentProducto.setStockInicial(producto.getStockInicial());
 		currentProducto.setCurrentStock(producto.getCurrentStock());
 		currentProducto.setPrecio(producto.getPrecio());

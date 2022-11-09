@@ -26,8 +26,10 @@ public class ProductoServiceImpl implements IProductoService {
 	@Transactional(readOnly=true)
 	public Producto findByCodigo(String codigo) {
 		// TODO Auto-generated method stub
-		Long codigoTemp = (long) 1;
-		return productoDao.findById(codigoTemp).orElse(null);
+		// find by id necesita un id tipo int. cambiando
+		//Long codigoTemp = (long) 1;
+		//return productoDao.findById(codigoTemp).orElse(null);
+		return productoDao.encontrarPorCodigo(codigo);
 	}
 	
 	@Override
@@ -38,10 +40,12 @@ public class ProductoServiceImpl implements IProductoService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional
 	public void delete(String codigo) {
 		// TODO Auto-generated method stub
-		Long codigoTemp = (long) 1;
-		productoDao.deleteById(codigoTemp);		
+		// delete by id necesita un id tipo int. cambiando
+		//Long codigoTemp = (long) 1;
+		//productoDao.deleteById(codigoTemp);
+		productoDao.borrarPorCodigo(codigo);
 	}
 }
