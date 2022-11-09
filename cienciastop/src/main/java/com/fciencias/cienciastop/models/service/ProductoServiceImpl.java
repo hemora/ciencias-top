@@ -11,32 +11,37 @@ import com.fciencias.cienciastop.models.entity.Producto;
 
 @Service
 public class ProductoServiceImpl implements IProductoService {
+	
+	@Autowired
+	private IProductoDao productoDao;
 
-    @Autowired
-    private IProductoDao productoDao;
+	@Override
+	@Transactional(readOnly=true)
+	public List<Producto> findAll() {
+		// TODO Auto-generated method stub
+		return (List<Producto>) productoDao.findAll();
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Producto> findAll() {
-        return (List<Producto>) productoDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly=true)
+	public Producto findByCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		Long codigoTemp = (long) 1;
+		return productoDao.findById(codigoTemp).orElse(null);
+	}
+	
+	@Override
+	@Transactional()
+	public Producto save(Producto producto) {
+		// TODO Auto-generated method stub
+		return productoDao.save(producto);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public Producto findById(Long id) {
-        return productoDao.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional()
-    public Producto save(Producto producto) {
-        return productoDao.save(producto);
-    }
-
-    @Override
-    @Transactional()
-    public void delete(Long id) {
-        productoDao.deleteById(id); 
-    }
-    
+	@Override
+	@Transactional(readOnly=true)
+	public void delete(String codigo) {
+		// TODO Auto-generated method stub
+		Long codigoTemp = (long) 1;
+		productoDao.deleteById(codigoTemp);		
+	}
 }

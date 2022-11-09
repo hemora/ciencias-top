@@ -18,48 +18,51 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.service.IProductoService;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
 public class ProductoRestController {
-    
-    @Autowired
-    private IProductoService productoService;
-
-    @GetMapping("/productos")
-    public List<Producto> index() {
-        return productoService.findAll();
-    }
-
-    @GetMapping("/productos/{id}")
-    public Producto show(@PathVariable Long id) {
-        return productoService.findById(id);
-    }
-
-    @PostMapping("/productos")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Producto create(@RequestBody Producto producto) {
-        return productoService.save(producto);
-    }
-
-    @PutMapping("/productos/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Producto update(@RequestBody Producto producto, @PathVariable Long id) {
-        Producto currentProducto = this.productoService.findById(id);
-        currentProducto.setNombre(producto.getNombre());
-        currentProducto.setCodigo(producto.getCodigo());
-        currentProducto.setStock(producto.getStock());
-        currentProducto.setPrecio(producto.getPrecio());
-        currentProducto.setDescripcion(producto.getDescripcion());
-        this.productoService.save(currentProducto);
-
-        return currentProducto;
-    }
-
-    @DeleteMapping("/productos/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        productoService.delete(id);
-    }
-
+	
+	@Autowired
+	private IProductoService productoService;
+	
+	@GetMapping("/productos")
+	public List<Producto> index() {
+		return productoService.findAll();
+	}
+	
+	@GetMapping("/productos/{codigo}")
+	public Producto show(@PathVariable String id) {
+		return productoService.findByCodigo(id);
+	}
+	
+	@PostMapping("/productos")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Producto create(@RequestBody Producto producto) {
+		return productoService.save(producto);
+	}
+	
+	@PutMapping("/productos/{codigo}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Producto update(@RequestBody Producto producto, @PathVariable String codigo) {
+		Producto currentProducto = this.productoService.findByCodigo(codigo);
+		currentProducto.setNombre(producto.getCodigo());
+		currentProducto.setCodigo(producto.getCodigo());
+		currentProducto.setStockInicial(producto.getStockInicial());
+		currentProducto.setCurrentStock(producto.getCurrentStock());
+		currentProducto.setPrecio(producto.getPrecio());
+		currentProducto.setDescripcion(producto.getDescripcion());
+		currentProducto.setImagen(producto.getImagen());
+		currentProducto.setTipo(producto.getTipo());
+		currentProducto.setCategoria(producto.getCategoria());
+		currentProducto.setPeriodoRenta(producto.getPeriodoRenta());
+		this.productoService.save(currentProducto);
+		return currentProducto;
+	}
+	
+	@DeleteMapping("/productos/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable String codigo) {
+		productoService.delete(codigo);
+	}
 }
