@@ -20,15 +20,16 @@ public class Producto implements Serializable {
 	
 	/* Codigo de longitud 12 del producto. */
 	@Id
+	@Column(name = "codigo")
 	private String codigo;
 	/* Nombre del producto. */
 	@Column(name="nombre")
 	private String nombre;
 	/* Stock inicial del producto. */
-	@Column(name="stockInicial")
+	@Column(name="stock_inicial")
 	private int stockInicial;	
 	/* Stock actual del prodcuto. */
-	@Column(name="currentStock")
+	@Column(name="current_stock")
 	private int currentStock;	
 	/* Precio del prodcuto. */
 	@Column(name="precio")
@@ -46,7 +47,7 @@ public class Producto implements Serializable {
 	@Column(name="categoria")
 	private String categoria;	
 	/* Periodo de renta del producto. */
-	@Column(name="periodoRenta")
+	@Column(name="periodo_renta")
 	private int periodoRenta;
 	
 	/**
