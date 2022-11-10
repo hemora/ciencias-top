@@ -62,7 +62,9 @@ testem.log
 Thumbs.db
 
 # Node
-/node_modules
+#/node_modules
+node_modules/
+.angular/
 npm-debug.log
 yarn-error.log
 
