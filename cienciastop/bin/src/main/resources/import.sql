@@ -1,2 +1,0 @@
-INSERT INTO productos (nombre, codigo, stock, precio, descripcion) VALUES ('Balón', 'AAA3331212', '3', '30', 'Balón de Futbol');
-INSERT INTO productos (nombre, codigo, stock, precio, descripcion) VALUES ('Kung Fu Panda 2', 'PPP5551212', '2', '100', 'Película en DVD');
