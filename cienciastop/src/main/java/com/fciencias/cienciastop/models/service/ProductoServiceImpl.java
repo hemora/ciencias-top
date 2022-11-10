@@ -18,30 +18,24 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Producto> findAll() {
-		// TODO Auto-generated method stub
 		return (List<Producto>) productoDao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public Producto findByCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		Long codigoTemp = (long) 1;
-		return productoDao.findById(codigoTemp).orElse(null);
+		return productoDao.findById(codigo).orElse(null);
 	}
 	
 	@Override
 	@Transactional()
 	public Producto save(Producto producto) {
-		// TODO Auto-generated method stub
 		return productoDao.save(producto);
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional()
 	public void delete(String codigo) {
-		// TODO Auto-generated method stub
-		Long codigoTemp = (long) 1;
-		productoDao.deleteById(codigoTemp);		
+		productoDao.deleteById(codigo);		
 	}
 }
