@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.fciencias.cienciastop.models.entity.Producto;
 
-public interface IProductoDao extends CrudRepository<Producto, Long> {
+public interface IProductoDao extends CrudRepository<Producto, String> {
     
 }
