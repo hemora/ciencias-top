@@ -36,6 +36,6 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	@Transactional()
 	public void delete(String codigo) {
-		productoDao.deleteById(codigo);		
+		productoDao.deleteById(codigo);
 	}
 }
