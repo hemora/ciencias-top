@@ -18,6 +18,12 @@ target/
 *.iws
 *.iml
 *.ipr
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
 ### NetBeans ###
 /nbproject/private/
@@ -30,10 +36,38 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 ### Reosurces ###
-#!**/src/main/resources/application.properties
-./cienciastop/src/main/resources/*
-./cienciastop/bin/*
+!**/src/main/resources/application.properties
+resources/
+bin/
 
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
