@@ -36,7 +36,7 @@ public class MonederoRestController {
         return monederoService.findById(id);
     }
     
-    @PostMapping("/monederos/")
+    @PostMapping("/monederos")
     @ResponseStatus(HttpStatus.CREATED)
     public Monedero crearMonedero(@RequestBody Monedero monedero) {
         return monederoService.save(monedero);
