@@ -15,13 +15,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Autowired
 	private IUsuarioDao usuarioDao;
 	
-	@Override
+	
 	@Transactional(readOnly=true)
 	public List<Usuario> verUsuarios() {
 		return (List<Usuario>) usuarioDao.encontrarPorStatus(1);
 	}
 
-	@Override
+	
 	@Transactional(readOnly=true)
 	public Usuario buscarUsuarioPorNoCT(int noCT) {
 		Usuario usuario = usuarioDao.encontrarPorNoCT(noCT);
@@ -30,7 +30,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuario;
 	}
 
-	@Override
+	
 	@Transactional
 	public Usuario guardar(Usuario usuario) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());
@@ -44,7 +44,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return null;
 	}
 
-	@Override
+	
 	public int borrar(int noCT) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuarioGuardado == null) {

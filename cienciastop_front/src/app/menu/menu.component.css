@@ -1,0 +1,203 @@
+body {
+    margin: 0;
+}
+
+.sidenav {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.menu-ver-perfil {
+    top: 10px;
+    left: 15%;
+    width: 180px;
+    height: 210px;
+    display: block;
+    position: absolute;
+    align-items: center;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.menu-usr-img {
+    top: 0px;
+    left: 42.24561309814453px;
+    width: 108px;
+    height: 107px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 169px;
+}
+
+.menu-name {
+    top: 134px;
+    color: rgb(0, 0, 0);
+    width: 178px;
+    height: auto;
+    position: absolute;
+    font-size: 22px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.menu-text-box {
+    left: 18px;
+    width: 142px;
+    bottom: -18px;
+    height: 76px;
+    position: absolute;
+}
+
+.menu-profile {
+    top: 184px;
+    left: 69.51461791992188px;
+    color: rgba(11, 127, 171, 1);
+    width: 69px;
+    height: auto;
+    position: absolute;
+    font-size: 14px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 500;
+    line-height: normal;
+    border-color: #323232;
+    border-width: 1px;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.menu-view {
+    top: 185px;
+    left: 41.514617919921875px;
+    width: 23px;
+    height: 14px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.sidenav a {
+    display: block;
+    color: #000;
+    padding: 4px 12px;
+    text-decoration: none;
+    margin: 2px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.sidenav a.active {
+    background-color: #139bd1;
+    color: white;
+    margin: 4px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+
+.sidenav a:hover:not(.active) {
+    background-color: rgb(163, 163, 163);
+    margin: 4px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+
+.menu-options {
+    display: block;
+    padding-top: 225px;
+}
+
+.menu-admin-site {
+    display: block;
+}
+
+.menu-op {
+    top: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.menu-div {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 6px;
+    border-radius: 6px;
+    border: 6px solid transparent;
+}
+
+.line {
+    width: 180px;
+    height: 47px;
+    left: 50px;
+    border-bottom: 1px solid black;
+    position: absolute;
+}
+
+.menu-op-admin {
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.small-space {
+    height: 5px;
+    padding: 5px 0;
+}
+
+.menu-text {
+    padding-top: 3px;
+    padding-left: 10px;
+    font-style: Medium;
+    font-family: Roboto;
+    font-size: 16px;
+    text-align: left;
+}
+
+img {
+    max-width: 100%
+}
+
+.menu-vector {
+    padding-left: 5px;
+    flex-basis: 15%;
+}
+
+.menu-antdesignlogoutoutlined {
+    left: 0px;
+    width: 20px;
+    bottom: 11px;
+    height: 20px;
+    position: absolute;
+}
+
+.menu-logout {
+    width: 150px;
+    height: 40px;
+    right: 70px;
+    bottom: 20px;
+    position: absolute;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid #3374ee;
+    color: #3374ee;
+    font-style: Medium;
+    font-family: Roboto;
+    font-size: 16px;
+    text-align: center;
+}
