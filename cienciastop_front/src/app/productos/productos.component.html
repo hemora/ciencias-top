@@ -1,1 +1,5 @@
-<h1 class="text-success">Hola Mundo</h1>
+<button *ngFor = "let producto of productos" class="prods">
+
+{{producto.codigo}}, {{producto.nombre}}, {{producto.stockInicial}}
+
+</button>
