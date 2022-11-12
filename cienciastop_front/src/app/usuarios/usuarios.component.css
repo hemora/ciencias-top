@@ -2,6 +2,10 @@
   display: contents;
 }
 
+img {
+  max-width:30px;
+}
+
 .ver-usr-container {
   width: 80%;
   left: 20%;
@@ -137,3 +141,19 @@
   text-decoration: none;
   background-color: rgba(168, 168, 168, 0.1);
 }
+
+table {
+  left: 50px;
+  top: 120px;
+  position: absolute;      
+  border-collapse: collapse;
+  width: 90%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: coral;}

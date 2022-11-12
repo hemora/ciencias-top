@@ -49,7 +49,7 @@ public class UsuarioRestController {
 	
 	@PutMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminatUsuario(@PathVariable int noCT) {
+	public void eliminarUsuario(@PathVariable int noCT) {
 		usuarioService.borrar(noCT);
 	}
 }
