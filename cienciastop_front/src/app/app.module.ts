@@ -9,6 +9,8 @@ import { ProductosComponent } from './productos/productos.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuAdminComponent } from './menu-admin/menu-admin.component';
+import { MenuProveComponent } from './menu-prove/menu-prove.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -22,7 +24,9 @@ const routes: Routes = [
     HeaderComponent,
     MenuComponent,
     ProductosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    MenuAdminComponent,
+    MenuProveComponent
   ],
   imports: [
     BrowserModule,

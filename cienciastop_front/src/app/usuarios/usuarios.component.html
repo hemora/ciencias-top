@@ -19,21 +19,7 @@
                 <th style="max-width: 150px;">Numero de Cuenta o Trabajador</th>
                 <th>Correo</th>
                 <th></th>
-            </tr>
-            <tr>
-                <td>Victoria Trujillo Torres</td>
-                <td>Proovedor</td>
-                <td>103456789</td>
-                <td>victt@ciencias.unam.mx</td>
-                <td>
-                    <a href="">
-                    <img src="/assets/playground_assets/pencil.svg">
-                    </a>
-                    <a href="">
-                    <img src="/assets/playground_assets/trash.svg">
-                    </a>
-                </td>
-            </tr>
+            </tr>            
             <tr *ngFor="let usuario of usuarios">                
                 <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
                 <td>{{ usuario.rol }}</td>

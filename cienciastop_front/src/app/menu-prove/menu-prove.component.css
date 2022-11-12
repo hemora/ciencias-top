@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+}
+
+.sidenav {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    display: block;
+    color: #000;
+    padding: 4px 12px;
+    text-decoration: none;
+    margin: 2px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.sidenav a.active {
+    background-color: #139bd1;
+    color: white;
+    margin: 4px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+
+.sidenav a:hover:not(.active) {
+    background-color: rgb(163, 163, 163);
+    margin: 4px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+
+.menu-admin-site {
+    padding-top: 320px;
+    display: block;
+}
+
+.menu-op {
+    top: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.menu-div {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 6px;
+    border-radius: 6px;
+    border: 6px solid transparent;
+}
+
+.line {
+    width: 180px;
+    height: 47px;
+    padding-top: 365px;
+    left: 50px;
+    border-bottom: 1px solid black;
+    position: absolute;
+}
+
+.menu-op-admin {
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.small-space {
+    height: 5px;
+    padding: 5px 0;
+}
+
+.menu-text {
+    padding-top: 3px;
+    padding-left: 10px;
+    font-style: Medium;
+    font-family: Roboto;
+    font-size: 16px;
+    text-align: left;
+}
+
+img {
+    max-width: 100%
+}
+
+.menu-vector {
+    padding-left: 5px;
+    flex-basis: 15%;
+}
