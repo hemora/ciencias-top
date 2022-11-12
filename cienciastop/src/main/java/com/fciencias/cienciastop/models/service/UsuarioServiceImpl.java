@@ -54,4 +54,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public Usuario editar(Usuario usuario) {
+		return usuarioDao.save(usuario);
+	}
+
 }

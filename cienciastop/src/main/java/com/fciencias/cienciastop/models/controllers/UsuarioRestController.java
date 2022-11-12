@@ -52,4 +52,18 @@ public class UsuarioRestController {
 	public void eliminatUsuario(@PathVariable int noCT) {
 		usuarioService.borrar(noCT);
 	}
+
+	@PutMapping("/usuarios/{noCT}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Usuario editar(@RequestBody Usuario usuario, @PathVariable int noCT) {
+		Usuario currentUsuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+		currentUsuario.setNombre(usuario.getNombre());
+		currentUsuario.setApellidos(usuario.getApellidos());
+		currentUsuario.setRol(usuario.getRol());
+		currentUsuario.setTelefono(usuario.getTelefono());
+		return usuarioService.editar(currentUsuario);
+		
+	}
+	
+
 }
