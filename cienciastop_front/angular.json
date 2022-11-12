@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cienciastop_front": {
+    "ciencias_top": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/cienciastop_front",
+            "outputPath": "dist/ciencias_top",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cienciastop_front:build:production"
+              "browserTarget": "ciencias_top:build:production"
             },
             "development": {
-              "browserTarget": "cienciastop_front:build:development"
+              "browserTarget": "ciencias_top:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cienciastop_front:build"
+            "browserTarget": "ciencias_top:build"
           }
         },
         "test": {
@@ -90,7 +90,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/sweetalert2/dist/sweetalert2.min.css"
             ],
             "scripts": []
           }

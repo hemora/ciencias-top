@@ -8,13 +8,13 @@
 		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.fciencias</groupId>
-	<artifactId>cienciastop</artifactId>
+	<groupId>com</groupId>
+	<artifactId>ejemplo_spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cienciastop</name>
-	<description>Demo project for Spring Boot</description>
+	<description>proyecto</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
