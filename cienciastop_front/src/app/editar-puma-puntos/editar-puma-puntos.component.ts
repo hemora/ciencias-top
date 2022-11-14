@@ -15,7 +15,7 @@ export class EditarPumaPuntosComponent implements OnInit {
   ngOnInit(): void {
     this.sumaRestaGroup = this.fb.group({
       defCantidad: [''],
-      otraCantidad: [''],
+      otraCantidad: ['',  Validators.min(0)],
       opcion: ['', Validators.required]
     })
   }

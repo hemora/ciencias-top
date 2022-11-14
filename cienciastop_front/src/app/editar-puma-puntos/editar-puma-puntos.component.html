@@ -51,7 +51,7 @@
                   </label>
                 </div>
               </div>
-              <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Actualizar</button>
+              <button [disabled]="sumaRestaGroup.invalid" (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Actualizar</button>
             </form>
           </div>
         </div>
