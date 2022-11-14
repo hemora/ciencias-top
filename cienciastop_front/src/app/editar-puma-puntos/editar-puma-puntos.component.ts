@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarPumaPuntosComponent implements OnInit {
 
-  constructor() { }
+  sumaRestaGroup!: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.sumaRestaGroup = this.fb.group({
+      defCantidad: [''],
+      otraCantidad: [''],
+      opcion: ['', Validators.required]
+    })
+  }
+
+  onSubmit() {
+    console.log(this.sumaRestaGroup.value)
   }
 
 }
