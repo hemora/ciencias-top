@@ -4,15 +4,12 @@
     <!-- Obtener la img del usr -->
     <img alt="profile-ph" src="/assets/playground_assets/image78863-bjua-200h.png" class="menu-usr-img" />
     <!-- Obtener el nombre del usr -->
-    <span class="menu-name">Mónica Miranda</span>
+    <span class="menu-name"> Nombre Completo </span>
     <form action="" method="">
-      <input type="image" alt="VerPerfil" src="/assets/playground_assets/rectangle82097-b1u.svg"
+      <input type="image" alt="VerPerfil" name="perfil" src="/assets/playground_assets/rectangle82097-b1u.svg"
         class="menu-text-box" />
-      <img alt="menu-view" src="/assets/playground_assets/image98876-vei-200h.png" class="menu-view" />
-      <span class="menu-profile"><span>Ver Perfil</span></span>
     </form>
   </div>
-  <div class="small-space"></div>
   <div class="menu-options">
     <a routerLinkActive="active" routerLink="productos">
       <div class="menu-op">
@@ -22,7 +19,7 @@
         <div class="menu-text">Inicio</div>
       </div>
     </a>
-    <a routerLinkActive="active" href="">
+    <a routerLinkActive="active" routerLink="undefined">
       <div class="menu-op">
         <div class="menu-vector">
           <img alt="history" src="/assets/playground_assets/image108877-cb1g-200w.png" />
@@ -32,6 +29,7 @@
     </a>
   </div>
   <div class="small-space"></div>
+  <app-menu-admin></app-menu-admin>
   <!-- Opcion 2
   <div *ngIf="condition; else elseBlock">
     <app-menu-admin></app-menu-admin>
@@ -39,7 +37,7 @@
   <ng-template #elseBlock>
     <app-menu-prove></app-menu-prove>
   </ng-template> 
-  -->    
+  -->
   <form action="" method="">
     <button type="button" class="menu-logout">
       <img alt="logout" src="/assets/playground_assets/antdesignlogoutoutlined2096-z1dp.svg"

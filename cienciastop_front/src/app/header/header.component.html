@@ -1,15 +1,22 @@
 <header>
   <div class="top-container">
-    <!-- Realizar petición del input -->
-    <form action="" method="">
-      <input type="text" class="top-input" placeholder="Buscar Productos...">
-      <input type="image" class="top-len" alt="len" src="assets/playground_assets/image138881-e2nj-200w.png" />
-    </form>
+    <div class="top-search">
+      <form action="" method="">
+        <input type="text" placeholder="Buscar Productos..." name="buscar-prod">
+        <button type="submit">
+          <img alt="len" src="assets/playground_assets/image138881-e2nj-200w.png" />
+        </button>
+      </form>
+    </div>
     <div class="top-balance">
-      <span class="top-pumapts">Puma Puntos</span>
+      <p class="top-text">Puma Puntos</p>
       <!-- Llamar la funcion para obtener el balance actual de pumapts del usr -->
-      <span class="top-balance1"><span>122.00</span></span>
-      <img alt="coin" src="/assets/playground_assets/ellipse48881-ck78-200h.png" class="top-coin" />
+      <div class="top-pumapts">
+        <div class="top-coin">
+          <img alt="coin" src="/assets/playground_assets/ellipse48881-ck78-200h.png" />
+        </div>
+        <div class="top-points">500</div>
+      </div>
     </div>
   </div>
 </header>

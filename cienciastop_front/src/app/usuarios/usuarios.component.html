@@ -1,39 +1,40 @@
 <div class="ver-usr-container">
+    <form action="" class="ver-usr-search-bar">
+        <input type="text" class="ver-usr-content input" id="search" name="buscar-usr" placeholder="Buscar Usuarios...">
+        <input type="submit" class="ver-usr-buscar button" value="Buscar">
+    </form>
 
-    <div class="ver-usr-ver-usuarios">
+    <button type="button" routerLink="undefined" class="ver-usr-agregar-usr button">
+        <img class="ver-usr-oplus" alt="oplus" src="/assets/playground_assets/carbonaddalt2093-or1v.svg" />
+        <span class="ver-usr-add-usr">Agregar usuario</span>
+    </button>
 
-        <form action="" class="ver-usr-search-bar">
-            <input type="text" class="ver-usr-content input" id="search" name="search" placeholder="Buscar Usuarios...">
-            <input type="submit" class="ver-usr-buscar button" value="Buscar">
-        </form>
-
-        <button type="button" onclick="" class="ver-usr-agregar-usr button">
-            <img class="ver-usr-oplus" alt="oplus" src="/assets/playground_assets/carbonaddalt2093-or1v.svg" />
-            <span class="ver-usr-add-usr">Agregar usuario</span>
-        </button>        
-
-        <table>            
+    <table>
+        <thead>            
             <tr>
-                <th>Nombre</th>
-                <th>Rol</th>
-                <th style="max-width: 150px;">Numero de Cuenta o Trabajador</th>
-                <th>Correo</th>
+                <th scope="col" [appSort]="usuarios" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="usuarios" data-order="asc" data-name="rol">Rol</th>
+                <th scope="col" [appSort]="usuarios" data-order="asc" data-name="noCT" style="max-width: 150px;">Numero de Cuenta o Trabajador</th>
+                <th scope="col" [appSort]="usuarios" data-order="asc" data-name="correo">Correo</th>
                 <th></th>
-            </tr>            
-            <tr *ngFor="let usuario of usuarios">                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuarios">
                 <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
                 <td>{{ usuario.rol }}</td>
                 <td>{{ usuario.noCT }}</td>
                 <td>{{ usuario.correo }}</td>
                 <td>
                     <a href="">
-                    <img src="/assets/playground_assets/pencil.svg">
+                        <img src="/assets/playground_assets/pencil.svg">
                     </a>
                     <a href="">
-                    <img src="/assets/playground_assets/trash.svg">
+                        <img src="/assets/playground_assets/trash.svg">
                     </a>
                 </td>
-            </tr>            
-        </table>        
-    </div>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<script src="/usuarios/usuarios.js"></script>

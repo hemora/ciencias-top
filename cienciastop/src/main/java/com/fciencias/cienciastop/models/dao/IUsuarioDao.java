@@ -27,7 +27,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 	@Modifying
 	@Transactional
 	@Query(value ="UPDATE usuarios SET status = 1 WHERE noCT = :noCT", nativeQuery = true)
-	Integer activar(@Param("noCT") Integer noCT);
+	Integer activar(@Param("noCT") Long noCT);
 	
 	@Modifying
 	@Transactional

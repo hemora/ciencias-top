@@ -9,137 +9,80 @@ img {
 .ver-usr-container {
   width: 80%;
   left: 20%;
-  position: absolute;
-  display: flex;
-  overflow: auto;
-  min-height: 100vh;
-  align-items: flex-end;
-  flex-direction: column;
-}
-
-.ver-usr-ver-usuarios {
-  width: 100%;
-  height: 1024px;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  align-items: flex-start;
-  flex-shrink: 0;
-  border-color: transparent;
-  background-color: rgba(255, 255, 255, 1);
+  position: absolute;  
 }
 
 .ver-usr-agregar-usr {
-  top: 5%;
-  right: 5%;
-  scale: 75%;
-  width: 219px;
-  height: 47px;
+  right:5%;  
+  top:40px;
+  width: 180px;
+  height: 40px;  
+  position: absolute;    
   display: flex;
-  position: absolute;
-  align-self: auto;
-  box-sizing: border-box;
-  flex-shrink: 1;
-  border-color: transparent;
-  border-style: none;
-  border-width: 0;
-  border-radius: 8px;
-  flex-direction: row;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: left;  
+  flex-shrink: 1;    
+  border-radius: 8px;  
+  border: 1px solid transparent;
   background-color: rgba(233, 114, 61, 1);
 }
 
-.ver-usr-add-usr {
-  top: 15px;
-  left: 62.05078125px;
+.ver-usr-add-usr {  
+  left: 15px;
   color: rgb(255, 255, 255);
-  width: 133px;
-  height: auto;
+  width: 180px;
   position: absolute;
-  font-size: 16px;
-  align-self: auto;
-  font-style: Bold;
-  text-align: left;
-  font-family: Roboto;
-  font-weight: 700;
-  line-height: normal;
-  font-stretch: normal;
+  font-size: medium;  
+  font-weight: 600;
+  font-family: 'Trebuchet MS', sans-serif;    
   text-decoration: none;
 }
 
-.ver-usr-oplus {
-  top: 7px;
-  left: 18px;
-  width: 32px;
-  height: 32px;
+.ver-usr-oplus {  
+  left: 10px;
+  width: 15%;
+  height: auto;
   position: absolute;
 }
 
-.ver-usr-search-bar {
-  top: 5%;
-  left: 5%;
-  scale: 90%;
-  width: 583px;
-  height: 47px;
-  margin: auto;
-  display: flex;
-  padding: 5px;
+.ver-usr-search-bar {  
+  left: 5%;  
+  top:40px;
+  width: auto;
+  height: 45px;
+  padding: 5px;  
+  display: flex;  
   position: absolute;
   align-items: center;
-  flex-shrink: 0;
+  justify-content: left;  
   border-color: transparent;
   border-radius: 5px;
   background-color: rgba(168, 168, 168, 0.30000001192092896);
 }
 
 .ver-usr-content {
-  height: 36px;
-  display: flex;
-  padding: 8px;
-  position: relative;
-  flex-grow: 1;
-  align-items: center;
-  flex-shrink: 0;
-  border-color: transparent;
+  height: 36px;  
+  padding: 8px;  
   margin-right: 8px;
-  border-radius: 10px;
+  border-color: transparent;  
+  border-radius: 6px;
   background-color: rgba(245, 245, 245, 1);
 }
 
 .ver-usr-busq-usr {
-  color: rgba(60, 60, 67, 0.898);
-  height: auto;
-  flex-grow: 1;
-  font-size: 17px;
-  align-self: auto;
-  font-style: Regular;
-  text-align: left;
-  font-family: Actor;
-  font-weight: 400;
-  line-height: 22px;
-  font-stretch: normal;
-  margin-right: 0px;
-  margin-bottom: 0;
+  color: rgba(60, 60, 67, 0.898);  
+  font-size: 16px;      
+  font-family: 'Trebuchet MS', sans-serif;  
   text-decoration: none;
 }
 
 .ver-usr-buscar {
-  color: rgba(11, 127, 171, 1);
-  height: auto;
-  font-size: 17px;
-  align-self: auto;
-  font-style: Regular;
-  text-align: left;
-  font-family: Actor;
-  font-weight: 400;
-  line-height: 22px;
-  border-width: 0px;
-  font-stretch: normal;
-  margin-right: 0;
-  border-radius: 0px;
-  margin-bottom: 0;
+  color: #139bd1;  
+  font-size: 16px;  
+  font-family: 'Trebuchet MS', sans-serif;
+  border-width: 0px;    
+  background-color:  rgba(168, 168, 168, 0); 
   text-decoration: none;
-  background-color: rgba(168, 168, 168, 0.1);
 }
 
 table {
@@ -156,4 +99,4 @@ th, td {
   border-bottom: 1px solid #ddd;
 }
 
-tr:hover {background-color: coral;}
+tbody tr:hover {background-color: coral;}

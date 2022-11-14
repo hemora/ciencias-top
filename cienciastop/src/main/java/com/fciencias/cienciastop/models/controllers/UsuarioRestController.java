@@ -1,9 +1,13 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +36,24 @@ public class UsuarioRestController {
 	private IUsuarioService usuarioService;
 	
 	@GetMapping("/usuarios")
-	public List<Usuario> verUsuarios() {
-		return usuarioService.verUsuarios();
+	public ResponseEntity<?> verUsuarios() {
+		List<Usuario> usuariosActivos = null;
+		Map<String,Object> response = new HashMap<String, Object>();
+		try {
+			usuariosActivos = this.usuarioService.verUsuarios();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+			String cadenaError = "";
+			cadenaError += e.getMessage() + ": ";
+			cadenaError += e.getMostSpecificCause().getMessage();
+			response.put("error", cadenaError);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (usuariosActivos == null || usuariosActivos.isEmpty()) {
+			response.put("mensaje", "No se encontraron usuarios activos en el sistema");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Usuario>>(usuariosActivos,HttpStatus.OK); 
 	}
 	
 	@GetMapping("/usuarios/{noCT}")

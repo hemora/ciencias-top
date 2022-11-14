@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	@Id
 	@NotNull
 	@Column(name="noCT")
-	private Integer noCT;
+	private Long noCT;
 	/* Un '?Long? que tiene 10 d'igitos */
 	@Column(name="telefono")
 	private Long telefono;
@@ -74,11 +74,11 @@ public class Usuario implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public int getNoCT() {
+	public Long getNoCT() {
 		return noCT;
 	}
 
-	public void setNoCT(int noCT) {
+	public void setNoCT(Long noCT) {
 		this.noCT = noCT;
 	}
 
