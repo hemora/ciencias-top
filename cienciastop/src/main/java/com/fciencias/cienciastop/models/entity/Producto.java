@@ -18,7 +18,7 @@ public class Producto implements Serializable {
 	
 	/* Codigo de longitud 12 del producto. */
 	@Id
-	@Column(name = "codigo")
+	@Column(name = "codigo", unique = true)
 	private String codigo;
 	/* Nombre del producto. */
 	@Column(name="nombre")
@@ -40,13 +40,16 @@ public class Producto implements Serializable {
 	private String imagen;	
 	/* Tipo del producto. */
 	@Column(name="tipo")
-	private String tipo;	
+	private String tipo;
 	/* Categoria del producto. */
 	@Column(name="categoria")
 	private String categoria;	
 	/* Periodo de renta del producto. */
 	@Column(name="periodo_renta")
 	private int periodoRenta;
+	/* Numero de Cuenta del usuario que agrego el Producto */
+	@Column(name="noCT")
+	private long noCT;
 	
 	/**
 	 * Regresa el nombre del producto.
@@ -206,5 +209,21 @@ public class Producto implements Serializable {
 	 */
 	public void setPeriodoRenta(int periodoRenta) {
 		this.periodoRenta = periodoRenta;
+	}
+	
+	/**
+	 * Regresa la identificacion del usuario que agrego el producto.
+	 * @return la identificacion del usuario que agrego el producto.
+	 */
+	public long getnoCT() {
+		return noCT;
+	}
+
+	/**
+	 * Define la nueva identificacion del usuario encargado del producto.
+	 * @param periodoRenta la nueva identificacion del usuario encargado del producto.
+	 */
+	public void setnoCT(long noCT) {
+		this.noCT = noCT;
 	}
 }

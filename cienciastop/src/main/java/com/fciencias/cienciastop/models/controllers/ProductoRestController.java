@@ -128,10 +128,29 @@ public class ProductoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 	
+	/**
+	 * Crea un nuevo producto en la base de datos tras validar sus datos.
+	 * @param producto, el producto a ser agregado
+	 * @param noCT identificacion del usuario que solicito la operacion.
+	 */
 	@PostMapping("/productos")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Producto create(@RequestBody Producto producto) {
-		return productoService.save(producto);
+	public ResponseEntity<?> create(@RequestBody Producto producto, long noCT) {
+		producto.setCurrentStock(producto.getStockInicial());
+		producto.setnoCT(noCT);
+		Producto productoN = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			productoN = productoService.save(producto);
+		}catch(DataAccessException e) {
+			//Error del servidor
+			response.put("mensaje", "Error al agregar a la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "El producto ha sido creado con exito");
+		response.put("producto", productoN);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/productos/{codigo}")
@@ -152,9 +171,27 @@ public class ProductoRestController {
 		return currentProducto;
 	}
 	
+	/**
+	 * elimina un producto existente en la base de datos validando permisos.
+	 * @param codio, del producto a ser eliminado
+	 * @param noCT identificacion del usuario que solicito la operacion.
+	 */
 	@DeleteMapping("/productos/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable String codigo) {
-		productoService.delete(codigo);
+	public ResponseEntity<?> delete(@PathVariable String codigo, long noCT) {
+		Map<String, Object> response = new HashMap<>();
+		Producto aeliminar = this.productoService.findByCodigo(codigo);
+		long original = aeliminar.getnoCT();
+		if(noCT == original) {
+			//Eliminacion exitosa del producto.
+			productoService.delete(codigo);
+			response.put("mensaje", "El producto ha sido eliminado con exito");
+			response.put("producto", aeliminar);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		}
+		//Usuario sin permisos sobre el producto.
+		response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
+		
 	}
 }
