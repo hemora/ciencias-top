@@ -1,9 +1,13 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,12 +47,41 @@ public class MonederoRestController {
     }
 
     @PutMapping("/monederos/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Monedero sumarRestarPumaPuntos(@RequestBody Monedero monedero, @PathVariable Long id) {
+    public ResponseEntity<?> sumarRestarPumaPuntos(@RequestBody Monedero monederoUpdated, @PathVariable Long id) {
         Monedero monederoActual = this.monederoService.findById(id);
-        //TODO: Hace cosas para ver si se desea modificar en una cantidad válida
-        monederoActual.setPumaPuntos(monederoActual.getPumaPuntos() + monedero.getPumaPuntos());
-        return this.monederoService.save(monederoActual);
+        Map<String, Object> response = new HashMap<>();
+        Monedero monederoActualizado = null;
+
+        if (monederoActual == null) {
+            response.put("mensaje", String.format("ERROR: Monedero con id: %s no existe en la base de datos", id));
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        Double balanceActualizado = monederoActual.getPumaPuntos() + monederoUpdated.getPumaPuntos();
+
+        if (balanceActualizado > 500.0) {
+            response.put("mensaje", String.format("ERROR: El balance final es mayor a 500 por %.2f unidades", (balanceActualizado - 500.0)));
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (balanceActualizado < 0.0) {
+            response.put("mensaje", String.format("ERROR: El balance final es menor a 0 por %.2f unidades", (0.0 - balanceActualizado)));
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            monederoActual.setPumaPuntos(balanceActualizado);
+            monederoActualizado = monederoService.save(monederoActual);
+        } catch (DataAccessException e) {
+            response.put("mensaje","ERROR: Error al actualizar el balance en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje","ÉXITO: Saldo actualizado.");
+        response.put("error", monederoActualizado);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/monederos/{id}")
