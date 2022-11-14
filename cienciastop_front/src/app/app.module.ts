@@ -12,12 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { MenuProveComponent } from './menu-prove/menu-prove.component';
 import { SortDirective } from './directive/usuarios.directive';
+import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
 
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
+  {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
 ]
 
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
     UsuariosComponent,
     MenuAdminComponent,
     MenuProveComponent,
-    SortDirective
+    SortDirective,
+    AgregarUsrComponent
   ],
   imports: [
     BrowserModule,
