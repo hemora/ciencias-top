@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductosComponent } from './productos/productos.component';
 import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-puntos.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import  { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [],

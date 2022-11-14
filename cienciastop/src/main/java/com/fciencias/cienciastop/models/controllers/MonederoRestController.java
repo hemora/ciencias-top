@@ -79,7 +79,7 @@ public class MonederoRestController {
         }
 
         response.put("mensaje","ÉXITO: Saldo actualizado.");
-        response.put("error", monederoActualizado);
+        response.put("monedero", monederoActualizado);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
