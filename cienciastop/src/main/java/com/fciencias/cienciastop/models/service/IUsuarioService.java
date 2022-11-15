@@ -12,4 +12,6 @@ public interface IUsuarioService {
 	public Usuario guardar(Usuario usuario);
 	
 	public int borrar(int noCT);
+
+	public Usuario editar(Usuario usuario);
 }

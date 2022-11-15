@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
 ]
+import { EditarUsrComponent } from './editar/editar-usr.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ const routes: Routes = [
     UsuariosComponent,
     MenuAdminComponent,
     MenuProveComponent,
-    SortDirective
+    SortDirective,
+    EditarUsrComponent
   ],
   imports: [
     BrowserModule,
