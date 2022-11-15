@@ -1,5 +1,14 @@
-<button *ngFor = "let producto of productos" class="prods">
-
-{{producto.codigo}}, {{producto.nombre}}, {{producto.stockInicial}}
-
-</button>
+<li *ngFor = "let producto of productos" class="prods">
+    <button type="button" (click)="sendMessage(producto)" routerLink="/ver-productos" class="prod">
+        {{producto.codigo}}|
+        {{producto.nombre}}|
+        {{producto.stockInicial}}|
+        {{producto.currentStock}}|
+        {{producto.precio}}|
+        {{producto.imagen}}|
+        {{producto.tipo}}|
+        {{producto.categoria}}|
+        {{producto.periodo_renta}}
+    </button>
+    <br>
+</li>

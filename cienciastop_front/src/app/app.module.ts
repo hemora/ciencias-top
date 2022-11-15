@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
   {path: 'productos', component: ProductosComponent},
+  {path: 'ver-productos', component: VerProductosComponent}
 ];
 
 @NgModule({
