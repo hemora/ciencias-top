@@ -35,9 +35,25 @@ public class MonederoRestController {
         return monederoService.findAll();
     }
 
-    @GetMapping("/monederos/{id}")
-    public Monedero obtenerMonedero(@PathVariable Long id) {
-        return monederoService.findById(id);
+    //@GetMapping("/monederos/{id}")
+    //public Monedero obtenerMonedero(@PathVariable Long id) {
+    //    return monederoService.findById(id);
+    //}
+
+    @GetMapping("/monederos/{ownerId}")
+    public ResponseEntity<?> obtenerMonedero(@PathVariable Long ownerId, @RequestBody Monedero md) {
+        String periodoActual = md.getPeriodo();
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(ownerId, periodoActual);
+        Map<String, Object> response = new HashMap<>();
+
+        if (monederoActual == null) {
+            response.put("mensaje", String.format("ERROR: Monedero para el usuario: %s en el periodo %s no existe en la base de datos", ownerId, periodoActual));
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        response.put("mensaje","ÉXITO: Monedero encontrado con éxito");
+        response.put("monedero", monederoActual);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @PostMapping("/monederos")

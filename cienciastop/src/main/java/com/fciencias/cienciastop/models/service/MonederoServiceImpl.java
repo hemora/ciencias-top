@@ -47,5 +47,12 @@ public class MonederoServiceImpl implements IMonederoService {
     public void deshabilitar(Long id) {
         monederoDao.deshabilitar(id);
     }
+
+    @Override
+    public Monedero obtenerPorDueno(Long ownerId, String periodo) {
+        return monederoDao.obtenerPorDueno(ownerId, periodo);
+    }
+
+    
     
 }
