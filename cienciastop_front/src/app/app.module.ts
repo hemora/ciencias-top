@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { MenuProveComponent } from './menu-prove/menu-prove.component';
 import { SortDirective } from './directive/usuarios.directive';
+import { EditarUsrComponent } from './editar/editar-usr.component';
+import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-puntos.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -19,7 +22,6 @@ const routes: Routes = [
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
 ]
-import { EditarUsrComponent } from './editar/editar-usr.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,15 @@ import { EditarUsrComponent } from './editar/editar-usr.component';
     MenuAdminComponent,
     MenuProveComponent,
     SortDirective,
-    EditarUsrComponent
+    EditarUsrComponent,
+    EditarPumaPuntosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
