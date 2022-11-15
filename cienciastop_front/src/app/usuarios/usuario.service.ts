@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { USUARIOS } from './usuarios.json';
 
@@ -14,7 +14,13 @@ export class UsuarioService {
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
 
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint);
+  }
+
+  eliminar(noCT: Number): Observable<Usuario>{
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders})
   }
 }
