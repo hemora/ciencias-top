@@ -57,7 +57,7 @@ public class UsuarioRestController {
 	}
 	
 	@GetMapping("/usuarios/{noCT}")
-	public Usuario buscarUsuario(@PathVariable int noCT) {
+	public Usuario buscarUsuario(@PathVariable Long noCT) {
 		return usuarioService.buscarUsuarioPorNoCT(noCT);
 	}
 	
@@ -69,20 +69,34 @@ public class UsuarioRestController {
 	
 	@DeleteMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarUsuario(@PathVariable int noCT) {
+	public void eliminarUsuario(@PathVariable Long noCT) {
 		usuarioService.borrar(noCT);
 	}
 
 	@PutMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario editar(@RequestBody Usuario usuario, @PathVariable int noCT) {
-		Usuario currentUsuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
-		currentUsuario.setNombre(usuario.getNombre());
-		currentUsuario.setApellidos(usuario.getApellidos());
-		currentUsuario.setRol(usuario.getRol());
-		currentUsuario.setTelefono(usuario.getTelefono());
-		return usuarioService.editar(currentUsuario);
-		
+	public ResponseEntity<?> editarUsuario(@RequestBody Usuario usuario, @PathVariable Long noCT) {
+		Usuario currentUsuario = usuarioService.buscarUsuarioPorNoCT(noCT);
+		Usuario usuarioEditado = null;
+		Map<String,Object> response = new HashMap<>();
+		if (currentUsuario == null) {
+			response.put("mensaje", "Error: no se puede editar el usuario con es noCT:".concat(noCT.toString().concat(" no existe en la base de datos.")));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		try {
+			currentUsuario.setNombre(usuario.getNombre());
+			currentUsuario.setApellidos(usuario.getApellidos());
+			currentUsuario.setRol(usuario.getRol());
+			currentUsuario.setTelefono(usuario.getTelefono());
+			usuarioEditado = usuarioService.guardar(currentUsuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el usuario en la base de datos.");
+			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "El usuario se ha editado correctamente.");
+		response.put("usuario",usuarioEditado);
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 	
 

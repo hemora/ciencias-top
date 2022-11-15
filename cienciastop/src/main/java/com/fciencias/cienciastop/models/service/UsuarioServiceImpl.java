@@ -23,7 +23,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	
 	@Transactional(readOnly=true)
-	public Usuario buscarUsuarioPorNoCT(int noCT) {
+	public Usuario buscarUsuarioPorNoCT(Long noCT) {
 		Usuario usuario = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuario == null) 
 			return null;// excepcion no hay usuario 
@@ -45,7 +45,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	
-	public int borrar(int noCT) {
+	public int borrar(Long noCT) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuarioGuardado == null) {
 			return 0;
