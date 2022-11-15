@@ -36,10 +36,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());
 		if(usuarioGuardado != null) {
 			if(usuarioGuardado.getStatus() == 0) {
-				if(usuarioDao.activar(usuario.getNoCT()) == 1) return usuarioGuardado;//usuarioGuardado;
-			} else {
-				// ya existe. no guardar
-			}
+				usuarioGuardado.setStatus(1);
+				return usuarioDao.save(usuarioGuardado);
 		} else return usuarioDao.save(usuario);
 		return null;
 	}
