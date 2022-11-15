@@ -69,7 +69,7 @@ public class UsuarioRestController {
 		try {
 			usuarioNuevo = usuarioService.guardar(usuario);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos.")
+			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 			// TODO: handle exception
@@ -79,7 +79,7 @@ public class UsuarioRestController {
 			response.put("reactivacion", ); //??
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 		}*/
-		response.put("mensaje", "El usuario se ha creado con éxito. :D")
+		response.put("mensaje", "El usuario se ha creado con éxito. :D");
 		response.put("usuario", usuarioNuevo);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}

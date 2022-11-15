@@ -38,7 +38,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			if(usuarioGuardado.getStatus() == 0) {
 				usuarioGuardado.setStatus(1);
 				return usuarioDao.save(usuarioGuardado);
-		} else return usuarioDao.save(usuario);
+			}
+		} else
+			return usuarioDao.save(usuario);
 		return null;
 	}
 
