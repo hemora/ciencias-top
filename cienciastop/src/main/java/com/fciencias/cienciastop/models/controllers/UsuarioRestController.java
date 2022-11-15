@@ -74,11 +74,11 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 			// TODO: handle exception
 		}
-		if(usuarioNuevo == null){
+		/*if(usuarioNuevo == null){
 			response.put("mensaje", "El usuario se ha reactivado con éxito. :D")
-			response.put("usuario", usuarioNuevo); //??
+			response.put("reactivacion", ); //??
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
-		}
+		}*/
 		response.put("mensaje", "El usuario se ha creado con éxito. :D")
 		response.put("usuario", usuarioNuevo);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
