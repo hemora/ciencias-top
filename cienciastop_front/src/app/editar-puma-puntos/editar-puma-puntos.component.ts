@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Monedero } from './monedero';
 import { MonederoService } from './monedero.service';
+import {formatDate} from '@angular/common'
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -11,7 +12,8 @@ import { MonederoService } from './monedero.service';
 })
 export class EditarPumaPuntosComponent implements OnInit {
 
-  private monederoId: number = 1;
+  private monederoId: number = 317804520;
+  //private monederoPeriodo: string = '2022-01';
   private monedero: Monedero;
 
   sumaRestaGroup!: FormGroup;
@@ -49,6 +51,10 @@ export class EditarPumaPuntosComponent implements OnInit {
       } else {
         monederoUpdate.pumaPuntos = (Number(n) + Number(m));
       }
+      //let periodo = new Date();
+      let periodoAux = (new Date()).toDateString().split(' ');
+      let periodo = periodoAux[3] + '-' + periodoAux[2];
+      monederoUpdate.periodo = periodo;
       console.log(monederoUpdate);
       //const monederoUpdate = {
       //  'status': '',

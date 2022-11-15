@@ -64,7 +64,8 @@ public class MonederoRestController {
 
     @PutMapping("/monederos/{id}")
     public ResponseEntity<?> sumarRestarPumaPuntos(@RequestBody Monedero monederoUpdated, @PathVariable Long id) {
-        Monedero monederoActual = this.monederoService.findById(id);
+        //Monedero monederoActual = this.monederoService.findById(id);
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(id, monederoUpdated.getPeriodo());
         Map<String, Object> response = new HashMap<>();
         Monedero monederoActualizado = null;
 
