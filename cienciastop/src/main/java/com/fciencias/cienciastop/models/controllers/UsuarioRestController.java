@@ -67,7 +67,7 @@ public class UsuarioRestController {
 		return usuarioService.guardar(usuario);
 	}
 	
-	@PutMapping("/usuarios/{noCT}")
+	@DeleteMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminarUsuario(@PathVariable int noCT) {
 		usuarioService.borrar(noCT);
