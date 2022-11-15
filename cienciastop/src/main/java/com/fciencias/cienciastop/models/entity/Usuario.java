@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,7 +37,10 @@ public class Usuario implements Serializable {
 	@Column(name="telefono")
 	private Long telefono;
 	/* Una cadena con un correo electr'onico de longitud xxx o menor */
-	@NotNull
+	@NotNull(message = "el correo no puede ser nulo")
+	@Email
+	@Size(min = 10, max = 200, message 
+      = "El correo debe tener entre 10 y 200 caracteres")
 	@Column(name="correo")
 	private String correo;
 	/* Una cadena con una carrera de longitud xxx o menor */
@@ -53,7 +58,7 @@ public class Usuario implements Serializable {
 	@Column(name="status")
 	@Min(value = 0, message = "status must be 0")
 	@Max(value = 1, message = "status must be 1")
-	//@JsonIgnore
+	@JsonIgnore
 	private Integer status;
 
 	public Usuario() {}

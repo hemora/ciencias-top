@@ -7,11 +7,11 @@ import com.fciencias.cienciastop.models.entity.Usuario;
 public interface IUsuarioService {
 	public List<Usuario> verUsuarios();
 	
-	public Usuario buscarUsuarioPorNoCT(int noCT);
+	public Usuario buscarUsuarioPorNoCT(Long noCT);
 	
-	public Usuario guardar(Usuario usuario);
+	public Integer guardar(Usuario usuario);
 	
-	public int borrar(int noCT);
+	public int borrar(Long noCT);
 
 	public Usuario editar(Usuario usuario);
 }

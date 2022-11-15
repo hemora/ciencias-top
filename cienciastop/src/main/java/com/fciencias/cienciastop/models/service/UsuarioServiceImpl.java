@@ -23,7 +23,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	
 	@Transactional(readOnly=true)
-	public Usuario buscarUsuarioPorNoCT(int noCT) {
+	public Usuario buscarUsuarioPorNoCT(Long noCT) {
 		Usuario usuario = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuario == null) 
 			return null;// excepcion no hay usuario 
@@ -32,20 +32,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	
 	@Transactional
-	public Usuario guardar(Usuario usuario) {
-		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());
+	public Integer guardar(Usuario usuario) {
+		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCTyStatus(usuario.getNoCT(),0);
 		if(usuarioGuardado != null) {
 			if(usuarioGuardado.getStatus() == 0) {
-				if(usuarioDao.activar(usuario.getNoCT()) == 1) return null;//usuarioGuardado;
+				return usuarioDao.activar(usuario.getNoCT());
 			} else {
-				// ya existe. no guardar
+				return 0;
 			}
-		} else return usuarioDao.save(usuario);
-		return null;
+		}
+		return usuarioDao.crear(usuario.getNombre(),
+							usuario.getApellidos(),
+							usuario.getNoCT(),
+							usuario.getTelefono(),
+							usuario.getCorreo(),
+							usuario.getCarrera(),
+							usuario.getRol(),
+							usuario.getContrasenya());
 	}
 
-	
-	public int borrar(int noCT) {
+	@Transactional
+	public int borrar(Long noCT) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuarioGuardado == null) {
 			return 0;

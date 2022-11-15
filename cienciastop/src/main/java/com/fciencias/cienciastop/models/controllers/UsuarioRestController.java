@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,67 +27,95 @@ import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/api")//ciencias-top?
+@RequestMapping("/api") // ciencias-top?
 /**
  * Clase controlador de usuario (aka. Administrador)
  * 
  */
 public class UsuarioRestController {
 
-	@Autowired
-	private IUsuarioService usuarioService;
-	
-	@GetMapping("/usuarios")
-	public ResponseEntity<?> verUsuarios() {
-		List<Usuario> usuariosActivos = null;
-		Map<String,Object> response = new HashMap<String, Object>();
-		try {
-			usuariosActivos = this.usuarioService.verUsuarios();
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
-			String cadenaError = "";
-			cadenaError += e.getMessage() + ": ";
-			cadenaError += e.getMostSpecificCause().getMessage();
-			response.put("error", cadenaError);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		if (usuariosActivos == null || usuariosActivos.isEmpty()) {
-			response.put("mensaje", "No se encontraron usuarios activos en el sistema");
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Usuario>>(usuariosActivos,HttpStatus.OK); 
-	}
-	
-	@GetMapping("/usuarios/{noCT}")
-	public Usuario buscarUsuario(@PathVariable int noCT) {
-		return usuarioService.buscarUsuarioPorNoCT(noCT);
-	}
-	
-	@PostMapping("/usuarios")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario agregarUsuario(@RequestBody Usuario usuario) {
-		return usuarioService.guardar(usuario);
-	}
-	
-	@DeleteMapping("/usuarios/{noCT}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarUsuario(@PathVariable int noCT) {
-		usuarioService.borrar(noCT);
-	}
+    @Autowired
+    private IUsuarioService usuarioService;
 
-	@PutMapping("/usuarios/{noCT}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario editar(@RequestBody Usuario usuario, @PathVariable int noCT) {
-		Usuario currentUsuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
-		currentUsuario.setNombre(usuario.getNombre());
-		currentUsuario.setApellidos(usuario.getApellidos());
-		currentUsuario.setRol(usuario.getRol());
-		currentUsuario.setTelefono(usuario.getTelefono());
-		return usuarioService.editar(currentUsuario);
-		
-	}
-	
+    @GetMapping("/usuarios")
+    public ResponseEntity<?> verUsuarios() {
+        List<Usuario> usuariosActivos = null;
+        Map<String, Object> response = new HashMap<String, Object>();
+        try {
+            usuariosActivos = this.usuarioService.verUsuarios();
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+            String cadenaError = "";
+            cadenaError += e.getMessage() + ": ";
+            cadenaError += e.getMostSpecificCause().getMessage();
+            response.put("error", cadenaError);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (usuariosActivos == null || usuariosActivos.isEmpty()) {
+            response.put("mensaje", "No se encontraron usuarios activos en el sistema");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<Usuario>>(usuariosActivos, HttpStatus.OK);
+    }
 
+    @GetMapping("/usuarios/{noCT}")
+    public ResponseEntity<?> buscarUsuario(@PathVariable Long noCT) {
+        Usuario usuario = usuarioService.buscarUsuarioPorNoCT(noCT);
+        Map<String, Object> response = new HashMap<String, Object>();
+        if (usuario == null) {
+            response.put("mensaje", "El usuario con noCT:"
+                    .concat(String.valueOf(noCT)).concat(" no está en la base de datos"));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
+    }
+
+    @PostMapping("/usuarios")
+    public ResponseEntity<?> agregarUsuario(@Valid @RequestBody Usuario usuario, BindingResult bindingResult) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        if (bindingResult.hasErrors()) {
+            response.put("mensaje", bindingResult.getAllErrors().get(0).getDefaultMessage());
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            if (usuarioService.guardar(usuario) == 0) {
+                response.put("mensaje", "Ya existe un usuario con el correo: "
+                        .concat(usuario.getCorreo()));
+                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT);
+            }
+        } catch (DataIntegrityViolationException e) {
+            response.put("mensaje", "Ya existe un usuario con el noCT: "
+                    .concat(String.valueOf(usuario.getNoCT())));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT);
+        }
+        response.put("mensaje", "El usuario ha sido agregado con exito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/usuarios/{noCT}")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable Long noCT) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        if(usuarioService.borrar(noCT) == 0) {
+            response.put("mensaje", "El usuario con noCT: "
+            .concat(String.valueOf(noCT)).concat(" no existe"));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);    
+        }
+        response.put("mensaje", "El usuario ha sido eliminado con exito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/usuarios/{noCT}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Usuario editar(@RequestBody Usuario usuario, @PathVariable Long noCT) {
+        Usuario currentUsuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+        currentUsuario.setNombre(usuario.getNombre());
+        currentUsuario.setApellidos(usuario.getApellidos());
+        currentUsuario.setRol(usuario.getRol());
+        currentUsuario.setTelefono(usuario.getTelefono());
+        return usuarioService.editar(currentUsuario);
+
+    }
 }
