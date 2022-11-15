@@ -84,12 +84,19 @@ input[type="submit"] {
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;    
+  border: 1px solid transparent;
 }
 
 button {    
   width: 90%;
   max-width: 200px;
   height: 40px;
+  color: #139bd1;
+  font-style: Medium;
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid gray;
 }
 
 .error {
