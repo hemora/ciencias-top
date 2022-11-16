@@ -6,6 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Clase para representar un producto de Ciencias Top.
@@ -15,40 +20,65 @@ import javax.persistence.Table;
 public class Producto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
 	/* Codigo de longitud 12 del producto. */
 	@Id
-	@Column(name = "codigo", unique = true)
+	@Column(name = "codigo", unique=true)
+	@JsonProperty("codigo")
 	private String codigo;
+	
 	/* Nombre del producto. */
 	@Column(name="nombre")
+	@JsonProperty("nombre")
+	@NotNull(message="El nombre es requerido")
 	private String nombre;
+	
 	/* Stock inicial del producto. */
 	@Column(name="stock_inicial")
+	@NotNull(message="El stock inicial es requerido")
+	@Min(value=0, message="El stock inicial debe ser más grande que 1")
 	private int stockInicial;	
+	
 	/* Stock actual del prodcuto. */
 	@Column(name="current_stock")
-	private int currentStock;	
+	@NotNull(message="El stock actual es requerido")
+	@Min(value=0, message="El stock inicial debe ser más grande que 1")
+	private int currentStock;
+	
 	/* Precio del prodcuto. */
 	@Column(name="precio")
-	private double precio;	
+	@NotNull(message="El precio es requerido")
+	@Min(value=0, message="El precio debe de ser positivo")
+	@Max(value=500, message="El precio no puede ser más de 500")
+	private double precio;
+	
 	/* Descripcion del prodcuto. */
 	@Column(name="descripcion")
 	private String descripcion;	
+	
 	/* Ruta de la imagen del prodcuto. */
 	@Column(name="imagen")
+	@NotNull(message="La imagen es requerida")
 	private String imagen;	
+	
 	/* Tipo del producto. */
 	@Column(name="tipo")
-	private String tipo;
+	@NotNull(message="El tipo es requerido")
+	private String tipo;	
+	
 	/* Categoria del producto. */
 	@Column(name="categoria")
+	@NotNull(message="La categoría es requerido")
 	private String categoria;	
+	
 	/* Periodo de renta del producto. */
 	@Column(name="periodo_renta")
+	@Min(value=1, message="El días de renta deben de ser positivos")
+	@Max(value=7, message="El días de renta deben de ser menores a 8")
 	private int periodoRenta;
-	/* Numero de Cuenta del usuario que agrego el Producto */
+
+	// Numero de Cuenta del usuario que agrego el Producto 
 	@Column(name="noCT")
+	@NotNull(message="La categoría es requerido")
 	private long noCT;
 	
 	/**
