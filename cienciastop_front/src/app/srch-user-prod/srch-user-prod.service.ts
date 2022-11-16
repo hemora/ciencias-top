@@ -20,7 +20,7 @@ export class SrchUserProdService {
     return this.http.get<Producto[]>(newUrl)
       .pipe(
       catchError(e => {
-        console.log("error");
+        // console.log("error");
         Swal.fire('Error al buscar', e.error.mensaje, 'error');
         return throwError( () => e);
       })
