@@ -17,7 +17,7 @@ export class EditarPumaPuntosComponent implements OnInit {
 
   private monederoId: number = 317804520;
   //private monederoPeriodo: string = '2022-01';
-  private monedero: Monedero;
+  monedero: Monedero;
   usuario: Usuario;
 
   sumaRestaGroup!: FormGroup;
@@ -34,6 +34,18 @@ export class EditarPumaPuntosComponent implements OnInit {
 
     // ME pasas el usuario modificado
     this.usuario = history.state;
+
+    //let periodoAux = (new Date()).toDateString().split(' ');
+    let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
+    console.log(periodoAux);
+    let periodo = periodoAux[2] + '-' + periodoAux[1];
+    
+    this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
+      response => {
+        this.monedero = response.monedero;
+      }
+    );
+
   }
 
   onSubmit() {
@@ -69,11 +81,12 @@ export class EditarPumaPuntosComponent implements OnInit {
       //  'pumaPuntos': '',
       //  'periodo': ''
       //}
-      this.monederoService.sumarRestarPumaPuntos(this.monederoId, updatedPP).subscribe(
+      this.monederoService.sumarRestarPumaPuntos(this.monedero.ownerId, updatedPP).subscribe(
         response => {
           Swal.fire('Saldo Actualizado'
           , 'Saldo actual: ' + response.monedero.pumaPuntos
           , 'success');
+          this.monedero.pumaPuntos = response.monedero.pumaPuntos;
         }
       );
       // Te vuelvo a pasar el estado

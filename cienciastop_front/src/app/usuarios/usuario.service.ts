@@ -17,7 +17,6 @@ export class UsuarioService {
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
 
-
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint).pipe(
       catchError(e => {
