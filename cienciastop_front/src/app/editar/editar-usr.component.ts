@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from '../usuarios/usuario';
@@ -14,8 +14,9 @@ import { UsuarioService } from '../usuarios/usuario.service';
 export class EditarUsrComponent implements OnInit {
 
   //Cramos un nuevo usuario vacío
-  usuario: Usuario = new Usuario(); 
-  
+  usuario: Usuario = new Usuario();
+  angForm: FormGroup;
+
   radio_button_value = null;
 
   box_options = [
@@ -33,21 +34,36 @@ export class EditarUsrComponent implements OnInit {
     }
   ]
 
-
   constructor(
     private usuarioService: UsuarioService,
-    private router: Router) { }
+    private router: Router,
+    private fb: FormBuilder) {
+    this.createForm();
+  }
 
   ngOnInit(): void {
     this.usuario = history.state;
     console.log(this.usuario);
   }
 
+  createForm() {
+    this.angForm = new FormGroup({
+      nombreUsr: new FormControl({ nombre: this.usuario.nombre }, Validators.compose([Validators.required])),
+      apellidosUsr: new FormControl({ apellidos: this.usuario.apellidos }, Validators.compose([Validators.required])),
+      telefono: new FormControl({ telefono: this.usuario.telefono }, Validators.compose([Validators.required])),
+      rol: new FormControl({ rol: this.usuario.rol }, Validators.compose([Validators.required])),
+    });
+  }
+
   //Este método es llamado desde el formulario
   //Se encarga de disparar el método de guardado de usuarios
   onSubmitForm() {
-    console.log(this.usuario);    
-    this.commitusuario();
+    if (this.angForm.valid) {
+      console.log(this.usuario);
+      this.commitusuario();
+    } else {
+      Swal.fire('Error al editar un usuario', 'El form está incompleto o es incorrecto, intenta de nuevo.', 'error');
+    }
   }
 
   //Este método llama al createusuario de usuarioService.
@@ -56,11 +72,11 @@ export class EditarUsrComponent implements OnInit {
       usuarioData => {
         console.log(usuarioData);
         Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Se ha editado el usuario correctamente',
-              showConfirmButton: false,
-              timer: 3500
+          position: 'top-end',
+          icon: 'success',
+          title: 'Se ha editado el usuario correctamente',
+          showConfirmButton: false,
+          timer: 3500
         })
         //Llamamos al método de redirección para volver a la lista de usuarios
         this.redirectusuarioList();
