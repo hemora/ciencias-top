@@ -39,4 +39,13 @@ export class UsuarioService {
       })
     )
   }
+
+  editarUsuario(noCT: number, usuario: Usuario) {
+    return this.http.put<any>(this.urlEndPoint + '/' + noCT, usuario).pipe(
+      catchError( e => {
+        Swal.fire('Error al editar el usuario', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
 }
