@@ -1,0 +1,11 @@
+.container {
+    width: 80%;
+    left: 20%;
+    top:10%;
+    position: absolute;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: flex-end;
+    flex-direction: column;
+}
