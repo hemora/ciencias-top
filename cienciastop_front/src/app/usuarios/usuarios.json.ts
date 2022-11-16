@@ -1,7 +1,7 @@
 import { Usuario } from './usuario';
 
-export const USUARIOS: Usuario[] = [
-    {nombre: 'Luz', apellidos:'Serrano Montiel', noCT:123456789, telefono:5455111666, correo:'lnabril@ciencias.unam.mx', carrera:'Biología', rol:'Administrador', contrasenya:'12345678', status:0},
+export const USUARIOS: Usuario[] = [  
+    {nombre: 'Luz', apellidos:'Nuño Serrano', noCT:317804520, telefono:5455111666, correo:'lnabril@ciencias.unam.mx', carrera:'Biología', rol:'Alumno', contrasenya:'lilimayo', status:0},
     {nombre: 'Daniel', apellidos:'Ruelas Milanés', noCT:317804520, telefono:5455111666, correo:'sango265@ciencias.unam.mx', carrera:'Ciencias de la Computación', rol:' Administrador', contrasenya:'12345678', status:1},
     {nombre: 'Ailyn', apellidos:'Rebollar Pérez', noCT:9876543210, telefono:5455111666, correo:'ailynrp12@cienciasunam.mx', carrera:'Física', rol:' Administrador', contrasenya:'12345678', status:1},
     {nombre: 'América Montserrat', apellidos:'García Coronado', noCT:123498765, telefono:5455111666, correo:'ame_coronado@ciencias.unam.mx ', carrera:'Actuaría', rol:'Proveedor', contrasenya:'12345678', status:1},

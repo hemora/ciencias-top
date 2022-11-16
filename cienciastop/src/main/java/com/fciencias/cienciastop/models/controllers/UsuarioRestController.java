@@ -57,7 +57,7 @@ public class UsuarioRestController {
 	}
 	
 	@GetMapping("/usuarios/{noCT}")
-	public Usuario buscarUsuario(@PathVariable int noCT) {
+	public Usuario buscarUsuario(@PathVariable Long noCT) {
 		return usuarioService.buscarUsuarioPorNoCT(noCT);
 	}
 	
@@ -84,9 +84,9 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/usuarios/{noCT}")
+	@DeleteMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarUsuario(@PathVariable int noCT) {
+	public void eliminarUsuario(@PathVariable Long noCT) {
 		usuarioService.borrar(noCT);
 	}
 }
