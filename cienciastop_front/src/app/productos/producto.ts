@@ -18,4 +18,6 @@ export class Producto {
     categoria: string;
 
     periodoRenta: number;
+
+    noCT: number;
 }

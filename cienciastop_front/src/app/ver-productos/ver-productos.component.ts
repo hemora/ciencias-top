@@ -1,24 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../productos/producto';
+import { ProductoService } from '../productos/producto.service';
 
 @Component({
   selector: 'app-ver-productos',
   templateUrl: './ver-productos.component.html',
-  styleUrls: ['./ver-productos.component.css'],
-  template: `
-    Message:
-    <app-ver-productos (messageEvent)="receiveMessage($event)"></app-ver-productos>`
+  styleUrls: ['./ver-productos.component.css']
 })
 export class VerProductosComponent implements OnInit {
 
-  constructor() { }
+  producto: Producto = new Producto;
 
-  producto:Producto = new Producto;
+  constructor(private productoService: ProductoService, private rutaActiva: ActivatedRoute) { }
   
   ngOnInit(): void {
+    this.productoService.getProducto(this.rutaActiva.snapshot.params['codigo']).subscribe(
+      busqueda => this.producto = busqueda[0]
+    );
   }
 
-  receiveMessage($event){
-    this.producto = $event;
-  }
 }

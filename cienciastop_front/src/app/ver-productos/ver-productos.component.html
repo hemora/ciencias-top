@@ -1,22 +1,18 @@
-<div class="verProducto">
+<div  class="verProducto">
     <div class="nombreProducto">{{producto.nombre}}</div>
-    <img src="/assets/images/imagenProducto.png" alt="ImagenProducto" class="imagenProducto">
+    <img src="{{producto.imagen}}" alt="ImagenProducto-{{producto.codigo}}" class="imagenProducto">
     <div class="descripcion">Descripción:
         <p class="descripcionTexto">
-            <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Sit amet aliquam id diam. Dui nunc mattis enim ut tellus elementum sagittis vitae. Volutpat ac tincidunt vitae
-            semper quis lectus nulla at volutpat. Aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat. Ultricies
-            tristique nulla aliquet enim tortor at auctor. Turpis nunc eget lorem dolor sed. Faucibus turpis in eu mi bibendum neque
-            egestas congue. Ornare arcu odio ut sem nulla pharetra diam sit amet. Gravida dictum fusce ut placerat orci nulla
+            <br>{{producto.descripcion}}
         </p>
     </div>
     <div class="precio">Precio:
         <img src="/assets/images/pumaPuntitosIcon.svg" alt="PumaPuntitosIcono" class="pumaPuntitos">
-        <div class="cantidad">155</div>
+        <div class="cantidad">{{producto.precio}}</div>
     </div>
-    <div class="disponibles">Disponibles: 4</div>
-    <div class="renta">Renta por: 7 días</div>
-    <div class="codigo">Código: XXXXXXXXXXXX</div>
+    <div class="disponibles">Disponibles: {{producto.currentStock}}/{{producto.stockInicial}}</div>
+    <div class="renta">Renta por: {{producto.periodoRenta}} días</div>
+    <div class="codigo">Código: {{producto.codigo}}</div>
     <div class="botonRentar">
         <button class="boton">RENTAR</button>
     </div>

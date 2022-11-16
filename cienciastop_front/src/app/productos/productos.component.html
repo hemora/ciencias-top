@@ -1,5 +1,5 @@
 <li *ngFor = "let producto of productos" class="prods">
-    <button type="button" (click)="sendMessage(producto)" routerLink="/ver-productos" class="prod">
+    <button type="button" [routerLink]="['/ver-productos', producto.codigo]" class="prod">
         {{producto.codigo}}|
         {{producto.nombre}}|
         {{producto.stockInicial}}|

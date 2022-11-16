@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Producto } from './producto';
 import { ProductoService } from './producto.service';
 
@@ -11,21 +11,12 @@ export class ProductosComponent implements OnInit {
   
   productos: Producto[];
 
-  producto:Producto = new Producto;
-
-  @Output() messageEvent = new EventEmitter<Producto>();
-
   constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe(
       productos => this.productos = productos
     );
-  }
-
-  sendMessage(producto:Producto){
-    this.producto = producto;
-    this.messageEvent.emit(this.producto);
   }
 
 }
