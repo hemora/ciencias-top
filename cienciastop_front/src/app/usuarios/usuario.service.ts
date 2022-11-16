@@ -11,8 +11,6 @@ import Swal from 'sweetalert2';
 })
 export class UsuarioService {
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
-
   constructor(private http: HttpClient) { }
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
