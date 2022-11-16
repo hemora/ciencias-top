@@ -19,7 +19,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 	List<Usuario> encontrarPorStatus(@Param("status") Integer status);
 	
 	@Query(value= "SELECT * FROM usuarios WHERE noCT = :noCT AND status = 1", nativeQuery = true)
-	Usuario encontrarPorNoCT(@Param("noCT") Integer noCT);
+	Usuario encontrarPorNoCT(@Param("noCT") Long long1);
 	
 	@Query(value= "SELECT * FROM usuarios WHERE correo = :correo", nativeQuery = true)
 	Usuario encontrarPorCorreo(@Param("correo") String correo);
@@ -32,5 +32,5 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 	@Modifying
 	@Transactional
 	@Query(value ="UPDATE usuarios SET status = 0 WHERE noCT = :noCT", nativeQuery = true)
-	Integer desactivar(@Param("noCT") Integer noCT);
+	Integer desactivar(@Param("noCT") Long noCT);
 }

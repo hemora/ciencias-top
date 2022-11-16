@@ -13,6 +13,8 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { MenuProveComponent } from './menu-prove/menu-prove.component';
 import { SortDirective } from './directive/usuarios.directive';
 import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 const routes: Routes = [
@@ -37,6 +39,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
