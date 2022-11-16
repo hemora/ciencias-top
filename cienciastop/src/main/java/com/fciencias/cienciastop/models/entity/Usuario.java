@@ -32,14 +32,14 @@ public class Usuario implements Serializable {
 	/* Una cadena con unos apellidos de longitud  igual o menor a xxx */
 	@NotNull(message = "Los apellidos no pueden ser nulos")
 	@NotBlank(message = "Los apellidos no pueden ser caracteres vacios")
-	@Size(min = 3, max = 200, message 
+	@Size(min = 7, max = 200, message 
       = "Los apellidos deben tener entre 3 y 200 caracteres")
 	@Column(name="apellidos")
 	private String apellidos;
 	/* Un Long que tiene 9 digitos */
 	@Id
 	@NotNull(message = "El numero de cuenta no puede ser nulo")
-	@Digits(integer=9,fraction=0,
+	@Digits(integer=10,fraction=0,
 			message="Se requiere un numero de cuenta valido")
 	@Column(name="noCT")
 	private Long noCT;
@@ -52,8 +52,8 @@ public class Usuario implements Serializable {
 	/* Una cadena con un correo electronico de longitud xxx o menor */
 	@NotNull(message = "el correo no puede ser nulo")
 	@Email
-	@Size(min = 5, max = 200, message 
-      = "El correo debe tener entre 10 y 200 caracteres")
+	//@Size(min = 5, max = 200, message 
+    // = "El correo debe tener entre 10 y 200 caracteres")
 	@Column(name="correo")
 	private String correo;
 	/* Una cadena con una carrera de longitud xxx o menor */
@@ -66,14 +66,14 @@ public class Usuario implements Serializable {
 	/* Una cadena con un rol de longitud xxx o menor */
 	@NotNull(message = "El rol no puede ser nulo")
 	@NotBlank(message = "El rol no puede ser caracteres vacios")
-	@Size(min = 1, max = 10, message 
+	@Size(min = 1, max = 13, message 
       = "El rol debe tener entre 1 y 10 caracteres")
 	@Column(name="rol")
 	private String rol;
 	/* Una cadena con una contrasenya de longitud xxx o menor */
 	@NotNull(message = "La contrasenya no puede ser nula")
 	@NotBlank(message = "La contrasenya no puede ser caracteres vacios")
-	@Size(min = 10, max = 200, message 
+	@Size(min = 8, max = 200, message 
       = "La contrasenya debe tener entre 10 y 200 caracteres")
     @Column(name="contrasenya")
 	private String contrasenya;
@@ -81,7 +81,7 @@ public class Usuario implements Serializable {
 	@Column(name="status")
 	@Min(value = 0, message = "status must be 0")
 	@Max(value = 1, message = "status must be 1")
-	@JsonIgnore
+	//@JsonIgnore
 	private Integer status;
 
 	public Usuario() {}
