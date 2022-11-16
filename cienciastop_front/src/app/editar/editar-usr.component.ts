@@ -13,7 +13,7 @@ import { UsuarioService } from '../usuarios/usuario.service';
 export class EditarUsrComponent implements OnInit {
 
   //Cramos un nuevo usuario vacío
-  usuario: Usuario = new Usuario();  
+  usuario: Usuario = new Usuario(); 
   
   radio_button_value = null;
 
@@ -38,7 +38,7 @@ export class EditarUsrComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.usuario.status = 1;
+    this.usuario = history.state;
   }
 
   //Este método es llamado desde el formulario

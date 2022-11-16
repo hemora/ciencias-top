@@ -26,7 +26,8 @@
                 <td>{{ usuario.noCT }}</td>
                 <td>{{ usuario.correo }}</td>
                 <td>
-                    <a href="http://localhost:4200/usuarios/editar">
+                    <a [routerLink]="['editar']" [state]="usuario">
+                    <!--<a href="http://localhost:4200/usuarios/editar/">-->
                         <img src="/assets/playground_assets/pencil.svg">
                     </a>
                     <a (click)="delete(usuario)">
