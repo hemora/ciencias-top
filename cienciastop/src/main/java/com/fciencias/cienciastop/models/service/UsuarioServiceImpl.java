@@ -30,8 +30,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuario;
 	}
 
-	
-	@Transactional
+	/*@Transactional
 	public Integer guardar(Usuario usuario) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCTyStatus(usuario.getNoCT(),0);
 		if(usuarioGuardado != null) {
@@ -49,9 +48,23 @@ public class UsuarioServiceImpl implements IUsuarioService {
 							usuario.getCarrera(),
 							usuario.getRol(),
 							usuario.getContrasenya());
-	}
+	}*/
 
 	@Transactional
+	public Usuario guardar(Usuario usuario) {
+		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());		
+		if(usuarioGuardado != null) {
+			if(usuarioGuardado.getStatus() == 0) {				
+				usuarioDao.activar(usuario.getNoCT());				
+				return usuarioDao.encontrarPorNoCT(usuario.getNoCT());
+			} else {
+				return usuarioGuardado;
+			}
+		} 
+		return usuarioDao.save(usuario);		
+	}
+
+	
 	public int borrar(Long noCT) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCT(noCT);
 		if(usuarioGuardado == null) {

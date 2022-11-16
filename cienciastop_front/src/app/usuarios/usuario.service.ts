@@ -21,6 +21,10 @@ export class UsuarioService {
   }
 
   eliminar(noCT: Number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders})
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders});
+  }
+
+  crearUsuario(usuario: Usuario): Observable<Object>{
+    return this.http.post(this.urlEndPoint, usuario);
   }
 }

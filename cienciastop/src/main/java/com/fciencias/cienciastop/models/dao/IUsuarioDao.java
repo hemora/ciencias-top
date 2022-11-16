@@ -21,8 +21,8 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	@Query(value= "SELECT * FROM usuarios WHERE noCT = :noCT AND status = 1", nativeQuery = true)
 	Usuario encontrarPorNoCT(@Param("noCT") Long noCT);
 
-	@Query(value= "SELECT * FROM usuarios WHERE noCT = :noCT AND status = :status", nativeQuery = true)
-	Usuario encontrarPorNoCTyStatus(@Param("noCT") Long noCT, @Param("status") Integer status);
+	/*@Query(value= "SELECT * FROM usuarios WHERE noCT = :noCT AND status = :status", nativeQuery = true)
+	Usuario encontrarPorNoCTyStatus(@Param("noCT") Long noCT, @Param("status") Integer status);*/
 	
 	@Query(value= "SELECT * FROM usuarios WHERE correo = :correo", nativeQuery = true)
 	Usuario encontrarPorCorreo(@Param("correo") String correo);

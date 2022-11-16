@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Monedero } from './monedero';
 import { MonederoService } from './monedero.service';
+import {formatDate} from '@angular/common'
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -11,7 +12,8 @@ import { MonederoService } from './monedero.service';
 })
 export class EditarPumaPuntosComponent implements OnInit {
 
-  private monederoId: number = 1;
+  private monederoId: number = 317804520;
+  //private monederoPeriodo: string = '2022-01';
   private monedero: Monedero;
 
   sumaRestaGroup!: FormGroup;
@@ -45,17 +47,21 @@ export class EditarPumaPuntosComponent implements OnInit {
       let updatedPP = 0;
       var monederoUpdate: Monedero = new Monedero();
       if (this.sumaRestaGroup.value.opcion == 'restar') {
-        monederoUpdate.pumaPuntos = -1 * (Number(n) + Number(m)) ;
+        updatedPP = -1 * (Number(n) + Number(m)) ;
       } else {
-        monederoUpdate.pumaPuntos = (Number(n) + Number(m));
+        updatedPP = (Number(n) + Number(m));
       }
+      //let periodo = new Date();
+      let periodoAux = (new Date()).toDateString().split(' ');
+      let periodo = periodoAux[3] + '-' + periodoAux[2];
+      monederoUpdate.periodo = periodo;
       console.log(monederoUpdate);
       //const monederoUpdate = {
       //  'status': '',
       //  'pumaPuntos': '',
       //  'periodo': ''
       //}
-      this.monederoService.sumarRestarPumaPuntos(this.monederoId, monederoUpdate).subscribe(
+      this.monederoService.sumarRestarPumaPuntos(this.monederoId, updatedPP).subscribe(
         response => {
           Swal.fire('Saldo Actualizado'
           , 'Saldo actual: ' + response.monedero.pumaPuntos

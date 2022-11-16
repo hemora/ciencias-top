@@ -15,4 +15,9 @@ public interface IMonederoDao extends CrudRepository<Monedero, Long> {
 	@Transactional
 	@Query(value ="UPDATE monederos SET status = '2' WHERE id = :id", nativeQuery = true)
 	Integer deshabilitar(@Param("id") Long id);
+
+	@Transactional
+	@Query(value ="SELECT * FROM monederos WHERE owner_id = :ownerId AND periodo = :periodo", nativeQuery = true)
+	// TODO: Evitar que se puedan agregar más de un monedero por periodo
+	Monedero obtenerPorDueno(@Param("ownerId") Long ownerId, @Param("periodo") String periodo);
 }

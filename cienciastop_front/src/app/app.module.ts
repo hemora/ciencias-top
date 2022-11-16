@@ -14,13 +14,16 @@ import { MenuProveComponent } from './menu-prove/menu-prove.component';
 import { SortDirective } from './directive/usuarios.directive';
 import { EditarUsrComponent } from './editar/editar-usr.component';
 import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-puntos.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
+  {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
 ]
 
 @NgModule({
@@ -34,11 +37,15 @@ const routes: Routes = [
     MenuProveComponent,
     SortDirective,
     EditarUsrComponent,
-    EditarPumaPuntosComponent
+    EditarPumaPuntosComponent,
+    AgregarUsrComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule

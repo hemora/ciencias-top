@@ -15,4 +15,6 @@ public interface IMonederoService {
     public void delete(Long id);
 
     public void deshabilitar(Long id);
+
+    public Monedero obtenerPorDueno(Long ownerId, String periodo);
 }

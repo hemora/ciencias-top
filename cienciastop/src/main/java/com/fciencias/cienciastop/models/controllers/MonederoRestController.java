@@ -1,7 +1,10 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +38,24 @@ public class MonederoRestController {
         return monederoService.findAll();
     }
 
-    @GetMapping("/monederos/{id}")
-    public Monedero obtenerMonedero(@PathVariable Long id) {
-        return monederoService.findById(id);
+    //@GetMapping("/monederos/{id}")
+    //public Monedero obtenerMonedero(@PathVariable Long id) {
+    //    return monederoService.findById(id);
+    //}
+
+    @GetMapping("/monederos/{ownerId}/{periodo}")
+    public ResponseEntity<?> obtenerMonedero(@PathVariable Long ownerId, @PathVariable String periodo) {
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(ownerId, periodo);
+        Map<String, Object> response = new HashMap<>();
+
+        if (monederoActual == null) {
+            response.put("mensaje", String.format("ERROR: Monedero para el usuario: %s para el periodo %s no existe en la base de datos", ownerId, periodo));
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        response.put("mensaje","ÉXITO: Monedero encontrado con éxito");
+        response.put("monedero", monederoActual);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @PostMapping("/monederos")
@@ -46,9 +64,14 @@ public class MonederoRestController {
         return monederoService.save(monedero);
     }
 
-    @PutMapping("/monederos/{id}")
-    public ResponseEntity<?> sumarRestarPumaPuntos(@RequestBody Monedero monederoUpdated, @PathVariable Long id) {
-        Monedero monederoActual = this.monederoService.findById(id);
+    @PutMapping("/monederos/{id}/{pp}")
+    public ResponseEntity<?> sumarRestarPumaPuntos(@PathVariable Long id, @PathVariable Double pp) {
+
+        String pattern = "yyyy-MM";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
+        String periodoActual = simpleDateFormat.format(new Date());
+
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(id, periodoActual);
         Map<String, Object> response = new HashMap<>();
         Monedero monederoActualizado = null;
 
@@ -57,7 +80,7 @@ public class MonederoRestController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
-        Double balanceActualizado = monederoActual.getPumaPuntos() + monederoUpdated.getPumaPuntos();
+        Double balanceActualizado = monederoActual.getPumaPuntos() + pp;
 
         if (balanceActualizado > 500.0) {
             response.put("mensaje", String.format("ERROR: El balance final es mayor a 500 por %.2f unidades", (balanceActualizado - 500.0)));
