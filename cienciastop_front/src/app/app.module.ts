@@ -24,6 +24,7 @@ const routes: Routes = [
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
+  {path: "usuarios/editar-usr", component: EditarUsrComponent},
 ]
 
 @NgModule({
