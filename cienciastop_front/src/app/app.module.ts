@@ -18,6 +18,7 @@ import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SrchAdminProdComponent } from './srch-admin-prod/srch-admin-prod.component';
+import { SrchUserProdComponent } from './srch-user-prod/srch-user-prod.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: "productos", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
   {path: "productos/srch-admin-prod", component: SrchAdminProdComponent},
+  {path: "productos/srch-user-prod", component: SrchUserProdComponent},
 ]
 
 @NgModule({
@@ -41,7 +43,8 @@ const routes: Routes = [
     EditarUsrComponent,
     EditarPumaPuntosComponent,
     AgregarUsrComponent,
-    SrchAdminProdComponent
+    SrchAdminProdComponent,
+    SrchUserProdComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,55 @@
+:host {
+    display: contents;
+  }
+  
+  img {
+    max-width:30px;
+  }
+  
+  .ver-prod-container {
+    width: 80%;
+    left: 20%;
+    position: absolute;  
+  }
+  
+
+  .ver-prod-add-prod {  
+    left: 15px;
+    color: rgb(255, 255, 255);
+    width: 180px;
+    position: absolute;
+    font-size: medium;  
+    font-weight: 600;
+    font-family: 'Trebuchet MS', sans-serif;    
+    text-decoration: none;
+  }
+  
+  .ver-prod-oplus {  
+    left: 10px;
+    width: 15%;
+    height: auto;
+    position: absolute;
+  }
+    
+  .ver-prod-busq-prod {
+    color: rgba(60, 60, 67, 0.898);  
+    font-size: 16px;      
+    font-family: 'Trebuchet MS', sans-serif;  
+    text-decoration: none;
+  }
+  
+  table {
+    left: 50px;
+    top: 120px;
+    position: absolute;      
+    border-collapse: collapse;
+    width: 90%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tbody tr:hover {background-color: coral;}
