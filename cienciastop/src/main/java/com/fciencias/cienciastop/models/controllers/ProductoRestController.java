@@ -136,9 +136,9 @@ public class ProductoRestController {
 	 * @param producto, el producto a ser agregado
 	 * @param noCT identificacion del usuario que solicito la operacion.
 	 */
-	@PostMapping("/productos")
+	@PostMapping("/productos/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> create(@RequestBody Producto producto, long noCT) {
+	public ResponseEntity<?> create(@RequestBody Producto producto, @PathVariable long noCT) {
 		producto.setCurrentStock(producto.getStockInicial());
 		producto.setnoCT(noCT);
 		Producto productoN = null;
@@ -243,9 +243,9 @@ public class ProductoRestController {
 	 * @param codio, del producto a ser eliminado
 	 * @param noCT identificacion del usuario que solicito la operacion.
 	 */
-	@DeleteMapping("/productos/{codigo}")
+	@DeleteMapping("/productos/{codigo}/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?> delete(@PathVariable String codigo, long noCT) {
+	public ResponseEntity<?> delete(@PathVariable String codigo, @PathVariable long noCT) {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();
