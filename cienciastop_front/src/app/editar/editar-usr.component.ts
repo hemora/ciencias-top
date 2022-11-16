@@ -40,6 +40,7 @@ export class EditarUsrComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = history.state;
+    console.log(this.usuario);
   }
 
   //Este método es llamado desde el formulario
@@ -72,6 +73,7 @@ export class EditarUsrComponent implements OnInit {
     this.router.navigate(['/usuarios']);
   }
   goToPumapuntos() {
-    this.router.navigate(['/usuarios/pumapuntos']);
+    //this.router.navigate(['/usuarios/pumapuntos']);
+    this.router.navigateByUrl('/usuarios/pumapuntos', { state: this.usuario })
   }
 }

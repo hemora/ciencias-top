@@ -5,6 +5,7 @@ import { Monedero } from './monedero';
 import { Router } from '@angular/router';
 import { MonederoService } from './monedero.service';
 import {formatDate} from '@angular/common';
+import { Usuario } from '../usuarios/usuario';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class EditarPumaPuntosComponent implements OnInit {
   private monederoId: number = 317804520;
   //private monederoPeriodo: string = '2022-01';
   private monedero: Monedero;
+  usuario: Usuario;
 
   sumaRestaGroup!: FormGroup;
 
@@ -30,6 +32,8 @@ export class EditarPumaPuntosComponent implements OnInit {
       opcion: ['', Validators.required]
     });
 
+    // ME pasas el usuario modificado
+    this.usuario = history.state;
   }
 
   onSubmit() {
@@ -72,7 +76,9 @@ export class EditarPumaPuntosComponent implements OnInit {
           , 'success');
         }
       );
-      this.router.navigate(['/usuarios/editar'])
+      // Te vuelvo a pasar el estado
+      //this.router.navigate(['/usuarios/editar'])
+      this.router.navigateByUrl('/usuarios/editar', { state: this.usuario });
     }
   }
   
