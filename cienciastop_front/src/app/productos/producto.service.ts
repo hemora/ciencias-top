@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Producto } from './producto';
 import { PRODUCTOS } from './productos.json';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,12 +10,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductoService {
 
-  
   constructor(private http: HttpClient) { }
 
   private urlEndPoint:string = 'http://localhost:8080/api/productos';
 
-  getProductos(): Observable<Producto[]>{
+  getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.urlEndPoint);
   }
+
 }

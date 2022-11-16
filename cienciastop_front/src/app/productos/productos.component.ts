@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Producto } from './producto';
 import { ProductoService } from './producto.service';
@@ -8,8 +9,9 @@ import { ProductoService } from './producto.service';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
+  
   productos: Producto[];
-
+  
   constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
@@ -17,5 +19,6 @@ export class ProductosComponent implements OnInit {
       productos => this.productos = productos
     );
   }
+
 
 }
