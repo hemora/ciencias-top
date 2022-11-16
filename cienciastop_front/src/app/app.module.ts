@@ -17,6 +17,7 @@ import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-punt
 import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SrchAdminProdComponent } from './srch-admin-prod/srch-admin-prod.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
+  {path: "productos/srch-admin-prod", component: SrchAdminProdComponent},
 ]
 
 @NgModule({
@@ -38,7 +40,8 @@ const routes: Routes = [
     SortDirective,
     EditarUsrComponent,
     EditarPumaPuntosComponent,
-    AgregarUsrComponent
+    AgregarUsrComponent,
+    SrchAdminProdComponent
   ],
   imports: [
     BrowserModule,
