@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Monedero } from './monedero';
+import { Router } from '@angular/router';
 import { MonederoService } from './monedero.service';
-import {formatDate} from '@angular/common'
+import {formatDate} from '@angular/common';
+
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -18,7 +20,8 @@ export class EditarPumaPuntosComponent implements OnInit {
 
   sumaRestaGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, private monederoService: MonederoService) { }
+  constructor(private fb: FormBuilder, private monederoService: MonederoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.sumaRestaGroup = this.fb.group({
@@ -32,6 +35,7 @@ export class EditarPumaPuntosComponent implements OnInit {
   onSubmit() {
     if (this.sumaRestaGroup.valid) {
       console.log(this.sumaRestaGroup.value.defCantidad);
+
       // Se obtienen los datos del monedero para operar
       //this.monederoService.getMonedero(this.monederoId).subscribe(
       //  (m: Monedero) => {
@@ -68,7 +72,9 @@ export class EditarPumaPuntosComponent implements OnInit {
           , 'success');
         }
       );
+      this.router.navigate(['/usuarios/editar'])
     }
   }
+  
 
 }
