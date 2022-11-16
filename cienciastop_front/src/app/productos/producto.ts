@@ -1,9 +1,21 @@
 export class Producto {
-
-    id: number;
-    nombre: string;
     codigo: string;
-    stock: number;
+
+    nombre: string;
+
+    stockInicial: number;
+
+    currentStock: number;
+
     precio: number;
+
     descripcion: string;
+
+    imagen: string;
+
+    tipo: string;
+
+    categoria: string;
+
+    periodoRenta: number;
 }

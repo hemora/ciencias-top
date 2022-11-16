@@ -3,51 +3,38 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { MenuComponent } from './menu/menu.component';
 import { ProductosComponent } from './productos/productos.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { NavegacionComponent } from './navegacion/navegacion.component';
+import { VerProductosComponent } from './ver-productos/ver-productos.component';
 import { RouterModule, Routes } from '@angular/router';
-import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MenuAdminComponent } from './menu-admin/menu-admin.component';
-import { MenuProveComponent } from './menu-prove/menu-prove.component';
-import { SortDirective } from './directive/usuarios.directive';
-import { EditarUsrComponent } from './editar/editar-usr.component';
-import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-puntos.component';
-import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
+import { ProdUsuarioComponent } from './prod-usuario/prod-usuario.component';
+import { ProdAdminComponent } from './prod-admin/prod-admin.component';
 
 const routes: Routes = [
-  {path: "", redirectTo: "/productos", pathMatch: "full"},
-  {path: "usuarios", component: UsuariosComponent},
-  {path: "productos", component: ProductosComponent},
-  {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
-]
+  {path: '', redirectTo: '/productos', pathMatch: 'full'},
+  {path: 'productos', component: ProductosComponent},
+  {path: 'prod-usuario', component: ProdUsuarioComponent},
+  {path: 'prod-admin', component: ProdAdminComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    MenuComponent,
     ProductosComponent,
-    UsuariosComponent,
-    MenuAdminComponent,
-    MenuProveComponent,
-    SortDirective,
-    EditarUsrComponent,
-    EditarPumaPuntosComponent,
-    AgregarUsrComponent
+    BusquedaComponent,
+    NavegacionComponent,
+    VerProductosComponent,
+    ProdAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
+    HttpClientModule,    
     RouterModule.forRoot(routes),
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],

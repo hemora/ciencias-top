@@ -1,0 +1,158 @@
+.verProducto {
+    position: absolute;
+    width: 1440px;
+    height: 1024px;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+}
+
+.nombreProducto {
+    position: absolute;
+    width: 959px;
+    height: 62px;
+    left: 416px;
+    top: 162px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 47px;
+    color: #000000;
+}
+
+.imagenProducto {
+    position: absolute;
+    width: 358px;
+    height: 400px;
+    left: 417px;
+    top: 226px;
+}
+
+.descripcion {
+    position: absolute;
+    width: 589px;
+    height: 311px;
+    left: 787px;
+    top: 221px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+.descripcionTexto {
+    top: 40px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: block;
+    color: #000000;
+}
+
+.precio {
+    position: absolute;
+    width: 111px;
+    height: 20px;
+    left: 787px;
+    top: 560px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.pumaPuntitos {
+    position: absolute;
+    width: 20px;
+    height: 16px;
+    left: 60px;
+    top: 1px;
+}
+
+.cantidad {
+    position: absolute;
+    left: 77px;
+    top: 1px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+
+}
+
+.disponibles {
+    position: absolute;
+    width: 140px;
+    height: 20px;
+    left: 1004px;
+    top: 560px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.renta {
+    position: absolute;
+    width: 160px;
+    height: 20px;
+    left: 1214px;
+    top: 560px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.codigo {
+    position: absolute;
+    width: 210px;
+    height: 20px;
+    left: 498px;
+    top: 644px;
+    font-family: 'Tajawal';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.botonRentar {
+    position: absolute;
+    width: 165px;
+    height: 55px;
+    left: 1001px;
+    top: 614px;
+    border-radius: 21px;
+}
+
+.boton {
+    position: absolute;
+    width: 159px;
+    height: 46px;
+    background: #E9B93D;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.28);
+    border-radius: 21px;
+    border-color: #E9B93D;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 33px;
+    text-align: center;
+    color: #FFFFFF;
+}
