@@ -56,10 +56,22 @@ public class UsuarioRestController {
 		return new ResponseEntity<List<Usuario>>(usuariosActivos,HttpStatus.OK); 
 	}
 	
+	//@GetMapping("/usuarios/{noCT}")
+	//public Usuario buscarUsuario(@PathVariable Long noCT) {
+	//	return usuarioService.buscarUsuarioPorNoCT(noCT);
+	//}
+
 	@GetMapping("/usuarios/{noCT}")
-	public Usuario buscarUsuario(@PathVariable Long noCT) {
-		return usuarioService.buscarUsuarioPorNoCT(noCT);
-	}
+    public ResponseEntity<?> buscarUsuario(@PathVariable Long noCT) {
+        Usuario usuario = usuarioService.buscarUsuarioPorNoCT(noCT);
+        Map<String, Object> response = new HashMap<String, Object>();
+        if (usuario == null) {
+            response.put("mensaje", "El usuario con noCT:"
+                    .concat(String.valueOf(noCT)).concat(" no está en la base de datos"));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
+    }
 	
 	@PostMapping("/usuarios")
 	@ResponseStatus(HttpStatus.CREATED)
