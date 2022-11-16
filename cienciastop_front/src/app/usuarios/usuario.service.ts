@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { USUARIOS } from './usuarios.json';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http: HttpClient) { }
   
@@ -19,5 +22,14 @@ export class UsuarioService {
   }
   crearUsuario(usuario: Usuario): Observable<Object>{
     return this.http.post(this.urlEndPoint, usuario);
+  }
+
+  buscarUsuario(noCT: number) {
+    return this.http.get<any>(this.urlEndPoint + '/' + noCT).pipe(
+      catchError( e => {
+        Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
   }
 }
