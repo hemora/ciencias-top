@@ -47,9 +47,9 @@ export class EditarPumaPuntosComponent implements OnInit {
       let updatedPP = 0;
       var monederoUpdate: Monedero = new Monedero();
       if (this.sumaRestaGroup.value.opcion == 'restar') {
-        monederoUpdate.pumaPuntos = -1 * (Number(n) + Number(m)) ;
+        updatedPP = -1 * (Number(n) + Number(m)) ;
       } else {
-        monederoUpdate.pumaPuntos = (Number(n) + Number(m));
+        updatedPP = (Number(n) + Number(m));
       }
       //let periodo = new Date();
       let periodoAux = (new Date()).toDateString().split(' ');
@@ -61,7 +61,7 @@ export class EditarPumaPuntosComponent implements OnInit {
       //  'pumaPuntos': '',
       //  'periodo': ''
       //}
-      this.monederoService.sumarRestarPumaPuntos(this.monederoId, monederoUpdate).subscribe(
+      this.monederoService.sumarRestarPumaPuntos(this.monederoId, updatedPP).subscribe(
         response => {
           Swal.fire('Saldo Actualizado'
           , 'Saldo actual: ' + response.monedero.pumaPuntos
