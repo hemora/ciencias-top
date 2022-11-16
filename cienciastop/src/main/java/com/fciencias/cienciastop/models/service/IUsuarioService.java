@@ -9,7 +9,7 @@ public interface IUsuarioService {
 	
 	public Usuario buscarUsuarioPorNoCT(Long noCT);
 	
-	public Integer guardar(Usuario usuario);
+	public Usuario guardar(Usuario usuario);
 	
 	public int borrar(Long noCT);
 

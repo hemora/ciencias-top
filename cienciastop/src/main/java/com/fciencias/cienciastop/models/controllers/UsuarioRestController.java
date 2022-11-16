@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
+import com.fciencias.cienciastop.models.service.UsuarioServiceImpl;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -35,6 +36,9 @@ import com.fciencias.cienciastop.models.service.IUsuarioService;
  * 
  */
 public class UsuarioRestController {
+
+    @Autowired
+    private IUsuarioService usuarioService;
 
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> verUsuarios() {
