@@ -17,8 +17,6 @@ export class UsuarioService {
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
-
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint).pipe(
       catchError(e => {
@@ -59,21 +57,4 @@ export class UsuarioService {
     )
   }
 
-  buscarUsuario(noCT: number) {
-    return this.http.get<any>(this.urlEndPoint + '/' + noCT).pipe(
-      catchError( e => {
-        Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
-        return throwError( () => e );
-      })
-    )
-  }
-
-  editarUsuario(noCT: number, usuario: Usuario) {
-    return this.http.put<any>(this.urlEndPoint + '/' + noCT, usuario).pipe(
-      catchError( e => {
-        Swal.fire('Error al editar el usuario', e.error.mensaje, 'error');
-        return throwError( () => e );
-      })
-    )
-  }
 }
