@@ -30,7 +30,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuario;
 	}
 
-	
+	/*@Transactional
+	public Integer guardar(Usuario usuario) {
+		Usuario usuarioGuardado = usuarioDao.encontrarPorNoCTyStatus(usuario.getNoCT(),0);
+		if(usuarioGuardado != null) {
+			if(usuarioGuardado.getStatus() == 0) {
+				return usuarioDao.activar(usuario.getNoCT());
+			} else {
+				return 0;
+			}
+		}
+		return usuarioDao.crear(usuario.getNombre(),
+							usuario.getApellidos(),
+							usuario.getNoCT(),
+							usuario.getTelefono(),
+							usuario.getCorreo(),
+							usuario.getCarrera(),
+							usuario.getRol(),
+							usuario.getContrasenya());
+	}*/
+
 	@Transactional
 	public Usuario guardar(Usuario usuario) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());		

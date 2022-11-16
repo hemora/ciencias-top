@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,19 +26,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
+import com.fciencias.cienciastop.models.service.UsuarioServiceImpl;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/api")//ciencias-top?
+@RequestMapping("/api") // ciencias-top?
 /**
  * Clase controlador de usuario (aka. Administrador)
  * 
  */
 public class UsuarioRestController {
 
-	@Autowired
-	private IUsuarioService usuarioService;
-	
+    @Autowired
+    private IUsuarioService usuarioService;
+
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> verUsuarios() {
 		List<Usuario> usuariosActivos = null;
@@ -95,12 +100,6 @@ public class UsuarioRestController {
 		response.put("usuario", usuarioNuevo);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
-	
-	@DeleteMapping("/usuarios/{noCT}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarUsuario(@PathVariable Long noCT) {
-		usuarioService.borrar(noCT);
-	}
 
 	@PutMapping("/usuarios/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -127,6 +126,17 @@ public class UsuarioRestController {
 		response.put("usuario",usuarioEditado);
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
-	
 
+    @DeleteMapping("/usuarios/{noCT}")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable Long noCT) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        if(usuarioService.borrar(noCT) == 0) {
+            response.put("mensaje", "El usuario con noCT: "
+            .concat(String.valueOf(noCT)).concat(" no existe"));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);    
+        }
+        response.put("mensaje", "El usuario ha sido eliminado con exito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
+    }
 }

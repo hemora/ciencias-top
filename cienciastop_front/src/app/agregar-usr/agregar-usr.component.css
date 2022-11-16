@@ -36,7 +36,12 @@ form {
     width: 90%;
     margin: 90px auto 0 auto;
     box-sizing: border-box;
-    column-count: 2;
+}
+
+.izq, .der {
+    width: 50%;
+    float: left;
+    padding: 10px;
 }
 
 label:not(.boxes label) {
@@ -106,8 +111,8 @@ input[type="radio"] {
 }
 
 .small-space {
-    height: 20px;
-    padding: 20px 0;
+    height: 30px;
+    padding: 60px 0;
 }
 
 .error {
