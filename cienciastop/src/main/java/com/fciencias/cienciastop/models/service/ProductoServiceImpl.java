@@ -14,20 +14,40 @@ public class ProductoServiceImpl implements IProductoService {
 	
 	@Autowired
 	private IProductoDao productoDao;
-
 	
+	/**
+	 * Regresa una lista con todos los productos.
+	 * @return una lista con todos los productos.
+	 */
+	@Override
 	@Transactional(readOnly=true)
 	public List<Producto> findAll() {
 		return (List<Producto>) productoDao.findAll();
 	}
-
 	
+	/**
+	 * Busca un producto por codigo en la base de datos.
+	 * @param codigo el codigo que se buscara.
+	 * @return el producto que tenga el mismo codigo ingresado.
+	 */
+	@Override
 	@Transactional(readOnly=true)
 	public Producto findByCodigo(String codigo) {
 		return productoDao.findById(codigo).orElse(null);
 	}
 	
+	/**
+	 * Busca productos por nombre en la base de datos.
+	 * @param nombre el nombre que se buscara.
+	 * @return una lista de productos que contienen la cadena ingresada en su nombre.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Producto> findByNombre(String nombre) {
+		return productoDao.buscarPorNombre(nombre);
+	}
 	
+	@Override
 	@Transactional()
 	public Producto save(Producto producto) {
 		return productoDao.save(producto);
