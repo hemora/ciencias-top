@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Usuario } from '../usuarios/usuario';
 import { UsuarioService } from '../usuarios/usuario.service';
 
@@ -50,9 +51,16 @@ export class EditarUsrComponent implements OnInit {
 
   //Este método llama al createusuario de usuarioService.
   commitusuario() {
-    this.usuarioService.crearUsuario(this.usuario).subscribe(
+    this.usuarioService.editarUsuario(this.usuario.noCT, this.usuario).subscribe(
       usuarioData => {
         console.log(usuarioData);
+        Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Se ha editado el usuario correctamente',
+              showConfirmButton: false,
+              timer: 3500
+        })
         //Llamamos al método de redirección para volver a la lista de usuarios
         this.redirectusuarioList();
       },
