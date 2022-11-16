@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable, throwError, catchError } from 'rxjs';
 import { Producto } from '../productos/producto';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,7 @@ export class SrchAdminProdService {
   getBuscado(entrada: string): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/busqueda?entrada=" + entrada;
-    return this.http.get<Producto[]>(newUrl);
-    /*
+    //return this.http.get<Producto[]>(newUrl);
     return this.http.get<Producto[]>(newUrl)
       .pipe(
       catchError(e => {
@@ -29,6 +29,5 @@ export class SrchAdminProdService {
         return throwError( () => e);
       })
     )
-    */
   }
 }

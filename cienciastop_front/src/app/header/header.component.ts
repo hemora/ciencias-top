@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public iniciarBusqueda(): void {
+    // console.log("envie: " + this.entrada);
     this.route.navigate(['productos/srch-user-prod'], {queryParams:{data:this.entrada}})
   }
 

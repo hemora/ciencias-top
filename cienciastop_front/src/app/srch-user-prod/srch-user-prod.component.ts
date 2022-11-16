@@ -20,10 +20,9 @@ export class SrchUserProdComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      // console.log(params);
       this.porBuscar = params.data;
-      // console.log(this.porBuscar);
     });
+    console.log(this.porBuscar);
     this.srchUserProdService.getBuscado(this.porBuscar).subscribe(
       productos => this.productos = productos
     );
