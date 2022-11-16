@@ -33,15 +33,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	
 	@Transactional
 	public Usuario guardar(Usuario usuario) {
-		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());
+		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());		
 		if(usuarioGuardado != null) {
-			if(usuarioGuardado.getStatus() == 0) {
-				if(usuarioDao.activar(usuario.getNoCT()) == 1) return null;//usuarioGuardado;
+			if(usuarioGuardado.getStatus() == 0) {				
+				usuarioDao.activar(usuario.getNoCT());				
+				return usuarioDao.encontrarPorNoCT(usuario.getNoCT());
 			} else {
-				// ya existe. no guardar
+				return usuarioGuardado;
 			}
-		} else return usuarioDao.save(usuario);
-		return null;
+		} 
+		return usuarioDao.save(usuario);		
 	}
 
 	
