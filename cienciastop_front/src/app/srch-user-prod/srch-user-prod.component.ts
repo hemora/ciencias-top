@@ -14,13 +14,13 @@ export class SrchUserProdComponent implements OnInit {
   porBuscar: string = "";
 
   constructor(
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private srchUserProdService: SrchUserProdService,
-    // private router: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params: any) => {
       this.porBuscar = params.data;
     });
@@ -29,6 +29,7 @@ export class SrchUserProdComponent implements OnInit {
       productos => this.productos = productos
     );
   }
+  // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
   // https://www.auroria.io/angular-route-reuse-strategy/
   // https://www.geekstrick.com/tech-talks/how-to-reload-refresh-the-data-when-navigate-to-same-route-in-angular-9/
   // https://medium.com/@rajeshpillai1996/what-is-routereusestrategy-how-to-cache-components-with-angular-routereusestrategy-82da7790cd2b
