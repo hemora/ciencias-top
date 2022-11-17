@@ -145,10 +145,37 @@ public class MonederoRestController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/monederos/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        this.monederoService.deshabilitar(id);
+    @DeleteMapping("/monederos/{ownerId}")
+    public ResponseEntity<?> desactivarMonedero(@PathVariable Long ownerId) {
+
+        String pattern = "yyyy-MM";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
+        String periodoActual = simpleDateFormat.format(new Date());
+        Map<String, Object> response = new HashMap<>();
+
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(ownerId, periodoActual);
+        if (monederoActual != null && monederoActual.getStatus().equals("activo")) {
+            try {
+                this.monederoService.deshabilitar(ownerId);
+            } catch (DataAccessException e) {
+                response.put("mensaje","ÉXITO: Error al intentar desactivar el monedero");
+                response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            response.put("mensaje", "Monedero desactivado correctamente");
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        if (monederoActual != null && monederoActual.getStatus().equals("inactivo")) {
+            response.put("mensaje", "ÉXITO: Monedero desactivado correctamente");
+
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }
+
+        response.put("mensaje","ERROR: El usuario no cuenta con un monedero para el periodo actual");
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 }
