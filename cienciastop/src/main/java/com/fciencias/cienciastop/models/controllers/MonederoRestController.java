@@ -58,10 +58,48 @@ public class MonederoRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
-    @PostMapping("/monederos")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Monedero crearMonedero(@RequestBody Monedero monedero) {
-        return monederoService.save(monedero);
+    @PostMapping("/monederos/{ownerId}")
+    public ResponseEntity<?> crearMonedero(@PathVariable Long ownerId) {
+        String pattern = "yyyy-MM";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
+        String periodoActual = simpleDateFormat.format(new Date());
+        Map<String, Object> response = new HashMap<>();
+
+        Monedero monederoActual = this.monederoService.obtenerPorDueno(ownerId, periodoActual);
+        if (monederoActual != null && monederoActual.getStatus().equals("activo")) {
+            response.put("mensaje",String.format("ÉXITO: El usuario %s ya cuenta con un monedero activo para el periodo %s.", ownerId,periodoActual));
+            response.put("monedero", monederoActual);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        if (monederoActual != null && monederoActual.getStatus().equals("inactivo")) {
+            response.put("mensaje",String.format("ÉXITO: El usuario %s ya cuenta con un monedero activo para el periodo %s. Reactivando monedero.", ownerId, periodoActual));
+            monederoActual.setPumaPuntos(0.0);
+            monederoActual.setStatus("activo");
+            response.put("monedero", monederoActual);
+
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }
+
+        Monedero nuevoMonedero = new Monedero();
+        nuevoMonedero.setOwnerId(ownerId);
+        nuevoMonedero.setStatus("activo");
+        nuevoMonedero.setPumaPuntos(100.0);
+        nuevoMonedero.setPeriodo(periodoActual);
+
+        try {
+            monederoService.save(nuevoMonedero);
+        } catch (DataAccessException e) {
+            response.put("mensaje","ERROR: Error al actualizar el balance en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje",String.format("ÉXITO: Usuario cuenta con un nuevo monedero para el periodo %s además de 100.00 puma puntos de regalo.", periodoActual));
+        response.put("monedero", nuevoMonedero);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/monederos/{id}/{pp}")
