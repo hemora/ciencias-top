@@ -1,6 +1,6 @@
 <div class="ver-usr-container">
-    <form (ngSubmit) = "onSubmitForm()" class="ver-usr-search-bar">
-        <input type="text" [(ngModel)] = "busqueda" class="ver-usr-content input" id="search" name="buscar-usr" placeholder="Buscar Usuarios...">
+    <form action="" class="ver-usr-search-bar">
+        <input type="text" class="ver-usr-content input" id="search" name="buscar-usr" placeholder="Buscar Usuarios...">
         <input type="submit" class="ver-usr-buscar button" value="Buscar">
     </form>
 
@@ -30,12 +30,12 @@
                     <!--<a href="http://localhost:4200/usuarios/editar/">-->
                         <img src="/assets/playground_assets/pencil.svg">
                     </a>
-                    <a (click)="delete(usuario)">
+                    <a href="">
                         <img src="/assets/playground_assets/trash.svg">
                     </a>
                 </td>
             </tr>
         </tbody>
-        <div class="small-space"></div>
-    </table>        
+    </table>
 </div>
+<script src="/usuarios/usuarios.js"></script>
