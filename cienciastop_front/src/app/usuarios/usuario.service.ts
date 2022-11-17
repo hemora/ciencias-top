@@ -48,6 +48,45 @@ export class UsuarioService {
     )
   }
 
+  buscarUsuarioC(correo: String) {
+    return this.http.get<any>(this.urlEndPoint + '/correo/' + correo).pipe(
+      catchError( e => {
+        Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
+
+  buscarUsuarioN(nombre: String) {
+    return this.http.get<any>(this.urlEndPoint + '/nombre/' + nombre).pipe(
+      catchError( e => {
+        Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
+
+  busquedaAuxiliar(cadena: String){
+    const patronN = '[0-9]{9}';
+    const patronNumero = cadena.match(patronN);
+    const patron = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const patronCorreo = cadena.match(patron);
+    
+    if(patronNumero!=null && patronNumero.length>0 ){
+      console.log(patronNumero);
+      var number = Number(cadena);
+      return  this.buscarUsuario(number);
+    }
+    if(patronCorreo!=null && patronCorreo.length>0){
+      console.log(patronCorreo);
+      return this.buscarUsuarioC(cadena);
+    }else{
+      return this.buscarUsuarioN(cadena);
+    }
+
+  }
+
+  
   editarUsuario(noCT: number, usuario: Usuario) {
     return this.http.put<any>(this.urlEndPoint + '/' + noCT, usuario).pipe(
       catchError( e => {

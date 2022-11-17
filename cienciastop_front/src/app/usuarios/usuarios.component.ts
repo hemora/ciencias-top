@@ -12,6 +12,7 @@ import { USUARIOS } from './usuarios.json';
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
+  busqueda: String;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -19,6 +20,20 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
     );
+  }
+
+  commitbusqueda() {
+    this.usuarioService.busquedaAuxiliar(this.busqueda).subscribe(
+      usuarioData => {
+        console.log(usuarioData);
+        this.usuarios= [usuarioData].flat();
+      },
+        error => console.log(error));
+  }
+
+  onSubmitForm() {
+    console.log(this.busqueda);
+    this.commitbusqueda();
   }
 
   delete(usuario: Usuario): void {

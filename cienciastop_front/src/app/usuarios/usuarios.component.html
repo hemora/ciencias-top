@@ -1,6 +1,6 @@
 <div class="ver-usr-container">
-    <form action="" class="ver-usr-search-bar">
-        <input type="text" class="ver-usr-content input" id="search" name="buscar-usr" placeholder="Buscar Usuarios...">
+    <form (ngSubmit) = "onSubmitForm()" class="ver-usr-search-bar">
+        <input type="text" [(ngModel)] = "busqueda" class="ver-usr-content input" id="search" name="buscar-usr" placeholder="Buscar Usuarios...">
         <input type="submit" class="ver-usr-buscar button" value="Buscar">
     </form>
 
