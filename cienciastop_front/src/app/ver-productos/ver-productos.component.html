@@ -14,6 +14,6 @@
     <div class="renta">Renta por: {{ producto.periodoRenta }} días</div>
     <div class="codigo">Código: {{ producto.codigo }}</div>
     <div class="botonRentar">
-        <button class="boton" [disabled]="producto.currentStock == 0">RENTAR</button>
+        <button class="boton" (click)="rentar()" [disabled]="producto.currentStock == 0">RENTAR</button>
     </div>
 </div>

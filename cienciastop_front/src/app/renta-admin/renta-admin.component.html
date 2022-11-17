@@ -1,0 +1,29 @@
+<div class="ver-rentas-container">
+    <div class="titulo"><h1>Rentas sin entregar</h1></div>
+
+    <table>
+        <thead>            
+            <tr>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="id">ID</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="producto">Producto</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="usuario" style="max-width: 150px;">NoCT Usuario</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="status_entrega">Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let renta of rentas">
+                <td>{{ renta.id}}</td>
+                <td>{{ renta.producto.codigo }}</td>
+                <td>{{ renta.usuario.noCT }}</td>
+                <td>{{ renta.status_entrega }}</td>
+                <td>
+                    <a href="" (click)="update(renta)">
+                        <img src="/assets/playground_assets/pencil.svg">
+                    </a>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
