@@ -16,7 +16,6 @@ export class SrchUserProdService {
   getBuscado(entrada: string): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/busqueda?entrada=" + entrada;
-    // return this.http.get<Producto[]>(newUrl);
     return this.http.get<Producto[]>(newUrl)
       .pipe(
       catchError(e => {
