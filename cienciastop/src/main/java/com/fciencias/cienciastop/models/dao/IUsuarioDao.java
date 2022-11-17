@@ -17,6 +17,9 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 	
 	@Query(value= "SELECT * FROM usuarios WHERE status = :status", nativeQuery = true)
 	List<Usuario> encontrarPorStatus(@Param("status") Integer status);
+
+	@Query(value= "SELECT * FROM usuarios WHERE LOWER(nombre) LIKE %:nombre% OR nombre LIKE %:nombre% ", nativeQuery = true)
+	List<Usuario> encontrarPorNombre(@Param("nombre") String nombre );
 	
 	@Query(value= "SELECT * FROM usuarios WHERE noCT = :noCT AND status = 1", nativeQuery = true)
 	Usuario encontrarPorNoCT(@Param("noCT") Long noCT);

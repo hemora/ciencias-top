@@ -22,6 +22,24 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Usuario> buscarUsuarioPorNombre(String nombre) {
+		List<Usuario> usuario = (List<Usuario>)usuarioDao.encontrarPorNombre(nombre);
+		if(usuario == null) 
+			return null;// excepcion no hay usuario 
+		return usuario;
+	}
+
+ 	public Usuario buscarUsuarioPorCorreo(String correo) {
+		Usuario usuario = usuarioDao.encontrarPorCorreo(correo);
+		if(usuario == null) 
+			return null;// excepcion no hay usuario 
+		return usuario;
+	}
+
+
+	
 	@Transactional(readOnly=true)
 	public Usuario buscarUsuarioPorNoCT(Long noCT) {
 		Usuario usuario = usuarioDao.encontrarPorNoCT(noCT);

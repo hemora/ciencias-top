@@ -1,5 +1,6 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,22 +59,92 @@ public class UsuarioRestController {
 		return new ResponseEntity<List<Usuario>>(usuariosActivos,HttpStatus.OK); 
 	}
 	
-	//@GetMapping("/usuarios/{noCT}")
-	//public Usuario buscarUsuario(@PathVariable Long noCT) {
-	//	return usuarioService.buscarUsuarioPorNoCT(noCT);
-	//}
 
-	@GetMapping("/usuarios/{noCT}")
-    public ResponseEntity<?> buscarUsuario(@PathVariable Long noCT) {
-        Usuario usuario = usuarioService.buscarUsuarioPorNoCT(noCT);
-        Map<String, Object> response = new HashMap<String, Object>();
+
+
+	/**Buscar usuarios por nombre */
+
+	@RequestMapping("/usuarios/nombre/{nombre}")
+	public ResponseEntity<?> buscarUsuarioNombre(@PathVariable(value="nombre") String nombre) {
+		System.out.println("Buscando usuarios...");
+		List<Usuario> usuarios;
+		String mensajeError="";
+		Map<String, Object> response = new HashMap<>();
+		try{
+			usuarios = usuarioService.buscarUsuarioPorNombre(nombre);
+		}catch(DataAccessException e){
+			mensajeError = "Falla en la consulta a la base de datos";
+			response.put("mensaje", mensajeError);
+			mensajeError = "";
+			mensajeError += e.getMessage() + ": ";
+			mensajeError += e.getMostSpecificCause().getMessage();
+			response.put("Error: ", mensajeError);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		if (usuarios == null) {
+			usuarios = new ArrayList<Usuario>();
+		}
+
+		if (!usuarios.isEmpty()) {
+			return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+		}
+		mensajeError = "Usuario con nombre" + nombre + " no ha sido encontrado";
+		response.put("mensaje", mensajeError);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+	}
+
+
+	/**Buscar usuarios por correo */
+	@GetMapping("/usuarios/correo/{correo}")
+	public ResponseEntity<?> buscarUsuario(@PathVariable(value="correo") String correo){
+        System.out.println("Buscando usuario con correo " + correo);
+		Usuario usuario= null;
+		String mensajeError="";
+		Map<String, Object> response = new HashMap<>();
+		try{
+			usuario = usuarioService.buscarUsuarioPorCorreo(correo);
+		}catch(DataAccessException e){
+			mensajeError = "Falla en la consulta a la base de datos";
+			response.put("mensaje", mensajeError);
+			mensajeError = "";
+			mensajeError += e.getMessage() + ": ";
+			mensajeError += e.getMostSpecificCause().getMessage();
+			response.put("Error: ", mensajeError);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
         if (usuario == null) {
-            response.put("mensaje", "El usuario con noCT:"
-                    .concat(String.valueOf(noCT)).concat(" no está en la base de datos"));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+            System.out.println("Usuario con correo " + correo + " no ha sido encontrado");
+            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
+
+	/**Buscar usuarios por numero de cuenta */
+	@RequestMapping(value = "/usuarios/{noCT}", method = RequestMethod.GET)
+	public ResponseEntity<?> buscarUsuario(@PathVariable("noCT") Long noCT) {
+        System.out.println("Buscando usuario con numero de cuenta " + noCT);
+		Usuario usuario= null;
+		String mensajeError="";
+		Map<String, Object> response = new HashMap<>();
+		try{
+			usuario = usuarioService.buscarUsuarioPorNoCT(noCT);
+		}catch(DataAccessException e){
+			mensajeError = "Falla en la consulta a la base de datos";
+			response.put("mensaje", mensajeError);
+			mensajeError = "";
+			mensajeError += e.getMessage() + ": ";
+			mensajeError += e.getMostSpecificCause().getMessage();
+			response.put("Error: ", mensajeError);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+        if (usuario == null) {
+            System.out.println("Usuario con numero de cuenta " + noCT + " no ha sido encontrado");
+            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+    }
+
 	
 	@PostMapping("/usuarios")
 	@ResponseStatus(HttpStatus.CREATED)
