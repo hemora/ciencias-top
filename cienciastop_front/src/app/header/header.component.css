@@ -98,3 +98,11 @@ img {
     position: absolute;
     border-color: transparent;
 }
+
+.btn-srch-user-prod {
+    width: 30px;
+    height: 30px;
+    /*
+    font-size: 16px;
+    */
+}
