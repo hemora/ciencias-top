@@ -1,0 +1,26 @@
+<div class="ver-prod-container">
+    <table>
+        <thead>            
+            <tr>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="precio">Puma puntos</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="codigo">Codigo</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="currentStock">Unidades disponibles</th>
+                <th>Ver</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.codigo }}</td>
+                <td>{{ producto.currentStock }}</td>
+                <td>
+                    <a href="">
+                        <img src="/assets/playground_assets/eye.svg">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

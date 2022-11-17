@@ -1,27 +1,23 @@
-
-
 export class Producto {
-	codigo: string;
-	
-	nombre: string;
-	
-	stockInicial: number;
+    codigo: string;
 
-	currentStock: number;
+    nombre: string;
 
-	precio: number;
+    stock_inicial: number;
 
-	descripcion: string;
+    current_stock: number;
 
-	imagen: File;
+    precio: number;
 
-	tipo: string;
+    descripcion: string;
 
-	categoria: string;
+    imagen: string;
 
-	periodoRenta: number;
+    tipo: string;
 
-	noCT: number;
+    categoria: string;
 
+    periodo_renta: number;
+
+    noCT: number;
 }
-

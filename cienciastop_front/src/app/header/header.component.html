@@ -1,28 +1,32 @@
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Hidden brand</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/usuarios">Usuarios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+<header>
+  <div class="top-container">
+    <div class="top-search">
+      <form action="" method="">
+        <input type="text"
+          placeholder="Buscar Productos ..."
+          name="buscar-prod"
+          [(ngModel)]="entrada"
+          [formControl]="control">
+        <button type="submit"
+          id="btn-srch-user-prod"
+          disabled
+          (click)="iniciarBusqueda()">
+          <i class='fa fa-search'></i>
+          <!--
+          <img alt="len" src="assets/playground_assets/image138881-e2nj-200w.png" />
+          -->
+        </button>
+      </form>
+    </div>
+    <div class="top-balance">
+      <p class="top-text">Puma Puntos</p>
+      <!-- Llamar la funcion para obtener el balance actual de pumapts del usr -->
+      <div class="top-pumapts">
+        <div class="top-coin">
+          <img alt="coin" src="/assets/playground_assets/ellipse48881-ck78-200h.png" />
+        </div>
+        <div class="top-points">500</div>
       </div>
     </div>
-  </nav>
+  </div>
+</header>

@@ -1,5 +1,5 @@
 {
-  "name": "ciencias-top",
+  "name": "cienciastop-front",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,13 +19,13 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "rxjs": "~7.5.0",
-    "sweetalert2": "^11.6.5",
+    "sweetalert2": "^11.6.8",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.7",
-    "@angular/cli": "~14.2.7",
+    "@angular-devkit/build-angular": "^14.2.8",
+    "@angular/cli": "~14.2.8",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
     "jasmine-core": "~4.3.0",

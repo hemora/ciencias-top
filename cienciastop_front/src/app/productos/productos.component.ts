@@ -1,7 +1,8 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Producto } from './producto';
 import { ProductoService } from './producto.service';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -9,10 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-
+  
   productos: Producto[];
-
-  constructor(private productoService: ProductoService ) { }
+  
+  constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe(
@@ -21,7 +22,7 @@ export class ProductosComponent implements OnInit {
   }
 
   delete(producto: Producto): void {
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithBootstrapButtons = swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
         cancelButton: 'btn btn-danger'
@@ -49,10 +50,8 @@ export class ProductosComponent implements OnInit {
             )
           }
         )
-
       }
     })
-    
   }
 
 }
