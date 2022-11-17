@@ -3,35 +3,34 @@ import { Producto } from './producto';
 import { PRODUCTOS } from './productos.json';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
+  miStorage = window.localStorage;
 
   constructor(private http: HttpClient) { }
 
   private urlEndPoint:string = 'http://localhost:8080/api/productos';
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
-  /**
-   * Realiza una consulta de todos los productos en la base de datos
-   * y los regresa en un arreglo.
-   * @returns El arreglo con todos los productos en la base de datos.
-   */
-  getProductos(): Observable<Producto[]> {
+  getProductos(): Observable<Producto[]>{
     return this.http.get<Producto[]>(this.urlEndPoint);
   }
 
-  /**
-   * Realiza una consulta de todos los productos que contengan la 
-   * cadena ingresada en su nombre o en su código.
-   * @param entrada La cadena a buscar.
-   * @returns Un arreglo con los productos que contengana la entrada
-   * en su nombre o código.
-   */
-  getProducto(entrada: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>('http://localhost:8080/api/busqueda?entrada=' + entrada)
+  create(producto: Producto): Observable<Producto>{
+    console.log(localStorage.getItem("noCT"));
+    return this.http.post<Producto>(`${this.urlEndPoint}/${localStorage.getItem("noCT")}`, producto, {headers: this.httpHeaders} )
   }
 
+  getProducto(codigo: string): Observable<Producto>{
+    return this.http.get<Producto>(`${this.urlEndPoint}/${codigo}`)
+  }
+
+  delete(codigo: string): Observable<Producto>{
+    console.log("adios");
+    return this.http.delete<Producto>(`${this.urlEndPoint}/${codigo}/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders})
+  }
 }

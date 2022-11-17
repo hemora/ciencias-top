@@ -1,64 +1,141 @@
 <div class="agregar-usr-container">
     <h4 class="agregar-usr-text">Agregar Usuario</h4>
-    <form (ngSubmit)="onSubmitForm()">
-        <div class="izq">            
-            <label for="name"> Nombre </label>
-            <input type="text" id="name" name="nombre" placeholder="Nombre" [(ngModel)]="usuario.nombre">
-            <small class="error"></small>            
-
-            <label for="last"> Apellidos </label>
-            <input type="text" id="paterno" name="apellidoP" placeholder="Apellidos" [(ngModel)]="usuario.apellidos"> 
-            <small class="error"></small>            
-
-            <!--<label for="last"> Apellido Materno </label>
-            <input type="text" id="materno" name="apellidoM" placeholder="Apellido Materno" [(ngModel)]="usuario.apellidos">            
-            <small class="error"></small>      -->               
-
-            <label for="noct"> Numero de Cuenta o Trabajador </label>
-            <input type="number" id="noct" name="noCT" placeholder="Numero de Identifcacion" [(ngModel)] = "usuario.noCT">
-            <small class="error"></small>
-
-            <label for="tel"> Numero de Telefono </label>
-            <input type="number" id="tel" name="telefono" placeholder="Telefono" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" [(ngModel)] = "usuario.telefono">
-            <small class="error"></small>
-            
-            <label for="email"> Correo Electronico </label>
-            <input type="email" id="email" name="correo" placeholder="Correo electrónico" [(ngModel)] = "usuario.correo">
-            <small class="error"></small>                                                     
-        <div class="small-space"></div>        
-        </div>
-        <div class="der">            
-            <label for="carrera"> Carrera </label>
-            <div class="custom-select">
-                <select name="carrera" [(ngModel)] = "usuario.carrera">                  
-                  <option value="Actuaria">Actuaria</option>
-                  <option value="Biologia">Biologia</option>
-                  <option value="Fisica">Fisica</option>
-                  <option value="Matematicas">Matematicas</option>     
-                  <option value="Ciencias de la Computacion">Ciencias de la Computacion</option>
-                  <option value="Ciencias de la Tierra">Ciencias de la Tierra</option>        
-                </select>                
+    <form [formGroup]="angForm" class="form-horizontal" (ngSubmit)="onSubmitForm()">
+        <div class="izq">
+            <div class="form-group">
+                <label class="control-label">Nombre</label>
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ]+( [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+)*$" minlength="3" formControlName="nombreUsr"
+                    class="form-control" [(ngModel)]="usuario.nombre">
             </div>
+            <div *ngIf="angForm.controls['nombreUsr'].invalid && (angForm.controls['nombreUsr'].dirty || angForm.controls['nombreUsr'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['nombreUsr'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['nombreUsr'].errors?.['minlength'] ">
+                    Tu nombre debe tener al menos 3 caracteres.
+                </small>
+                <small *ngIf="angForm.controls['nombreUsr'].errors?.['pattern'] ">
+                    Verifica que tu nombre este correcto.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Apellidos</label>
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+ [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$" minlength="7"
+                    formControlName="apellidosUsr" class="form-control" [(ngModel)]="usuario.apellidos">
+            </div>
+            <div *ngIf="angForm.controls['apellidosUsr'].invalid && (angForm.controls['apellidosUsr'].dirty || angForm.controls['apellidosUsr'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['apellidosUsr'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['apellidosUsr'].errors?.['minlength'] ">
+                    Verifica la longitud de tus apellidos.
+                </small>
+                <small *ngIf="angForm.controls['apellidosUsr'].errors?.['pattern'] ">
+                    Verifica que tus apellidos esten correctos.
+                </small>
+            </div>
+            <!--
+            <label for="last"> Apellido Materno </label>
+            <input type="text" id="materno" name="apellidoM" placeholder="Apellido Materno" [(ngModel)]="usuario.apellidos">            
             <small class="error"></small>      
-
-            <label id="rols"> Rol del Cliente </label>
-            <div class="boxes" *ngFor="let box_opt of box_options; let i=index">
-                <input name="option-{{i}}" type="radio" [value]="box_opt.value" [(ngModel)]="usuario.rol">
-                {{box_opt.name}}                
-                <br>
-            </div>     
-
-            <label for="pass"> Contrasena </label>
-            <input type="password" id="pass" name="contrasenya" placeholder="Contrasena" [(ngModel)] = "usuario.contrasenya">
-            <small class="error"></small>                        
-                        
-          <!--<input type="number" name="status" value="1" [(ngModel)]="usuario.status">-->
-          <!--<input type="hidden" name="status" value="1" [usuario.status]="1">-->
+            -->
+            <div class="form-group">
+                <label class="control-label">Numero de Cuenta o Trabajador</label>
+                <input type="number" formControlName="noCT" class="form-control" pattern="[0-9]{9}[0-9]?"
+                    [(ngModel)]="usuario.noCT">
+            </div>
+            <div *ngIf="angForm.controls['noCT'].invalid && (angForm.controls['noCT'].dirty || angForm.controls['noCT'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['noCT'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['noCT'].errors?.['pattern'] ">
+                    Verifica que la longitud sea de entre de 9 a 10 digitos.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Numero de Telefono</label>
+                <input type="number" formControlName="telefono" class="form-control" pattern="55[0-9]{8}"
+                    [(ngModel)]="usuario.telefono">
+            </div>
+            <div *ngIf="angForm.controls['telefono'].invalid && (angForm.controls['telefono'].dirty || angForm.controls['telefono'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['telefono'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['telefono'].errors?.['pattern'] ">
+                    Verifica que el numero comience en 55 y tenga 10 digitos.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Correo Electronico</label>
+                <input type="text" formControlName="correo" class="form-control" pattern="[\w.-]+@ciencias\.unam\.mx"
+                    [(ngModel)]="usuario.correo">
+            </div>
+            <div *ngIf="angForm.controls['correo'].invalid && (angForm.controls['correo'].dirty || angForm.controls['correo'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['correo'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['correo'].errors?.['pattern'] ">
+                    Verifica que el correo sea de dominio ciencias.
+                </small>
+            </div>
         </div>
-
-
+        <div class="der">
+            <div class="form-group">
+                <label class="control-label">Contrasena</label>
+                <input type="password" formControlName="contrasenya" class="form-control"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" [(ngModel)]="usuario.contrasenya">
+            </div>
+            <div *ngIf="angForm.controls['contrasenya'].invalid && (angForm.controls['contrasenya'].dirty || angForm.controls['contrasenya'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['contrasenya'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['contrasenya'].errors?.['pattern'] ">
+                    La contraseña debe contener al menos un número, una letra mayúscula y minúscula, y debe ser de al menos
+                    8 caracteres.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="carrera"> Carrera </label>
+                <div class="custom-select">
+                    <select formControlName="carrera" [(ngModel)]="usuario.carrera">
+                        <option value="Actuaria">Actuaria</option>
+                        <option value="Biologia">Biologia</option>
+                        <option value="Fisica">Fisica</option>
+                        <option value="Matematicas">Matematicas</option>
+                        <option value="Ciencias de la Computacion">Ciencias de la Computacion</option>
+                        <option value="Ciencias de la Tierra">Ciencias de la Tierra</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['carrera'].invalid && (angForm.controls['carrera'].dirty || angForm.controls['carrera'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['carrera'].errors.required">
+                    Campo requerido.
+                </small>                
+            </div>            
+            <br>
+            <div class="form-group">
+                <label class="control-label">Rol del Cliente</label>
+                <div class="boxes" *ngFor="let box_opt of box_options; let i=index">
+                    <input type="radio" formControlName="rol" [value]="box_opt.value" [(ngModel)]="usuario.rol">
+                    {{box_opt.name}}
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['rol'].invalid && (angForm.controls['rol'].dirty || angForm.controls['rol'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['rol'].errors.required">
+                    Campo requerido.
+                </small>                
+            </div>
+        </div>        
         <!-- hidden box -->
-        <input type="hidden" id="vflag" value="no">        
+        <input type="hidden" id="vflag" value="no">
         <p id="success"></p>
         <div class="center">
             <input type="submit" value="Registrar usuario">

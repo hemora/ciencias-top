@@ -2,20 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
+import { Producto } from '../productos/producto';
+import { SrchUserProdService } from './srch-user-prod.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-srch-user-prod',
+  templateUrl: './srch-user-prod.component.html',
+  styleUrls: ['./srch-user-prod.component.css']
 })
-export class HeaderComponent implements OnInit {
-  
+export class SrchUserProdComponent implements OnInit {
+
   entrada: string = "";
   control = new FormControl();
+  productos: Producto[];
 
-  constructor(private route : Router) { }
+  constructor(
+    private route : Router,
+    private srchUserProdService: SrchUserProdService) { }
 
   ngOnInit(): void {
+    this.busquedaVacia();
     this.cambiosBusqueda()
   }
 
@@ -39,7 +45,7 @@ export class HeaderComponent implements OnInit {
    * @returns True si la lognitud de lo ingresado es mayor a 3, menor a 30 y si no
    * posee ningun caracter invalido, False en otro caso.
    */
-   validarEntrada(query): boolean {
+  validarEntrada(query): boolean {
     this.entrada = (query as string);
     const btn = document.getElementById("btn-srch-user-prod") as HTMLButtonElement | null;  
     if (this.entrada.length < 3  ||
@@ -73,9 +79,15 @@ export class HeaderComponent implements OnInit {
 		return inputValida;
   }
 
-  public iniciarBusqueda(): void {
-    // console.log("envie: " + this.entrada);
-    this.route.navigate(['productos/srch-user-prod'], {queryParams:{data:this.entrada}})
+  public busquedaVacia(): void {
+    this.srchUserProdService.allProductos().subscribe(
+      productos => this.productos = productos
+    );
   }
 
+  public iniciarBusqueda(): void {
+    this.srchUserProdService.getBuscado(this.entrada).subscribe(
+      productos => this.productos = productos
+    );
+  }
 }

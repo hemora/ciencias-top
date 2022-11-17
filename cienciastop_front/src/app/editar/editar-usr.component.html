@@ -1,51 +1,92 @@
 <div class="editar-usr-container">
-  <div class="editar-usr-editar-usr">
+    <h4 class="agregar-usr-text">Editar Usuario</h4>
+    <form [formGroup]="angForm" class="form-horizontal" (ngSubmit)="onSubmitForm()">
+        <div class="izq">
+            <div class="form-group">
+                <label class="control-label">Nombre</label>
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ]+( [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+)*$" minlength="3" formControlName="nombreUsr"
+                    class="form-control" [(ngModel)]="usuario.nombre">
+            </div>
+            <div *ngIf="angForm.controls['nombreUsr'].invalid && (angForm.controls['nombreUsr'].dirty || angForm.controls['nombreUsr'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['nombreUsr'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['nombreUsr'].errors?.['minlength'] ">
+                    Tu nombre debe tener al menos 3 caracteres.
+                </small>
+                <small *ngIf="angForm.controls['nombreUsr'].errors?.['pattern'] ">
+                    Verifica que tu nombre este correcto.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Apellidos</label>
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+ [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$" minlength="7"
+                    formControlName="apellidosUsr" class="form-control" [(ngModel)]="usuario.apellidos">
+            </div>
+            <div *ngIf="angForm.controls['apellidosUsr'].invalid && (angForm.controls['apellidosUsr'].dirty || angForm.controls['apellidosUsr'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['apellidosUsr'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['apellidosUsr'].errors?.['minlength'] ">
+                    Verifica la longitud de tus apellidos.
+                </small>
+                <small *ngIf="angForm.controls['apellidosUsr'].errors?.['pattern'] ">
+                    Verifica que tus apellidos esten correctos.
+                </small>
+            </div>
 
-    <div id="overlay">
-      <form action="" method="post">
-        <div class="editar-usr-cross">
-          <img type="image" alt="Vector9541" src="/assets/playground_assets/vector9541-9mwhx.svg" class="editar-usr-vector" />
+
+            <div class="form-group">
+                <label class="control-label">Numero de Telefono</label>
+                <input type="number" formControlName="telefono" class="form-control" pattern="55[0-9]{8}"
+                    [(ngModel)]="usuario.telefono">
+            </div>
+            <div *ngIf="angForm.controls['telefono'].invalid && (angForm.controls['telefono'].dirty || angForm.controls['telefono'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['telefono'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['telefono'].errors?.['pattern'] ">
+                    Verifica que el numero comience en 55 y tenga 10 digitos.
+                </small>
+            </div>
+
+
+            <div class="small-space"></div>
+        </div>
+        <div class="der">
+
+            <small class="error"></small>
+
+            <div class="form-group">
+                <label class="control-label">Rol del Cliente</label>
+                <div class="boxes" *ngFor="let box_opt of box_options; let i=index">
+                    <input type="radio" formControlName="rol" [value]="box_opt.value" [(ngModel)]="usuario.rol">
+                    {{box_opt.name}}
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['rol'].invalid && (angForm.controls['rol'].dirty || angForm.controls['rol'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['rol'].errors.required">
+                    Campo requerido.
+                </small>
+            </div>
+
+            <!--<button class="btn" type ="button" [routerLink]="['usuarios/pumapuntos']">Editar Pumapuntos </button>-->
+            <button class="btn" type="button" (click)="goToPumapuntos()">Editar Pumapuntos </button>
+            <!--<input type="number" name="status" value="1" [(ngModel)]="usuario.status">-->
+            <!--<input type="hidden" name="status" value="1" [usuario.status]="1">-->
         </div>
 
-        <h5> Editar Usuario</h5>
-        <br>
-
-        <label for="name"> Nombre: </label>
-        <input type="text" id="name" name="name" placeholder="Nombre">
-        <small class="error"></small>
-
-        <label for="last"> Apellido Paterno: </label>
-        <input type="text" id="last" name="last" placeholder="Apellidos Paterno">
-        <small class="error"></small>
-
-        <label for="lastM"> Apellido Materno: </label>
-        <input type="text" id="lastM" name="lastM" placeholder="Apellidos Materno">
-        <small class="error"></small>
-
-        <label for="tel"> Numero de Telefono: </label>
-        <input type="tel" id="tel" name="tel" placeholder="5512345678">
-        <small class="error"></small>
-
-        <label for="rol"> Rol: </label>
-        <select id="ops">
-          <option value="Administrador"></option>
-          <option value="Alumno"></option>
-          <option value="Proveedor"></option>          
-        </select>
-        
 
         <!-- hidden box -->
         <input type="hidden" id="vflag" value="no">
-
-        <br><br>
-        <!--<button type="button" onclick="return validateForm()">Confirmar</button>-->
-        <div class="center">
-          <input type="submit" value="Actualizar">
-        </div>
         <p id="success"></p>
         <div class="center">
-          <button class="bttn-pumapts" type="button" routerLink="" value="PumaPuntos">Puma Puntos</button>
+            <input type="submit" value="Editar usuario">
         </div>
-      </form>
-    </div>
-  </div>
+    </form>
+    <div class="small-space"></div>
+</div>

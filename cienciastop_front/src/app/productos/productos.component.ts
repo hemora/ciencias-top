@@ -17,6 +17,4 @@ export class ProductosComponent implements OnInit {
       productos => this.productos = productos
     );
   }
-
-
 }

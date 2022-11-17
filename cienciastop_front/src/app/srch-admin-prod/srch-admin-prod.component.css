@@ -6,13 +6,13 @@ img {
   max-width:30px;
 }
 
-.ver-usr-container {
+.ver-prod-container {
   width: 80%;
   left: 20%;
   position: absolute;  
 }
 
-.ver-usr-agregar-usr {
+.ver-prod-agregar-prod {
   right:5%;  
   top:40px;
   width: 180px;
@@ -27,7 +27,7 @@ img {
   background-color: rgba(233, 114, 61, 1);
 }
 
-.ver-usr-add-usr {  
+.ver-prod-add-prod {  
   left: 15px;
   color: rgb(255, 255, 255);
   width: 180px;
@@ -38,14 +38,14 @@ img {
   text-decoration: none;
 }
 
-.ver-usr-oplus {  
+.ver-prod-oplus {  
   left: 10px;
   width: 15%;
   height: auto;
   position: absolute;
 }
 
-.ver-usr-search-bar {  
+.ver-prod-search-bar {  
   left: 5%;  
   top:40px;
   width: auto;
@@ -60,7 +60,7 @@ img {
   background-color: rgba(168, 168, 168, 0.30000001192092896);
 }
 
-.ver-usr-content {
+.ver-prod-content {
   height: 36px;  
   padding: 8px;  
   margin-right: 8px;
@@ -69,14 +69,14 @@ img {
   background-color: rgba(245, 245, 245, 1);
 }
 
-.ver-usr-busq-usr {
+.ver-prod-busq-prod {
   color: rgba(60, 60, 67, 0.898);  
   font-size: 16px;      
   font-family: 'Trebuchet MS', sans-serif;  
   text-decoration: none;
 }
 
-.ver-usr-buscar {
+.ver-prod-buscar {
   color: #139bd1;  
   font-size: 16px;  
   font-family: 'Trebuchet MS', sans-serif;
@@ -100,7 +100,3 @@ th, td {
 }
 
 tbody tr:hover {background-color: coral;}
-
-.small-space {  
-  height: 50px;  
-}

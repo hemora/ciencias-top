@@ -3,11 +3,12 @@ export class Producto {
 
     nombre: string;
 
-    stockInicial: number;
+    stock_inicial: number;
 
-    currentStock: number;
+    current_stock: number;
 
     precio: number;
+
     descripcion: string;
 
     imagen: string;
@@ -16,7 +17,7 @@ export class Producto {
 
     categoria: string;
 
-    periodoRenta: number;
+    periodo_renta: number;
 
     noCT: number;
 }

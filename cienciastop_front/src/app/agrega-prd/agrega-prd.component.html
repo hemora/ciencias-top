@@ -1,0 +1,102 @@
+<div class="agrega-prd-container">
+    <h4 class="agrega-prd-text">Agregar Producto</h4>
+
+    <form (ngSubmit)= "create()" [formGroup]="agregForm" novalidate>
+        <div class="izq">            
+            <label for=""> Nombre </label>
+            <input type="text" formControlName="nombre" class="form-control" name="nombre">
+            <div *ngIf="agregForm.controls['nombre'].invalid && (agregForm.controls['nombre'].dirty || agregForm.controls['nombre'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['nombre'].errors">
+                    Ingrese el nombre del producto.
+                </div>
+            </div>
+            <small class="error"></small>         
+
+            <label for=""> Código </label>
+            <input type="text" formControlName="codigo" class="form-control" name="codigo">
+            <div *ngIf="agregForm.controls['codigo'].invalid && (agregForm.controls['codigo'].dirty || agregForm.controls['codigo'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['codigo'].errors">
+                    El Código de un producto debe tener una longitud de 12.
+                </div>
+            </div>
+            <small class="error"></small>            
+
+            <label for=""> Stock </label>
+            <input type="number" formControlName= "stockInicial"pattern="[0-9]*" min="0" class="form-control" name="stockInicial">
+            <div *ngIf="agregForm.controls['stockInicial'].invalid && (agregForm.controls['stockInicial'].dirty || agregForm.controls['stockInicial'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['stockInicial'].errors">
+                    Ingrese el número de existencias del producto.
+                </div>
+            </div>
+            <small class="error"></small>
+
+            <label for=""> Precio </label>
+            <input type="number" formControlName= "precio" pattern="[0-9]*" min="0" max="500" class="form-control" name="precio">
+            <div *ngIf="agregForm.controls['precio'].invalid && (agregForm.controls['precio'].dirty || agregForm.controls['precio'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['precio'].errors">
+                    El precio de un producto debe valer entre 0 y 500 pumapuntos.
+                </div>
+            </div>
+            <small class="error"></small>
+        <div class="small-space"></div>
+        <div class="small-space"></div>
+        <div class="small-space"></div>  
+        <div class="small-space"></div>            
+        </div>
+        <div class="der">
+            <label for=""> Descripción </label>
+            <input type="text" formControlName= "descripcion" class="form-control" name="descripcion">
+            <div *ngIf="agregForm.controls['descripcion'].invalid && (agregForm.controls['descripcion'].dirty || agregForm.controls['descripcion'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['descripcion'].errors">
+                    Ingrese una descripción del producto.
+                </div>
+            </div>
+            <small class="error"></small>
+
+
+            <label for=""> Categoria </label>
+            <input type="text" formControlName="categoria" class="form-control" name="categoria">
+            <div *ngIf="agregForm.controls['categoria'].invalid && (agregForm.controls['categoria'].dirty || agregForm.controls['categoria'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['categoria'].errors">
+                    Ingrese la categoria del producto.
+                </div>
+            </div>
+            <small class="error"></small>
+
+            <label for=""> Tipo </label>
+            <input type="text" formControlName="tipo" class="form-control" name="tipo">
+            <div *ngIf="agregForm.controls['tipo'].invalid && (agregForm.controls['tipo'].dirty || agregForm.controls['tipo'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['tipo'].errors">
+                    Ingrese el tipo del producto.
+                </div>
+            </div>
+            <small class="error"></small>
+
+            <label for=""> Días para rentar </label>
+            <input type="number" formControlName= "periodoRenta" pattern="[3-7]*" min="3" max="7" class="form-control" name="periodoRenta">
+            <div *ngIf="agregForm.controls['periodoRenta'].invalid && (agregForm.controls['periodoRenta'].dirty || agregForm.controls['periodoRenta'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['periodoRenta'].errors">
+                    El periodo de Renta de un producto debe ser entre 3 y 7 dias.
+                </div>
+            </div>
+            <small class="error"></small>
+
+            <label for=""> Imagen </label>
+            <input type="file" formControlName="imagen" accept=".jpg, .jpeg, .png" class="form-control" name="imagen">
+            <div *ngIf="agregForm.controls['imagen'].invalid && (agregForm.controls['imagen'].dirty || agregForm.controls['imagen'].touched)" class="alert alert-danger">
+                <div *ngIf="agregForm.controls['imagen'].errors">
+                    Debe ingresar la imagen del producto.
+                </div>
+            </div>
+            <small class="error"></small>
+        </div>
+
+        <div class="small-space"></div>
+
+        <div class="center">
+            <button type= "submit"
+            [disabled]="agregForm.pristine || agregForm.invalid" class="btn btn-success">Agregar Producto</button>
+        </div> 
+    </form>
+    <div class="small-space"></div>
+</div>

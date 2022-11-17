@@ -19,12 +19,20 @@ import { EditarPumaPuntosComponent } from './editar-puma-puntos/editar-puma-punt
 import { AgregarUsrComponent } from './agregar-usr/agregar-usr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SrchAdminProdComponent } from './srch-admin-prod/srch-admin-prod.component';
+import { SrchUserProdComponent } from './srch-user-prod/srch-user-prod.component';
+import { AgregaPrdComponent } from './agrega-prd/agrega-prd.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
   {path: "productos", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
+  {path: "productos/agrega-prd", component: AgregaPrdComponent},
+  {path: "productos/srch-admin-prod", component: SrchAdminProdComponent},
+  {path: "productos/srch-user-prod", component: SrchUserProdComponent},
+  {path: "usuarios/editar", component: EditarUsrComponent},
+  {path: "usuarios/pumapuntos", component: EditarPumaPuntosComponent},
   {path: 'ver-productos/:codigo', component: VerProductosComponent }
 ]
 
@@ -43,8 +51,12 @@ const routes: Routes = [
     SortDirective,
     EditarUsrComponent,
     EditarPumaPuntosComponent,
-    AgregarUsrComponent
+    AgregarUsrComponent,
+    SrchAdminProdComponent,
+    SrchUserProdComponent,
+    AgregaPrdComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
