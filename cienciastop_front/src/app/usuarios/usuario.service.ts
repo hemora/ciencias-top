@@ -28,7 +28,17 @@ export class UsuarioService {
   }
 
   eliminar(noCT: Number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders});
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'No se ha podido eliminar al usuario',
+          showConfirmButton: false,
+          timer: 3500});
+        return throwError( () => e);
+      })
+    );
   }
 
   crearUsuario(usuario: Usuario): Observable<any>{
