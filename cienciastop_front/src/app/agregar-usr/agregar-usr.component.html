@@ -4,7 +4,7 @@
         <div class="izq">
             <div class="form-group">
                 <label class="control-label">Nombre</label>
-                <input type="text" required pattern="^[A-Z][a-z]+$" minlength="3" formControlName="nombreUsr"
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ]+( [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+)*$" minlength="3" formControlName="nombreUsr"
                     class="form-control" [(ngModel)]="usuario.nombre">
             </div>
             <div *ngIf="angForm.controls['nombreUsr'].invalid && (angForm.controls['nombreUsr'].dirty || angForm.controls['nombreUsr'].touched)"
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Apellidos</label>
-                <input type="text" required pattern="[A-Z][a-z]+ [A-Z][a-z]+$" minlength="7"
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+ [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$" minlength="7"
                     formControlName="apellidosUsr" class="form-control" [(ngModel)]="usuario.apellidos">
             </div>
             <div *ngIf="angForm.controls['apellidosUsr'].invalid && (angForm.controls['apellidosUsr'].dirty || angForm.controls['apellidosUsr'].touched)"
@@ -96,7 +96,7 @@
                     Campo requerido.
                 </small>
                 <small *ngIf="angForm.controls['contrasenya'].errors?.['pattern'] ">
-                    La contraseña debe contener al menos un número, letra mayúscula y minúscula, y debe ser de al menos
+                    La contraseña debe contener al menos un número, una letra mayúscula y minúscula, y debe ser de al menos
                     8 caracteres.
                 </small>
             </div>
