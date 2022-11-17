@@ -49,6 +49,14 @@ export class UsuarioService {
     );
   }
 
+  desactivarMonedero(noCT: number): Observable<any> {
+    return this.http.delete<any>(this.monederoEndPoint + '/' + noCT, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire('Error al reactivar/crear monedero', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    );
+  }
 
   buscarUsuario(noCT: number) {
     return this.http.get<any>(this.urlEndPoint + '/' + noCT).pipe(

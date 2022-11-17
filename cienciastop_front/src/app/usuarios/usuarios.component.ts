@@ -64,6 +64,11 @@ export class UsuariosComponent implements OnInit {
               showConfirmButton: false,
               timer: 3500
             })
+            this.usuarioService.desactivarMonedero(usuario.noCT).subscribe(
+              response => {
+                console.log(response)
+              }
+            )
           }
         )
 
