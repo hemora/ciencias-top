@@ -21,7 +21,6 @@ import { SrchAdminProdComponent } from './srch-admin-prod/srch-admin-prod.compon
 import { SrchUserProdComponent } from './srch-user-prod/srch-user-prod.component';
 import { AgregaPrdComponent } from './agrega-prd/agrega-prd.component';
 
-
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
@@ -30,6 +29,8 @@ const routes: Routes = [
   {path: "productos/agrega-prd", component: AgregaPrdComponent},
   {path: "productos/srch-admin-prod", component: SrchAdminProdComponent},
   {path: "productos/srch-user-prod", component: SrchUserProdComponent},
+  {path: "usuarios/editar", component: EditarUsrComponent},
+  {path: "usuarios/pumapuntos", component: EditarPumaPuntosComponent}
 ]
 
 @NgModule({
@@ -49,6 +50,7 @@ const routes: Routes = [
     SrchUserProdComponent,
     AgregaPrdComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,

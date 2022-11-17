@@ -15,13 +15,13 @@ export class MonederoService {
 
   private monederoApi: string = 'http://localhost:8080/api/monederos'
 
-  getMonedero(id: number) {
+  getMonedero(id: number, periodo: string) {
     //var monedero = new Monedero();
     //monedero.id = 0;
     //monedero.ownerId = 0;
     //monedero.status = "";
     //monedero.pumaPuntos = 0;
-    return this.http.get<any>(this.monederoApi + '/' + id).pipe(
+    return this.http.get<any>(this.monederoApi + '/' + id + '/' + periodo).pipe(
       catchError(e => {
         Swal.fire('Error al obtener el monedero', e.error.mensaje, 'error');
         return throwError( () => e);

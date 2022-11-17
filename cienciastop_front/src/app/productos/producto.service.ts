@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProductoService {
-
   miStorage = window.localStorage;
 
   constructor(private http: HttpClient) { }

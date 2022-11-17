@@ -13,8 +13,8 @@ public interface IMonederoDao extends CrudRepository<Monedero, Long> {
 
     @Modifying
 	@Transactional
-	@Query(value ="UPDATE monederos SET status = '2' WHERE id = :id", nativeQuery = true)
-	Integer deshabilitar(@Param("id") Long id);
+	@Query(value ="UPDATE monederos SET status = 'inactivo' WHERE owner_id = :ownerId", nativeQuery = true)
+	Integer deshabilitar(@Param("ownerId") Long ownerId);
 
 	@Transactional
 	@Query(value ="SELECT * FROM monederos WHERE owner_id = :ownerId AND periodo = :periodo", nativeQuery = true)

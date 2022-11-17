@@ -9,7 +9,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  
   entrada: string = "";
   control = new FormControl();
 
