@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Monedero } from './monedero';
+import { Router } from '@angular/router';
 import { MonederoService } from './monedero.service';
-import {formatDate} from '@angular/common'
+import {formatDate} from '@angular/common';
+import { Usuario } from '../usuarios/usuario';
+
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -14,11 +17,13 @@ export class EditarPumaPuntosComponent implements OnInit {
 
   private monederoId: number = 317804520;
   //private monederoPeriodo: string = '2022-01';
-  private monedero: Monedero;
+  monedero: Monedero;
+  usuario: Usuario;
 
   sumaRestaGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, private monederoService: MonederoService) { }
+  constructor(private fb: FormBuilder, private monederoService: MonederoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.sumaRestaGroup = this.fb.group({
@@ -27,11 +32,26 @@ export class EditarPumaPuntosComponent implements OnInit {
       opcion: ['', Validators.required]
     });
 
+    // ME pasas el usuario modificado
+    this.usuario = history.state;
+
+    //let periodoAux = (new Date()).toDateString().split(' ');
+    let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
+    console.log(periodoAux);
+    let periodo = periodoAux[2] + '-' + periodoAux[1];
+    
+    this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
+      response => {
+        this.monedero = response.monedero;
+      }
+    );
+
   }
 
   onSubmit() {
     if (this.sumaRestaGroup.valid) {
       console.log(this.sumaRestaGroup.value.defCantidad);
+
       // Se obtienen los datos del monedero para operar
       //this.monederoService.getMonedero(this.monederoId).subscribe(
       //  (m: Monedero) => {
@@ -61,14 +81,19 @@ export class EditarPumaPuntosComponent implements OnInit {
       //  'pumaPuntos': '',
       //  'periodo': ''
       //}
-      this.monederoService.sumarRestarPumaPuntos(this.monederoId, updatedPP).subscribe(
+      this.monederoService.sumarRestarPumaPuntos(this.monedero.ownerId, updatedPP).subscribe(
         response => {
           Swal.fire('Saldo Actualizado'
           , 'Saldo actual: ' + response.monedero.pumaPuntos
           , 'success');
+          this.monedero.pumaPuntos = response.monedero.pumaPuntos;
         }
       );
+      // Te vuelvo a pasar el estado
+      //this.router.navigate(['/usuarios/editar'])
+      this.router.navigateByUrl('/usuarios/editar', { state: this.usuario });
     }
   }
+  
 
 }
