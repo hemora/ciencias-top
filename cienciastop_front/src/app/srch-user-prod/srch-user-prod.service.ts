@@ -13,6 +13,10 @@ export class SrchUserProdService {
 
   constructor(private http: HttpClient) { }
 
+  allProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.urlEndPoint + "/productos ");
+  }
+
   getBuscado(entrada: string): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/busqueda?entrada=" + entrada;

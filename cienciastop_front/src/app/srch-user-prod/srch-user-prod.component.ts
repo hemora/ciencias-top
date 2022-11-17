@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
 import { Producto } from '../productos/producto';
 import { SrchUserProdService } from './srch-user-prod.service';
 
@@ -10,28 +12,82 @@ import { SrchUserProdService } from './srch-user-prod.service';
 })
 export class SrchUserProdComponent implements OnInit {
 
+  entrada: string = "";
+  control = new FormControl();
   productos: Producto[];
-  porBuscar: string = "";
 
   constructor(
-    private route: ActivatedRoute,
-    private srchUserProdService: SrchUserProdService,
-    private router: Router
-  ) { }
+    private route : Router,
+    private srchUserProdService: SrchUserProdService) { }
 
   ngOnInit(): void {
-    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.queryParams.subscribe((params: any) => {
-      this.porBuscar = params.data;
-    });
-    console.log("recibi " + this.porBuscar)
-    this.srchUserProdService.getBuscado(this.porBuscar).subscribe(
+    this.busquedaVacia();
+    this.cambiosBusqueda()
+  }
+
+  /**
+   * Verifica el texto ingresado por el ususario cada 300 ms.
+   */
+   cambiosBusqueda() {
+    this.control.valueChanges
+    .pipe(
+      debounceTime(300)
+    )
+    .subscribe(query => {
+      this.validarEntrada(query);
+    })
+  }
+
+  /**
+   * Regresa True si la lognitud de lo ingresado es mayor a 3, menor a 30 y si no
+   * posee ningun caracter invalido, False en otro caso.
+   * @param query la entrada del usuario.
+   * @returns True si la lognitud de lo ingresado es mayor a 3, menor a 30 y si no
+   * posee ningun caracter invalido, False en otro caso.
+   */
+  validarEntrada(query): boolean {
+    this.entrada = (query as string);
+    const btn = document.getElementById("btn-srch-user-prod") as HTMLButtonElement | null;  
+    if (this.entrada.length < 3  ||
+        this.entrada.length > 30 ||
+        this.caracteresInvalidos() == true) {
+      btn?.setAttribute('disabled', '');
+      return true;
+    } else {
+      btn?.removeAttribute('disabled');
+      return false;
+    }
+  }
+
+  /**
+   * Regresa True si tiene caracteres invalidos, False en otro caso.
+   * @returns True si tiene caracteres invalidos, False en otro caso. 
+   */
+  caracteresInvalidos(): boolean {
+    var validos: string;
+    validos = "qwertyuiop" + "asdfghjklñ" + "zxcvbnm" + "1234567890";
+		validos += "QWERTYUIOP" + "ASDFGHJKLÑ" + "ZXCVBNM";
+		validos += "áéíóú" + "ÁÉÍÓÚ" + "üÜ" + " ,.*$¿?¡!";
+		var inputValida: boolean = false;
+		let caracteres: Array<string> = this.entrada.split(""); 
+    var i: number;
+		for (i = 0; i < caracteres.length; i++) {
+			if (!validos.includes("" + caracteres[i])) {
+				inputValida = true;
+			}
+		}
+		return inputValida;
+  }
+
+  public busquedaVacia(): void {
+    this.srchUserProdService.allProductos().subscribe(
       productos => this.productos = productos
     );
   }
-  // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
-  // https://www.auroria.io/angular-route-reuse-strategy/
-  // https://www.geekstrick.com/tech-talks/how-to-reload-refresh-the-data-when-navigate-to-same-route-in-angular-9/
-  // https://medium.com/@rajeshpillai1996/what-is-routereusestrategy-how-to-cache-components-with-angular-routereusestrategy-82da7790cd2b
-  // https://stackoverflow.com/questions/53592940/how-to-refresh-data-with-angular
+
+  public iniciarBusqueda(): void {
+    this.srchUserProdService.getBuscado(this.entrada).subscribe(
+      productos => this.productos = productos
+    );
+  }
 }
