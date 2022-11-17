@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../productos/producto';
 import { ProductoService } from '../productos/producto.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-ver-productos',

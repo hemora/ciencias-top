@@ -1,18 +1,15 @@
 .verProducto {
     position: absolute;
-    width: 1440px;
-    height: 1024px;
-    left: 0px;
-    top: 0px;
-    background: #FFFFFF;
+    width: 80%;
+    left: 20%;
 }
 
 .nombreProducto {
     position: absolute;
     width: 959px;
     height: 62px;
-    left: 416px;
-    top: 162px;
+    left: 62px;
+    top: 40px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
@@ -23,18 +20,19 @@
 
 .imagenProducto {
     position: absolute;
-    width: 358px;
+    width: 400px;
     height: 400px;
-    left: 417px;
-    top: 226px;
+    left: 62px;
+    top: 104px;
+    object-fit: fill;
 }
 
 .descripcion {
     position: absolute;
-    width: 589px;
-    height: 311px;
-    left: 787px;
-    top: 221px;
+    width: 600px;
+    height: 310px;
+    left: 482px;
+    top: 104px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
@@ -56,10 +54,10 @@
 
 .precio {
     position: absolute;
-    width: 111px;
+    width: 120px;
     height: 20px;
-    left: 787px;
-    top: 560px;
+    left: 482px;
+    top: 440px;
     font-family: 'Tajawal';
     font-style: normal;
     font-weight: 400;
@@ -91,10 +89,10 @@
 
 .disponibles {
     position: absolute;
-    width: 140px;
+    width: 190px;
     height: 20px;
-    left: 1004px;
-    top: 560px;
+    left: 682px;
+    top: 440px;
     font-family: 'Tajawal';
     font-style: normal;
     font-weight: 400;
@@ -105,10 +103,10 @@
 
 .renta {
     position: absolute;
-    width: 160px;
+    width: 142px;
     height: 20px;
-    left: 1214px;
-    top: 560px;
+    left: 941px;
+    top: 440px;
     font-family: 'Tajawal';
     font-style: normal;
     font-weight: 400;
@@ -121,8 +119,8 @@
     position: absolute;
     width: 210px;
     height: 20px;
-    left: 498px;
-    top: 644px;
+    left: 157px;
+    top: 514px;
     font-family: 'Tajawal';
     font-style: normal;
     font-weight: 400;
@@ -135,8 +133,8 @@
     position: absolute;
     width: 165px;
     height: 55px;
-    left: 1001px;
-    top: 614px;
+    left: 704px;
+    top: 490px;
     border-radius: 21px;
 }
 
@@ -155,4 +153,11 @@
     line-height: 33px;
     text-align: center;
     color: #FFFFFF;
+}
+
+.boton:disabled,
+.boton[disabled]{
+    background: #e29b9b;
+    border-color: #e29b9b;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.28);
 }
