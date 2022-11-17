@@ -8,7 +8,6 @@ export class Producto {
     currentStock: number;
 
     precio: number;
-
     descripcion: string;
 
     imagen: string;

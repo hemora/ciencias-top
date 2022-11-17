@@ -5,10 +5,13 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -133,9 +136,9 @@ public class ProductoRestController {
 	 * @param producto, el producto a ser agregado
 	 * @param noCT identificacion del usuario que solicito la operacion.
 	 */
-	@PostMapping("/productos")
+	@PostMapping("/productos/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> create(@RequestBody Producto producto, long noCT) {
+	public ResponseEntity<?> create(@RequestBody Producto producto, @PathVariable long noCT) {
 		producto.setCurrentStock(producto.getStockInicial());
 		producto.setnoCT(noCT);
 		Producto productoN = null;
@@ -170,15 +173,79 @@ public class ProductoRestController {
 		this.productoService.save(currentProducto);
 		return currentProducto;
 	}
+
+	/**
+	 * Metodo que se encarga de editar un producto, ignorando el codigo
+	 * del producto proporcionado en el JSON, ya que la edición será sobre
+	 * el producto relacionado con el codigo proporcionado en el path.
+	 * 
+	 * @param Producto producto - representado en un Json
+	 * @param codigo identificador del producto que queremos editar
+	 */
+	@PutMapping("/productos/{codigo}/editar")
+	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo) {//long noCT
+		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
+		if(bindingResult.hasErrors()) {
+			Map<String,Object> response = new HashMap<>();
+			response.put("mensaje", "Error en los datos incluidos en el Json");		
+			response.put("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		Producto currentProd = null;
+		Producto newProd = null;
+		Map<String,Object> response = new HashMap<>();
+		try {
+			currentProd = productoService.findByCodigo(codigo);
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		// Verificamos que exista un producto con el codigo proporcionado
+		if (currentProd == null) {
+			response.put("mensaje", "No se puede editar este producto");
+			response.put("error", "porque no existe un producto con el código:".concat(codigo.concat(" en nuestra base de datos."))	);
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		try {
+			// actualizacion de los atributos
+			currentProd.setNombre(producto.getNombre());
+			// No tomamos en cuenta el codigo que venga en el JSON ya que no se permite editar el codigo del producto
+			currentProd.setCodigo(codigo);
+			currentProd.setStockInicial(producto.getStockInicial());
+			// No permitimos que el currentStock sea mayor que el Inicial 
+			if(producto.getCurrentStock() > producto.getStockInicial()) {
+				currentProd.setCurrentStock(producto.getStockInicial());
+			} else {
+				currentProd.setCurrentStock(producto.getCurrentStock());
+			}
+			currentProd.setPrecio(producto.getPrecio());
+			currentProd.setDescripcion(producto.getDescripcion());
+			currentProd.setImagen(producto.getImagen());
+			currentProd.setTipo(producto.getTipo());
+			currentProd.setCategoria(producto.getCategoria());
+			currentProd.setPeriodoRenta(producto.getPeriodoRenta());
+			newProd=productoService.save(currentProd);
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		// Si llegamos hasta acá es porque la edición fue valida
+		//response.put("mensaje", "El producto ha sido actualizado con éxito");
+		//response.put("producto", newProd);
+		return new ResponseEntity<Producto>(newProd, HttpStatus.OK);
+		//return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
+	}
 	
 	/**
 	 * elimina un producto existente en la base de datos validando permisos.
 	 * @param codio, del producto a ser eliminado
 	 * @param noCT identificacion del usuario que solicito la operacion.
 	 */
-	@DeleteMapping("/productos/{codigo}")
+	@DeleteMapping("/productos/{codigo}/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?> delete(@PathVariable String codigo, long noCT) {
+	public ResponseEntity<?> delete(@PathVariable String codigo, @PathVariable long noCT) {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();

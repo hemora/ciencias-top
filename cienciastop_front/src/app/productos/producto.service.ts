@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Producto } from './producto';
+import { PRODUCTOS } from './productos.json';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -8,17 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductoService {
 
-  
   constructor(private http: HttpClient) { }
 
-  private urlEndPoint: string = 'http://localhost:8080/api/productos';
+  private urlEndPoint:string = 'http://localhost:8080/api/productos';
 
   /**
    * Realiza una consulta de todos los productos en la base de datos
    * y los regresa en un arreglo.
    * @returns El arreglo con todos los productos en la base de datos.
    */
-  getProductos(): Observable<Producto[]>{
+  getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.urlEndPoint);
   }
 
@@ -29,7 +30,7 @@ export class ProductoService {
    * @returns Un arreglo con los productos que contengana la entrada
    * en su nombre o código.
    */
-  getProducto(entrada:string): Observable<Producto[]>{
+  getProducto(entrada: string): Observable<Producto[]> {
     return this.http.get<Producto[]>('http://localhost:8080/api/busqueda?entrada=' + entrada)
   }
 
