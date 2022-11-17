@@ -72,7 +72,7 @@ public class Producto implements Serializable {
 	
 	/* Periodo de renta del producto. */
 	@Column(name="periodo_renta")
-	@Min(value=1, message="El días de renta deben de ser positivos")
+	@Min(value=3, message="El días de renta deben de ser positivos")
 	@Max(value=7, message="El días de renta deben de ser menores a 8")
 	private int periodoRenta;
 

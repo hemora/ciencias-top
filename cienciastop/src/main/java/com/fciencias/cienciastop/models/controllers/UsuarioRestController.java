@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +63,6 @@ public class UsuarioRestController {
 		return new ResponseEntity<List<Usuario>>(usuariosActivos,HttpStatus.OK); 
 	}
 	
-
-
 
 	/**Buscar usuarios por nombre */
 
@@ -149,7 +146,6 @@ public class UsuarioRestController {
         }
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
-
 	
 	@PostMapping("/usuarios")
 	@ResponseStatus(HttpStatus.CREATED)

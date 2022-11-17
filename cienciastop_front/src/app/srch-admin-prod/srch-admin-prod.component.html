@@ -1,0 +1,62 @@
+<div class="ver-prod-container">
+    <form action="" class="ver-prod-search-bar">
+        <input
+        type="text"
+        class="ver-prod-content input"
+        id="search"
+        name="buscar-prod"
+        placeholder="Buscar Productos ..."
+        [(ngModel)] ="entrada"
+        [formControl]="control">
+        
+        <!--
+        <input
+        type="submit"
+        class="ver-prod-buscar button"
+        id="btn-srch-admin-prod"
+        disabled
+        value="Buscar">
+        -->
+        <button
+            type="button"
+            id="btn-srch-admin-prod"
+            title="Buscar"
+            disabled
+            (click)="iniciarBusqueda()">
+            <i class='fa fa-search'></i>
+        </button>
+    </form>
+
+    <button type="button" [routerLink]="['/productos/agrega-prd']" class="ver-prod-agregar-prod button">
+        <img class="ver-prod-oplus" alt="oplus" src="/assets/playground_assets/carbonaddalt2093-or1v.svg" />
+        <span class="ver-prod-add-prod">Agregar producto</span>
+    </button> 
+
+    <table>
+        <thead>            
+            <tr>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="precio">Puma puntos</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="codigo">Codigo</th>
+                <th scope="col" [appSort]="productos" data-order="asc" data-name="currentStock">Unidades disponibles</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.codigo }}</td>
+                <td>{{ producto.currentStock }}</td>
+                <td>
+                    <a href="">
+                        <img src="/assets/playground_assets/pencil.svg">
+                    </a>
+                    <a (click)="delete(producto)">
+                        <img src="/assets/playground_assets/trash.svg">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

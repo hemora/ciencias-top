@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fciencias.cienciastop.models.entity.Producto;
+import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IProductoService;
+import com.fciencias.cienciastop.models.service.IUsuarioService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
@@ -34,6 +36,8 @@ public class ProductoRestController {
 	
 	@Autowired
 	private IProductoService productoService;
+	@Autowired
+	private IUsuarioService usuarioService;
 	
 	@GetMapping("/productos")
 	public List<Producto> index() {
@@ -249,7 +253,8 @@ public class ProductoRestController {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();
-		if(noCT == original) {
+		Usuario user = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+		if((user.getRol() == "Administrador") || (noCT == original)) {
 			//Eliminacion exitosa del producto.
 			productoService.delete(codigo);
 			response.put("mensaje", "El producto ha sido eliminado con exito");

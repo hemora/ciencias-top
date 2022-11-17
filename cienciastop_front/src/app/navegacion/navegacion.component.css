@@ -1,0 +1,164 @@
+.rectangle-1 {
+    position: absolute;
+    width: 368px;
+    height: 1028px;
+    left: 0px;
+    top: -54px;
+    background: #F5F5F5;
+}
+
+.navegacion {
+    position: absolute;
+    width: 344px;
+    height: 881px;
+    left: -11px;
+    top: 54px;
+}
+
+.verPerfil {
+    position: absolute;
+    width: 180px;
+    height: 209px;
+    left: 73.5px;
+    right: 116.5px;
+    top: 55px;
+    bottom: 760px;
+}
+
+.imagenPerfil {
+    position: absolute;
+    left: 36px;
+    top: 0px;
+    border-radius: 50%;
+}
+
+.nombreUsuario {
+    position: absolute;
+    top: 136px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    color: #000000;
+}
+
+.botonVerPerfil {
+    width: 143px;
+    height: 30px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 19px;
+    bottom: 0px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+.botonVerPerfilImg {
+    position: absolute;
+    left: -5px;
+    bottom: -6px;
+    border-radius: 5px;
+}
+
+.ojito {
+    position: absolute;
+    width: 23px;
+    height: 14px;
+    left: 40px;
+    bottom: 10px;
+    border-radius: 90%;
+
+}
+
+.botonVerPerfilNombre {
+    position: absolute;
+    width: 125px;
+    height: 25px;
+    left: -7px;
+    bottom: 2px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    color: #0B7FAB;
+}
+
+.navegarInicio {
+    position: absolute;
+    width: 306px;
+    height: 28px;
+    left: 28px;
+    top: 335px;
+    border: 0px;
+    background-color: #F5F5F5;
+}
+
+.inicioIcono {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    left: 0px;
+    top: 0px;
+}
+
+.inicio {
+    position: absolute;
+    left: 53px;
+    bottom: 0px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 22px;
+    color: #030303;
+}
+
+.navegarHistorial {
+    position: absolute;
+    width: 306px;
+    height: 28px;
+    left: 28px;
+    top: 395px;
+    border: 0px;
+    background-color: #F5F5F5;
+}
+
+.historialIcono {
+    position: absolute;
+    width: 32px;
+    height: 34px;
+    left: 0px;
+    top: 0px;
+}
+
+.historial {
+    position: absolute;
+    left: 53px;
+    bottom: 0px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.navegarSitioAdmin {
+    position: absolute;
+    width: 308px;
+    height: 155.88px;
+    left: 25.94px;
+    top: 402.12px;
+}
+
+.navegarCerrarSesion {
+    position: absolute;
+    left: 89px;
+    bottom: 73px;
+}

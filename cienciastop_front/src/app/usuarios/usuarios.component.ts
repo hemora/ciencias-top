@@ -21,7 +21,6 @@ export class UsuariosComponent implements OnInit {
       usuarios => this.usuarios = usuarios
     );
   }
-
   commitbusqueda() {
     this.usuarioService.busquedaAuxiliar(this.busqueda).subscribe(
       usuarioData => {

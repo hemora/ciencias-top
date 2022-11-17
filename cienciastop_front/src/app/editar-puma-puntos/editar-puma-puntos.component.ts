@@ -7,7 +7,6 @@ import { MonederoService } from './monedero.service';
 import {formatDate} from '@angular/common';
 import { Usuario } from '../usuarios/usuario';
 
-
 @Component({
   selector: 'app-editar-puma-puntos',
   templateUrl: './editar-puma-puntos.component.html',
@@ -45,7 +44,6 @@ export class EditarPumaPuntosComponent implements OnInit {
         this.monedero = response.monedero;
       }
     );
-
   }
 
   onSubmit() {
@@ -94,6 +92,4 @@ export class EditarPumaPuntosComponent implements OnInit {
       this.router.navigateByUrl('/usuarios/editar', { state: this.usuario });
     }
   }
-  
-
 }

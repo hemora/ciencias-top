@@ -1,0 +1,54 @@
+verProducto {
+    position: absolute;
+    width: 1440px;
+    height: 1024px;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+}
+
+.nombreProducto {
+    position: absolute;
+    width: 959px;
+    height: 62px;
+    left: 416px;
+    top: 162px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 47px;
+    color: #000000;
+}
+
+.imagenProducto {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    left: 420px;
+    top: 226px;
+}
+
+.tabla{
+    position: absolute;
+    width: 500px;
+    height: 400px;
+    left: 750px;
+    top: 340px;
+}
+table {
+    width: 150%;
+    border: 1px solid #000;
+
+ }
+thead, tfoot {
+    
+    color: white;
+    font-family: 'Rock Salt', cursive;
+  }
+  
+  th, td {
+    
+   border: 1px solid #000;
+   border-collapse: collapse;
+  }

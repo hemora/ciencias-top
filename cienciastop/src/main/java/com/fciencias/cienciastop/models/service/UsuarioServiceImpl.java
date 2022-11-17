@@ -21,7 +21,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return (List<Usuario>) usuarioDao.encontrarPorStatus(1);
 	}
 
-	
 	@Override
 	@Transactional(readOnly=true)
 	public List<Usuario> buscarUsuarioPorNombre(String nombre) {
@@ -38,8 +37,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuario;
 	}
 
-
-	
 	@Transactional(readOnly=true)
 	public Usuario buscarUsuarioPorNoCT(Long noCT) {
 		Usuario usuario = usuarioDao.encontrarPorNoCT(noCT);
@@ -67,7 +64,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
 							usuario.getRol(),
 							usuario.getContrasenya());
 	}*/
-
 	@Transactional
 	public Usuario guardar(Usuario usuario) {
 		Usuario usuarioGuardado = usuarioDao.encontrarPorCorreo(usuario.getCorreo());		
