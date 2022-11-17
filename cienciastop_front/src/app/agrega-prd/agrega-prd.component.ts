@@ -24,7 +24,7 @@ export class AgregaPrdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.setItem("noCT", "316284467");
+    localStorage.setItem("noCT", "123456789");
   }
 
   public create():void{
