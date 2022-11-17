@@ -16,6 +16,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
+  private monederoEndPoint:string = 'http://localhost:8080/api/monederos';
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint).pipe(
@@ -38,6 +39,16 @@ export class UsuarioService {
       })
     );
   }
+
+  activarCrearMonedero(noCT: number): Observable<any> {
+    return this.http.post<any>(this.monederoEndPoint + '/' + noCT, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire('Error al reactivar/crear monedero', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    );
+  }
+
 
   buscarUsuario(noCT: number) {
     return this.http.get<any>(this.urlEndPoint + '/' + noCT).pipe(

@@ -74,6 +74,12 @@ export class AgregarUsrComponent implements OnInit {
         console.log(usuarioData);
         //Llamamos al método de redirección para volver a la lista de usuarios
         Swal.fire('Se ha creado un nuevo usuario', `El ${usuarioData.usuario.rol} se añadió con éxito`, 'success');
+        this.usuarioService.activarCrearMonedero(this.usuario.noCT).subscribe(
+          monederoData => {
+            console.log(monederoData);
+          },
+          error => console.log(error)
+        )
         this.redirectusuarioList();
       },
       error => console.log(error));
