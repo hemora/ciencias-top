@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../productos/producto';
 import { ProductoService } from '../productos/producto.service';
 import { catchError } from 'rxjs';
+import { SrchUserProdService } from '../srch-user-prod/srch-user-prod.service';
 
 @Component({
   selector: 'app-ver-productos',
@@ -11,13 +12,13 @@ import { catchError } from 'rxjs';
 })
 export class VerProductosComponent implements OnInit {
 
-  producto: Producto = new Producto;
+  producto: any;
 
   constructor(private productoService: ProductoService, private rutaActiva: ActivatedRoute) { }
   
   ngOnInit(): void {
     this.productoService.getProducto(this.rutaActiva.snapshot.params['codigo']).subscribe(
-      busqueda => this.producto = busqueda[0]
+      busqueda => this.producto = busqueda
     );
   }
 

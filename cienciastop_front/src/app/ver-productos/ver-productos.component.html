@@ -1,5 +1,5 @@
 <div  class="verProducto">
-    <div class="nombreProducto">{{producto.nombre}}</div>
+    <div class="nombreProducto">{{ producto.nombre }}</div>
     <img src="{{producto.imagen}}" alt="ImagenProducto-{{producto.codigo}}" class="imagenProducto">
     <div class="descripcion">Descripción:
         <p class="descripcionTexto">
@@ -10,9 +10,9 @@
         <img src="/assets/images/pumaPuntitosIcon.svg" alt="PumaPuntitosIcono" class="pumaPuntitos">
         <div class="cantidad">{{producto.precio}}</div>
     </div>
-    <div class="disponibles">Disponibles: {{producto.currentStock}}/{{producto.stockInicial}}</div>
-    <div class="renta">Renta por: {{producto.periodoRenta}} días</div>
-    <div class="codigo">Código: {{producto.codigo}}</div>
+    <div class="disponibles">Disponibles: {{ producto.currentStock }} / {{ producto.stockInicial }}</div>
+    <div class="renta">Renta por: {{ producto.periodoRenta }} días</div>
+    <div class="codigo">Código: {{ producto.codigo }}</div>
     <div class="botonRentar">
         <button class="boton" [disabled]="producto.currentStock == 0">RENTAR</button>
     </div>
