@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +18,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
-import com.fciencias.cienciastop.models.service.UsuarioServiceImpl;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -156,7 +150,8 @@ public class UsuarioRestController {
 			usuarioNuevo = usuarioService.guardar(usuario);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
-			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error",aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 			// TODO: handle exception
 		}
@@ -188,7 +183,8 @@ public class UsuarioRestController {
 			usuarioEditado = usuarioService.guardar(currentUsuario);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el usuario en la base de datos.");
-			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error",aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "El usuario se ha editado correctamente.");
