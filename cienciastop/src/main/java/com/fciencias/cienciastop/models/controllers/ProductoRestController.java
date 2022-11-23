@@ -152,7 +152,8 @@ public class ProductoRestController {
 		}catch(DataAccessException e) {
 			//Error del servidor
 			response.put("mensaje", "Error al agregar a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "El producto ha sido creado con exito");
@@ -202,7 +203,8 @@ public class ProductoRestController {
 			currentProd = productoService.findByCodigo(codigo);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Verificamos que exista un producto con el codigo proporcionado
@@ -232,7 +234,8 @@ public class ProductoRestController {
 			newProd=productoService.save(currentProd);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Si llegamos hasta acá es porque la edición fue valida
