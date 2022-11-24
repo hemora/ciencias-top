@@ -14,8 +14,11 @@ public interface IProductoDao extends CrudRepository<Producto, String> {
 	 * @param nombre el nombre que se buscara.
 	 * @return una lista de productos que contienen la cadena ingresada en su nombre.
 	 */
+	// @Query(
+	//		value = "SELECT * FROM productos WHERE productos.nombre LIKE %?1%",
+	//		nativeQuery = true)
 	@Query(
-			value = "SELECT * FROM productos WHERE productos.nombre LIKE %?1%",
+			value= "SELECT * FROM productos WHERE LOWER(nombre) LIKE %?1% OR nombre LIKE %?1% ", 
 			nativeQuery = true)
 	public List<Producto> buscarPorNombre(String nombre);
 }
