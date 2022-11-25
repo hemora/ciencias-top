@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fciencias.cienciastop.models.entity.Monedero;
@@ -92,7 +90,8 @@ public class MonederoRestController {
             monederoService.save(nuevoMonedero);
         } catch (DataAccessException e) {
             response.put("mensaje","ERROR: Error al actualizar el balance en la base de datos");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            String aux = "" + e.getMessage() + ": ";
+            response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -135,7 +134,8 @@ public class MonederoRestController {
             monederoActualizado = monederoService.save(monederoActual);
         } catch (DataAccessException e) {
             response.put("mensaje","ERROR: Error al actualizar el balance en la base de datos");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            String aux = "" + e.getMessage() + ": ";
+            response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -159,7 +159,8 @@ public class MonederoRestController {
                 this.monederoService.deshabilitar(ownerId);
             } catch (DataAccessException e) {
                 response.put("mensaje","ÉXITO: Error al intentar desactivar el monedero");
-                response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+                String aux = "" + e.getMessage() + ": ";
+                response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
             response.put("mensaje", "Monedero desactivado correctamente");

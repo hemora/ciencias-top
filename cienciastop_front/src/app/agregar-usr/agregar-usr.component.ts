@@ -34,7 +34,6 @@ export class AgregarUsrComponent implements OnInit {
     }
   ]
 
-
   constructor(private usuarioService: UsuarioService, private router: Router, private fb: FormBuilder) { 
     this.createForm();
   }
@@ -88,5 +87,5 @@ export class AgregarUsrComponent implements OnInit {
   //Redirección a lista de usuarios
   redirectusuarioList() {
     this.router.navigate(['/usuarios']);
-  }  
+  }
 }

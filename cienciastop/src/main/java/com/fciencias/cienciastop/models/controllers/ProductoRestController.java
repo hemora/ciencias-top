@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fciencias.cienciastop.models.entity.Producto;
+import com.fciencias.cienciastop.models.entity.Usuario;
 import com.fciencias.cienciastop.models.service.IProductoService;
+import com.fciencias.cienciastop.models.service.IUsuarioService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
@@ -34,6 +36,8 @@ public class ProductoRestController {
 	
 	@Autowired
 	private IProductoService productoService;
+	@Autowired
+	private IUsuarioService usuarioService;
 	
 	@GetMapping("/productos")
 	public List<Producto> index() {
@@ -148,7 +152,8 @@ public class ProductoRestController {
 		}catch(DataAccessException e) {
 			//Error del servidor
 			response.put("mensaje", "Error al agregar a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "El producto ha sido creado con exito");
@@ -198,7 +203,8 @@ public class ProductoRestController {
 			currentProd = productoService.findByCodigo(codigo);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Verificamos que exista un producto con el codigo proporcionado
@@ -228,7 +234,8 @@ public class ProductoRestController {
 			newProd=productoService.save(currentProd);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Si llegamos hasta acá es porque la edición fue valida
@@ -249,7 +256,8 @@ public class ProductoRestController {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();
-		if(noCT == original) {
+		Usuario user = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+		if((user.getRol() == "Administrador") || (noCT == original)) {
 			//Eliminacion exitosa del producto.
 			productoService.delete(codigo);
 			response.put("mensaje", "El producto ha sido eliminado con exito");
