@@ -2,25 +2,25 @@
     <table class="tab1">
         <thead>         
             <tr>
-                <td bgcolor="#139bd1" colspan="2">Incritos por Carrera</td>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Inscritos por Carrera</th>
             </tr>
             <tr>
-                <th>Carrera</th>
-                <th>Usuarios activos</th>
+                <th scope="col" [appSort]="agrupamiento" data-order="asc" data-name="usrActivosC">Usuarios registrados</th>
+                <th scope="col" [appSort]="agrupamiento" data-order="asc" data-name="carrera">Carrera</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Ciencias de la compuacion</th>
-                <th>1234</th>
+            <tr *ngFor="let row of agrupamiento; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
             </tr>
+
         </tbody>
     </table>
 
     <table class="tab2">
         <thead> 
             <tr>
-                <td bgcolor="#139bd1" colspan="4">Top 5 productos mas rentados</td>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 productos mas rentados</th>
             </tr>           
             <tr>
                 <th>Nombre</th>
@@ -42,7 +42,7 @@
     <table class="tab3">
         <thead> 
             <tr>
-                <td bgcolor="#139bd1" colspan="4">Cuentas inactivas</td>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Cuentas inactivas</th>
             </tr>           
             <tr>
                 <th>Nombre</th>
@@ -64,19 +64,19 @@
     <table class="tab4">
         <thead> 
             <tr>
-                <td bgcolor="#139bd1" colspan="3">Top 10 productos mas baratos</td>
+                <th bgcolor="#139bd1" colspan="3" class="titleTalbe">Top 5 productos mas baratos</th>
             </tr>           
             <tr>
-                <th>Nombre</th>
-                <th>Puma puntos</th>
-                <th>Codigo</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="precio">Puma puntos</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="codigo">Codigo</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Twilight</th>
-                <th>321</th>
-                <th>321</th>
+            <tr *ngFor="let producto of pMasBaratos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.codigo }}</td>
             </tr>
         </tbody>
     </table>
@@ -84,7 +84,7 @@
     <table class="tab5">
         <thead> 
             <tr>
-                <td bgcolor="#139bd1" colspan="4">Top 10 usuarios con mas retardos</td>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 10 usuarios con mas retardos</th>
             </tr>           
             <tr>
                 <th>Nombre</th>
@@ -106,7 +106,7 @@
     <table class="tab6">
         <thead> 
             <tr>
-                <td bgcolor="#139bd1" colspan="4">Top 5 usuarios con mas rentas en la semana</td>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 usuarios con mas rentas en la semana</th>
             </tr>           
             <tr>
                 <th>Nombre</th>
