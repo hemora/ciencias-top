@@ -19,7 +19,7 @@
   
   .tab1 {
     left: 50px;
-    top: 140px;
+    top: 80px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
@@ -27,7 +27,7 @@
 
   .tab2 {
     left: 50px;
-    top: 240px;
+    top: 180px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
@@ -35,7 +35,7 @@
 
   .tab3 {
     left: 50px;
-    top: 340px;
+    top: 280px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
@@ -43,7 +43,7 @@
 
   .tab4 {
     left: 50px;
-    top: 440px;
+    top: 380px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
@@ -51,7 +51,7 @@
 
   .tab5 {
     left: 50px;
-    top: 540px;
+    top: 480px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
@@ -59,7 +59,7 @@
 
   .tab6 {
     left: 50px;
-    top: 640px;
+    top: 580px;
     position: relative;      
     border-collapse: collapse;
     width: 90%;
