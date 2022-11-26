@@ -18,4 +18,10 @@ public interface IUsuarioService {
 	public int borrar(Long noCT);
 
 	public Usuario editar(Usuario usuario);
+
+	/**
+	 * Agrupar usuarios por carrera.
+	 * @return una lista de usuarios agrupados por su carrera.
+	 */
+	public List<Usuario> agruparPorCarrera();
 }

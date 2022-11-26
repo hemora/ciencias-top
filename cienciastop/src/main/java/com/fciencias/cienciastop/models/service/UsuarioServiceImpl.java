@@ -94,4 +94,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuarioDao.save(usuario);
 	}
 
+	/**
+	 * Agrupar usuarios por carrera.
+	 * @return una lista de usuarios agrupados por su carrera.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Usuario> agruparPorCarrera() {
+		return usuarioDao.agruparPorCarrera();
+	}
+
 }

@@ -55,4 +55,13 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	@Transactional
 	@Query(value ="UPDATE usuarios SET status = 0 WHERE noCT = :noCT", nativeQuery = true)
 	Integer desactivar(@Param("noCT") Long noCT);
+
+	/**
+	 * Agrupar usuarios por carrera.
+	 * @return una lista de usuarios agrupados por su carrera.
+	 */
+	@Query(
+			value= "SELECT COUNT(noCT) carrera FROM usuarios GROUP BY noCT ", 
+			nativeQuery = true)
+	public List<Usuario> agruparPorCarrera();
 }
