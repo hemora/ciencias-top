@@ -23,5 +23,5 @@ public interface IUsuarioService {
 	 * Agrupar usuarios por carrera.
 	 * @return una lista de usuarios agrupados por su carrera.
 	 */
-	public List<Usuario> agruparPorCarrera();
+	public List<Object[]> agruparPorCarrera();
 }

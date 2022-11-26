@@ -213,7 +213,7 @@ public class UsuarioRestController {
 	 */
 	@GetMapping("/agrupado-carrera")
 	public ResponseEntity<?> agruparPorCarrera() {
-		List<Usuario> agrupamiento;
+		List<Object[]> agrupamiento;
 		HttpStatus status;
 		Map<String, Object> response = new HashMap<>();
 		String mensaje;
@@ -231,10 +231,10 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, status);
 		}
 		if (agrupamiento == null) {
-			agrupamiento = new ArrayList<Usuario>();
+			agrupamiento = new ArrayList<Object[]>();
 		}
 		status = HttpStatus.OK;
-		return new ResponseEntity<List<Usuario>>(agrupamiento, status);
+		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
 	}
 	
 }
