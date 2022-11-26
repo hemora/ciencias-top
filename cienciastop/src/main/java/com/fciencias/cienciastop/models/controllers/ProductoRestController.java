@@ -266,7 +266,41 @@ public class ProductoRestController {
 		}
 		//Usuario sin permisos sobre el producto.
 		response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
-		
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);	
 	}
+
+	/**
+	 * Regresa la lista del top 5 de los productos que requieren menor
+	 * cantidad de puma puntos.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el tipo de error.
+	 * @return la lista del top 5 de los productos que requieren menor
+	 * cantidad de puma puntos.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el tipo de error.
+	 */
+	@GetMapping("/top-5-baratos")
+	public ResponseEntity<?> topFiveBaratos() {
+		List<Producto> topFive;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			topFive = productoService.topFiveBaratos();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (topFive == null || topFive.isEmpty()) {
+			topFive = new ArrayList<Producto>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Producto>>(topFive, status);
+	}
+	
 }
