@@ -37,4 +37,16 @@ export class ReportesService {
       })
     )
   }
+
+  agrupamientoStatus(): Observable<Object[]> {
+    var newUrl: string = this.urlEndPoint;
+    newUrl += "/agrupado-status";
+    return this.http.get<Object[]>(newUrl)
+      .pipe(
+      catchError(e => {
+        Swal.fire('Error al buscar', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
+  }
 }

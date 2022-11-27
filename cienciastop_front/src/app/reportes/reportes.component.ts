@@ -12,8 +12,9 @@ import { ReportesService } from './reportes.service';
 export class ReportesComponent implements OnInit {
 
   control = new FormControl();
-  agrupamiento: Object[];
+  groupCarrera: Object[];
   pMasBaratos: Producto[];
+  groupStatus: Object[];
 
   constructor(
     private route: Router,
@@ -23,17 +24,24 @@ export class ReportesComponent implements OnInit {
   ngOnInit(): void {
     this.agrupamientoCarrera();
     this.topFiveBaratos();
+    this.agrupamientoStatus();
   }
 
   public agrupamientoCarrera(): void {
     this.reportesService.agrupamientoCarrera().subscribe(
-      agrupamiento => this.agrupamiento = agrupamiento
+      groupCarrera => this.groupCarrera = groupCarrera
     );
   }
 
   public topFiveBaratos(): void {
     this.reportesService.topFiveBaratos().subscribe(
       pMasBaratos => this.pMasBaratos = pMasBaratos
+    );
+  }
+
+  public agrupamientoStatus(): void {
+    this.reportesService.agrupamientoStatus().subscribe(
+      groupStatus => this.groupStatus = groupStatus
     );
   }
 
