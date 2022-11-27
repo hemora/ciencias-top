@@ -187,8 +187,8 @@ public class ProductoRestController {
 	 * @param Producto producto - representado en un Json
 	 * @param codigo identificador del producto que queremos editar
 	 */
-	@PutMapping("/productos/{codigo}/editar")
-	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo) {//long noCT
+	@PutMapping("/productos/{codigo}/editar/{noCT}")
+	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo,@PathVariable long noCT) {//long noCT
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {
 			Map<String,Object> response = new HashMap<>();
@@ -203,8 +203,7 @@ public class ProductoRestController {
 			currentProd = productoService.findByCodigo(codigo);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			String aux = "" + e.getMessage() + ": ";
-			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Verificamos que exista un producto con el codigo proporcionado
@@ -212,6 +211,12 @@ public class ProductoRestController {
 			response.put("mensaje", "No se puede editar este producto");
 			response.put("error", "porque no existe un producto con el código:".concat(codigo.concat(" en nuestra base de datos."))	);
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		long original = currentProd.getnoCT();
+		if(noCT != original) {
+			//Usuario sin permisos sobre el producto.
+			response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
 		}
 		try {
 			// actualizacion de los atributos
@@ -231,18 +236,17 @@ public class ProductoRestController {
 			currentProd.setTipo(producto.getTipo());
 			currentProd.setCategoria(producto.getCategoria());
 			currentProd.setPeriodoRenta(producto.getPeriodoRenta());
+			currentProd.setnoCT(noCT);
 			newProd=productoService.save(currentProd);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta del producto relacionado con este código en la base de datos.");
-			String aux = "" + e.getMessage() + ": ";
-			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Si llegamos hasta acá es porque la edición fue valida
 		//response.put("mensaje", "El producto ha sido actualizado con éxito");
 		//response.put("producto", newProd);
 		return new ResponseEntity<Producto>(newProd, HttpStatus.OK);
-		//return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 	
 	/**

@@ -24,6 +24,7 @@ import { SrchUserProdComponent } from './srch-user-prod/srch-user-prod.component
 import { AgregaPrdComponent } from './agrega-prd/agrega-prd.component';
 import { RentaAdminComponent } from './renta-admin/renta-admin.component';
 import { RentasUsrComponent } from './rentas-usr/rentas-usr.component';
+import { EditarProdComponent } from './editar-prod/editar-prod.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -37,7 +38,9 @@ const routes: Routes = [
   {path: "usuarios/pumapuntos", component: EditarPumaPuntosComponent},
   {path: 'ver-productos/:codigo', component: VerProductosComponent },
   {path: 'renta-admin', component: RentaAdminComponent },
-  {path: 'rentas-usr', component: RentasUsrComponent}
+  {path: 'rentas-usr', component: RentasUsrComponent},
+  {path: 'productos/editar-prod', component: EditarProdComponent},
+  {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
 ]
 
 @NgModule({
@@ -60,7 +63,8 @@ const routes: Routes = [
     SrchUserProdComponent,
     AgregaPrdComponent,
     RentaAdminComponent,
-    RentasUsrComponent
+    RentasUsrComponent,
+    EditarProdComponent
   ],
   
   imports: [
