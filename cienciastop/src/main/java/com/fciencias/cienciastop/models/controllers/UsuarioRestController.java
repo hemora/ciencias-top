@@ -265,6 +265,20 @@ public class UsuarioRestController {
 		if (agrupamiento == null) {
 			agrupamiento = new ArrayList<Object[]>();
 		}
+		
+		// Cambia 0 por Inactivos y 1 por Activos
+		for (int i = 0; i < agrupamiento.size(); i++) {
+			Object objetos[] = agrupamiento.get(i);
+			int cast = Integer.valueOf(objetos[1].toString());
+			if (cast == 0) {
+				objetos[1] = "Inactivos";
+			}
+			if (cast == 1) {
+				objetos[1] = "Activos";
+			}
+			agrupamiento.set(i, objetos);
+		}
+
 		status = HttpStatus.OK;
 		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
 	}
