@@ -24,4 +24,10 @@ public interface IUsuarioService {
 	 * @return una lista de usuarios agrupados por su carrera.
 	 */
 	public List<Object[]> agruparPorCarrera();
+
+	/**
+	 * Regresa la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
+	 */
+	public List<Object[]> agruparPorStatus();
 }

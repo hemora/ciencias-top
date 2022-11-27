@@ -64,4 +64,13 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 			value= "SELECT COUNT(noCT), carrera FROM usuarios WHERE status=1 GROUP BY carrera ", 
 			nativeQuery = true)
 	public List<Object[]> agruparPorCarrera();
+
+	/**
+	 * Regresa la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
+	 */
+	@Query(
+			value= "SELECT COUNT(noCT), status FROM usuarios GROUP BY status ", 
+			nativeQuery = true)
+	public List<Object[]> agruparPorStatus();
 }

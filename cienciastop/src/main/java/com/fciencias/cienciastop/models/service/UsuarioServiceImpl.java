@@ -104,4 +104,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		return usuarioDao.agruparPorCarrera();
 	}
 
+	/**
+	 * Regresa la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Object[]> agruparPorStatus() {
+		return usuarioDao.agruparPorStatus();
+	}
 }

@@ -206,7 +206,7 @@ public class UsuarioRestController {
     }
 
 	/**
-	 * Agrupar usuarios por carrera..
+	 * Agrupar usuarios por carrera.
 	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
 	 * @return una lista de usuarios agrupados por su carrera.
 	 * Si existe un error en la base de datos se manda un mensaje de error.
@@ -236,5 +236,36 @@ public class UsuarioRestController {
 		status = HttpStatus.OK;
 		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
 	}
-	
+
+	/**
+	 * Regresa la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/agrupado-status")
+	public ResponseEntity<?> agruparPorStatus() {
+		List<Object[]> agrupamiento;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			agrupamiento = usuarioService.agruparPorStatus();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (agrupamiento == null) {
+			agrupamiento = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
+	}
 }
