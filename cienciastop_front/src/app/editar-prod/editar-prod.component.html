@@ -25,11 +25,11 @@
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Stock Inicial</label>
                 <div class="col-sm-6">
-                    <input formControlName= "stock_inicial" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.stock_inicial" name="stock_inicial">
+                    <input formControlName= "stockInicial" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.stock_inicial" name="stock_inicial">
                 </div>
             </div>
-            <div *ngIf="angForm.controls['stock_inicial'].invalid && (angForm.controls['stock_inicial'].dirty || angForm.controls['stock_inicial'].touched)" class="alert alert-danger">
-                <div *ngIf="angForm.controls['stock_inicial'].errors">
+            <div *ngIf="angForm.controls['stockInicial'].invalid && (angForm.controls['stockInicial'].dirty || angForm.controls['stockInicial'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['stockInicial'].errors">
                     Ingrese el número de existencias inicales del producto.
                 </div>
             </div>
@@ -37,11 +37,11 @@
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Current Stock</label>
                 <div class="col-sm-6">
-                    <input formControlName= "current_stock" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.current_stock" name="current_stock">
+                    <input formControlName= "currentStock" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.current_stock" name="currentStock">
                 </div>
             </div>
-            <div *ngIf="angForm.controls['current_stock'].invalid && (angForm.controls['current_stock'].dirty || angForm.controls['current_stock'].touched)" class="alert alert-danger">
-                <div *ngIf="angForm.controls['current_stock'].errors">
+            <div *ngIf="angForm.controls['currentStock'].invalid && (angForm.controls['currentStock'].dirty || angForm.controls['currentStock'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['currentStock'].errors">
                     Ingrese el número de existencias inicales del producto.
                 </div>
             </div>
@@ -96,13 +96,13 @@
             </div>
             
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">Dias para Rentar</label>
+                <label for="" class="col-form-label col-sm-2">Dias que se renta</label>
                 <div class="col-sm-6">
-                    <input formControlName= "periodo_renta" type="number" pattern="[3-7]*" min="3" max="7" class="form-control" [(ngModel)]="producto.periodo_renta"  name="periodo_renta">
+                    <input formControlName= "periodoRenta" type="number" pattern="[3-7]*" min="3" max="7" class="form-control" [(ngModel)]="producto.periodo_renta"  name="periodoRenta">
                 </div>
             </div>
-            <div *ngIf="angForm.controls['periodo_renta'].invalid && (angForm.controls['periodo_renta'].dirty || angForm.controls['periodo_renta'].touched)" class="alert alert-danger">
-                <div *ngIf="angForm.controls['periodo_renta'].errors">
+            <div *ngIf="angForm.controls['periodoRenta'].invalid && (angForm.controls['periodoRenta'].dirty || angForm.controls['periodoRenta'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['periodoRenta'].errors">
                     El periodo de Renta de un producto debe ser entre 3 y 7 dias.
                 </div>
             </div>

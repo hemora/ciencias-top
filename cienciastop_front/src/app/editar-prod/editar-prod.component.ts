@@ -30,6 +30,7 @@ export class EditarProdComponent implements OnInit {
   cargarProducto(): void{
     this.activateRoute.params.subscribe(params => {
       let codigo = params['codigo']
+      console.log("Codigo del producto que buscaremos cargar ");
       console.log(codigo);
       if(codigo){
         this.productoService.getProducto(codigo).subscribe((producto) => this.producto = producto)
@@ -43,7 +44,7 @@ export class EditarProdComponent implements OnInit {
   ngOnInit(): void {
     //this.prod = history.state;
     this.cargarProducto()
-    console.log(this.producto);
+    //console.log(this.producto);
   }
   // Metodo que crea el formulario
 
@@ -63,18 +64,19 @@ export class EditarProdComponent implements OnInit {
       //imagen: new FormControl({ imagen: this.producto.imagen }, Validators.compose([Validators.required]))
     });
   }
+  // Metodo que usamos para crear el formulario
   createForm2() {
     //this.angForm = new FormGroup({
     this.angForm = this.fb.group({
       nombre: new FormControl('', [Validators.required] ),
       //codigoP: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(12)] ),
-      stock_inicial: new FormControl('', [Validators.required] ),
-      current_stock: new FormControl('', [Validators.required] ),
+      stockInicial: new FormControl('', [Validators.required] ),
+      currentStock: new FormControl('', [Validators.required] ),
       precio: new FormControl('', [Validators.required] ),
       descripcion: new FormControl('', [Validators.required] ),
       tipo: new FormControl('', [Validators.required] ),
       categoria: new FormControl('', [Validators.required] ),
-      periodo_renta: new FormControl('', [Validators.required] ),
+      periodoRenta: new FormControl('', [Validators.required] ),
       imagen: new FormControl('', [Validators.required]),
       //noCT: new FormControl('', [Validators.required])
     });
@@ -84,8 +86,8 @@ export class EditarProdComponent implements OnInit {
   //Se encarga de disparar el método de guardado de productos
   onSubmitForm():void {
     if (this.angForm.valid) {
+      console.log("prod que se va a enviar");
       console.log(this.producto);
-      console.log("lo que se va a enviar");
       this.commitProd();
     } else {
       Swal.fire('Error al editar un prod', 'El form está incompleto o es incorrecto, intenta de nuevo.', 'error');
@@ -93,6 +95,7 @@ export class EditarProdComponent implements OnInit {
   }
   //Este método llama al editarProd de usuarioService.
   commitProd():void{
+
     this.productoService.editarProd(this.producto).subscribe(response => 
       {
         console.log(response.producto);
