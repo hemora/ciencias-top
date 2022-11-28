@@ -28,7 +28,7 @@ export class ProductoService {
     return this.http.post<Producto>(`${this.urlEndPoint}/${localStorage.getItem("noCT")}`, producto, {headers: this.httpHeaders} )
   }
 
-  getProducto(codigo): Observable<Producto>{
+  getProducto(codigo:string): Observable<Producto>{
     return this.http.get<Producto>(`${this.urlEndPoint}/${codigo}`).pipe(
       catchError(e => {
         this.router.navigate(['/productos']); // Para redireccionar a productos
@@ -43,13 +43,15 @@ export class ProductoService {
     return this.http.delete<Producto>(`${this.urlEndPoint}/${codigo}/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders})
   }
 
-  editarProd(prod:Producto): Observable<Producto>{
+  editarProd(prod:Producto): Observable<any>{
     //console.log(localStorage.getItem("noCT"));
-    console.log("adios");
+    console.log("antes del put");
+    // el noCT del que agrego este producto
     //return this.http.put<Producto>(`${this.urlEndPoint}/${prod.codigo}/editar/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders}).pipe(
-      return this.http.put<Producto>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, {headers: this.httpHeaders}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,{headers: this.httpHeaders}).pipe(
       catchError( e => {
-        Swal.fire('Error al editar el usuario', `${e.error.mensaje}: ${e.error.error}`, 'error');
+        //Swal.fire('Error al editar el usuario', `${e.error.mensaje}: ${e.error.error}`, 'error');
+        Swal.fire(e.error.mensaje,  e.error.error, 'error');
         return throwError( () => e );
       })
     )

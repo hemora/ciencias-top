@@ -180,15 +180,16 @@ public class ProductoRestController {
 	}
 
 	/**
-	 * Metodo que se encarga de editar un producto, ignorando el codigo
+	 * Metodo que se encarga de editar un producto, ignorando el codigo y el noCT
 	 * del producto proporcionado en el JSON, ya que la edición será sobre
-	 * el producto relacionado con el codigo proporcionado en el path.
+	 * el producto relacionado con el codigo proporcionado en el path y el noCT
+	 * ya que el noCT sera obtenido desde el login, se tiene que trear desde el Front.
 	 * 
 	 * @param Producto producto - representado en un Json
 	 * @param codigo identificador del producto que queremos editar
-	 */
-	@PutMapping("/productos/{codigo}/editar/{noCT}")
-	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo,@PathVariable long noCT) {//long noCT
+	 *///317804511
+	@PutMapping("/productos/{codigo}/editar/{noCT}") // el noCT del que agrego este producto /{noCT} 
+	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {
 			Map<String,Object> response = new HashMap<>();
@@ -244,9 +245,42 @@ public class ProductoRestController {
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		// Si llegamos hasta acá es porque la edición fue valida
-		//response.put("mensaje", "El producto ha sido actualizado con éxito");
-		//response.put("producto", newProd);
-		return new ResponseEntity<Producto>(newProd, HttpStatus.OK);
+		response.put("mensaje", "El producto ha sido actualizado con éxito");
+		response.put("producto", newProd);
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/productos/{codigo}/prod")
+	public ResponseEntity<?> getProducto(@PathVariable String codigo) {
+		Producto producto = null;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			producto = productoService.findByCodigo(codigo);
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		// Codigo correcto
+		if (producto != null) {
+			status = HttpStatus.OK;
+			response.put("mensaje", "El usuario se ha editado correctamente.");
+			response.put("producto",producto);
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
+		}
+		// Error con el ID
+		mensaje = String.format("El producto con Codigo: %s no existe", codigo);
+		response.put("mensaje", mensaje);
+		status = HttpStatus.NOT_FOUND;
+		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 	
 	/**
