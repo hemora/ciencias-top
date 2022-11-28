@@ -1,0 +1,114 @@
+.ver-perfil-container {
+    top: 80px;
+    width: 80%;
+    left: 20%;
+    position: absolute;
+}
+
+.ver-perfil-perfil {
+    width: 50%;    
+    float: left;
+    padding: 10px;
+}
+
+.izq {
+    width: 50%;
+    height: 100%;
+    float: left;
+    padding: 10px;
+}
+
+.ver-perfil-dev, .ver-perfil-rent {
+    height: 50%;
+    float: top;
+    padding: 20px;
+    padding-left: 15%;
+}
+
+.ver-perfil-cad {
+    top: 600px;
+    width: 400px;
+    height: auto;
+    position: absolute;    
+    padding: 10px;    
+    text-align: center;
+    border-radius: 20px;        
+    background-color: rgb(245, 211, 22);
+}
+
+.ver-perfil-text41 {              
+    font-size: 26.5px;        
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;              
+    color: rgba(245, 245, 245, 1);    
+}
+.ver-perfil-text42 {               
+    font-size: 26.5px;        
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;              
+    color: gray;    
+}
+.ver-perfil-rentas {    
+    width: 400px;
+    position: absolute;
+    height: auto;    
+    font-size: 26.5px;        
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;    
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(11, 127, 171);
+    color: rgba(245, 245, 245, 1);    
+}
+
+form {
+    top: 5px;
+    padding-left: 5%;
+    width: 90%;
+    margin: 20px auto 0 auto;
+    box-sizing: border-box;
+    border-radius: 0px;    
+    border-left: 1px solid #111;    
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+}
+
+input:not(.ver-perfil-carrera input, .ver-perfil-telefono input, .ver-perfil-noCT input) {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    border-radius: 6px;
+    border: 1px solid #8a8a8a;
+}
+.ver-perfil-carrera input, .ver-perfil-telefono input {
+    width: 55%;
+    padding: 8px;  
+    border-radius: 6px;
+    border: 1px solid #8a8a8a;    
+}
+.ver-perfil-telefono input, .ver-perfil-noCT input {
+    width: 35%;
+    padding: 8px;    
+    border-radius: 6px;
+    border: 1px solid #8a8a8a;    
+}
+
+.ver-perfil-pumapuntos {    
+    height: 200px;
+    box-sizing: border-box;    
+    display: block;    
+    width: 80%;
+    margin: 40px;
+    padding: 20px;    
+    border-radius: 6px;       
+    color: #fff;    
+    background-color: rgb(11, 127, 171);
+}
