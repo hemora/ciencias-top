@@ -25,6 +25,7 @@ import { AgregaPrdComponent } from './agrega-prd/agrega-prd.component';
 import { RentaAdminComponent } from './renta-admin/renta-admin.component';
 import { RentasUsrComponent } from './rentas-usr/rentas-usr.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { EditarProdComponent } from './editar-prod/editar-prod.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -39,7 +40,9 @@ const routes: Routes = [
   {path: 'ver-productos/:codigo', component: VerProductosComponent },
   {path: 'renta-admin', component: RentaAdminComponent },
   {path: 'rentas-usr', component: RentasUsrComponent},
-  {path: 'reportes', component: ReportesComponent}
+  {path: 'reportes', component: ReportesComponent},
+  {path: 'productos/editar-prod', component: EditarProdComponent},
+  {path: 'productos/editar-prod/:codigo', component: EditarProdComponent}
 ]
 
 @NgModule({
@@ -63,7 +66,8 @@ const routes: Routes = [
     AgregaPrdComponent,
     RentaAdminComponent,
     RentasUsrComponent,
-    ReportesComponent
+    ReportesComponent,
+    EditarProdComponent
   ],
   
   imports: [
