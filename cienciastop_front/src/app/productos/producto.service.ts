@@ -43,14 +43,18 @@ export class ProductoService {
     return this.http.delete<Producto>(`${this.urlEndPoint}/${codigo}/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders})
   }
 
+  /**
+   * El noCT que sigue despues de /editar/ debe representar el noCT que tiene los permisos necesarios
+   * para poder editarlo, que sea la persona que lo agrego o que sea admin
+   * @param prod Producto que guardaremos
+   */
   editarProd(prod:Producto): Observable<any>{
     //console.log(localStorage.getItem("noCT"));
-    console.log("antes del put");
-    // el noCT del que agrego este producto
+    //  En este caso simulando el noCT del que esta editando este producto
+    // Colocando el noCT del usuario que agrego este producto y es el que esta logeado(conectado)
     //return this.http.put<Producto>(`${this.urlEndPoint}/${prod.codigo}/editar/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders}).pipe(
-    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,{headers: this.httpHeaders}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,{headers: this.httpHeaders}).pipe( // 153249375 para poder editar dead of winter
       catchError( e => {
-        //Swal.fire('Error al editar el usuario', `${e.error.mensaje}: ${e.error.error}`, 'error');
         Swal.fire(e.error.mensaje,  e.error.error, 'error');
         return throwError( () => e );
       })
