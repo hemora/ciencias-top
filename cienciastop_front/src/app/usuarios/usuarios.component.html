@@ -19,8 +19,8 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let usuario of usuarios">
+        <tbody>            
+            <tr class="clickable"  *ngFor="let usuario of usuarios" [routerLink]="['/ver-perfil/', usuario.noCT]" [state]="usuario">
                 <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
                 <td>{{ usuario.rol }}</td>
                 <td>{{ usuario.noCT }}</td>

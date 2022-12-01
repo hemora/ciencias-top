@@ -39,7 +39,7 @@ const routes: Routes = [
   {path: 'ver-productos/:codigo', component: VerProductosComponent },
   {path: 'renta-admin', component: RentaAdminComponent },
   {path: 'rentas-usr', component: RentasUsrComponent},
-  {path: 'ver-perfil', component: PerfilComponent}
+  {path: 'ver-perfil/:noCT', component: PerfilComponent}
 ]
 
 @NgModule({

@@ -104,3 +104,7 @@ tbody tr:hover {background-color: coral;}
 .small-space {  
   height: 50px;  
 }
+
+.clickable {
+  cursor: pointer;
+}
