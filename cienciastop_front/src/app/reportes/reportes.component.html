@@ -1,0 +1,128 @@
+<div class="ver-prod-container">
+
+    <!-- Inscritos por carrera -->
+    <table class="tab1">
+        <thead>         
+            <tr>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Inscritos por carrera</th>
+            </tr>
+            <tr>
+                <th scope="col" [appSort]="groupCarrera" data-order="asc" data-name="usrActivosC">Usuarios registrados</th>
+                <th scope="col" [appSort]="groupCarrera" data-order="asc" data-name="carrera">Carrera</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of groupCarrera; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 productos mas rentados -->
+    <table class="tab2">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 productos mas rentados</th>
+            </tr>           
+            <tr>
+                <th>Nombre</th>
+                <th>Puma puntos</th>
+                <th>Codigo</th>
+                <th>Veces que se rento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Twilight</th>
+                <th>321</th>
+                <th>321</th>
+                <th>3</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Status de cuentas -->
+    <table class="tab3">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Status de cuentas</th>
+            </tr>           
+            <tr>
+                <th scope="col" [appSort]="groupStatus" data-order="asc" data-name="usrActivosC">Cantidad de usuarios</th>
+                <th scope="col" [appSort]="groupStatus" data-order="asc" data-name="carrera">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of groupStatus; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 productos mas baratos -->
+    <table class="tab4">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="3" class="titleTalbe">Top 5 productos mas baratos</th>
+            </tr>           
+            <tr>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="precio">Puma puntos</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="codigo">Codigo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of pMasBaratos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.codigo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 10 usuarios con mas retardos -->
+    <table class="tab5">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 10 usuarios con mas retardos</th>
+            </tr>           
+            <tr>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Numero de cuenta o Trabajador</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Pepe</th>
+                <th>Admin</th>
+                <th>1234567890</th>
+                <th>hola@false.moc</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 usuarios con mas rentas en la semana -->
+    <table class="tab6">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 usuarios con mas rentas en la semana</th>
+            </tr>           
+            <tr>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Numero de cuenta o Trabajador</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Pepe</th>
+                <th>Admin</th>
+                <th>1234567890</th>
+                <th>hola@false.moc</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

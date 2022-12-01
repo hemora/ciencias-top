@@ -49,7 +49,7 @@
                 <td>{{ producto.codigo }}</td>
                 <td>{{ producto.currentStock }}</td>
                 <td>
-                    <a href="">
+                    <a [routerLink]="['/productos/editar-prod', producto.codigo]">
                         <img src="/assets/playground_assets/pencil.svg">
                     </a>
                     <a (click)="delete(producto)">
