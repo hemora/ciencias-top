@@ -28,4 +28,11 @@ public interface IRentaService {
 	 */
 	public List<Object[]> topFiveMasRentados();
 
+	/**
+	 * Busca rentas por usuario_id en la base de datos.
+	 * @param usuario_id el usuario_id que se buscara.
+	 * @return una lista de rentas que contienen el usuario_id.
+	 */
+	public List<Renta> historial(long usuario_id);
+
 }

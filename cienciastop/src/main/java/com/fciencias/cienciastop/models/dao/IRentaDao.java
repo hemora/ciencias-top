@@ -38,4 +38,14 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 			nativeQuery = true)
 	public List<Object[]> topFiveMasRentados();
 
+	/**
+	 * Busca rentas por usuario_id en la base de datos.
+	 * @param usuario_id el usuario_id que se buscara.
+	 * @return una lista de rentas que contienen el usuario_id.
+	 */
+	@Query(
+			value= "SELECT * FROM rentas WHERE usuario_id = ?1;", 
+			nativeQuery = true)
+	public List<Renta> historial(long usuario_id);
+
 }

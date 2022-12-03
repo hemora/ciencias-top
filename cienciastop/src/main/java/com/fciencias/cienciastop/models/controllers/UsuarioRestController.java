@@ -211,7 +211,7 @@ public class UsuarioRestController {
 	 * @return una lista de usuarios agrupados por su carrera.
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
-	@GetMapping("/agrupado-carrera")
+	@GetMapping("/usuarios/agrupado-carrera")
 	public ResponseEntity<?> agruparPorCarrera() {
 		List<Object[]> agrupamiento;
 		HttpStatus status;
@@ -243,7 +243,7 @@ public class UsuarioRestController {
 	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
-	@GetMapping("/agrupado-status")
+	@GetMapping("/usuarios/agrupado-status")
 	public ResponseEntity<?> agruparPorStatus() {
 		List<Object[]> agrupamiento;
 		HttpStatus status;

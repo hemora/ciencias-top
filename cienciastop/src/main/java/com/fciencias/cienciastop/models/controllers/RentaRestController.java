@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fciencias.cienciastop.models.entity.Producto;
@@ -209,7 +210,7 @@ public class RentaRestController {
 	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
-	@GetMapping("/con-mas-rentas")
+	@GetMapping("/rentas/con-mas-rentas")
 	public ResponseEntity<?> topFiveConMasRentas() {
 		List<Object[]> conMasRentas;
 		HttpStatus status;
@@ -241,7 +242,7 @@ public class RentaRestController {
 	 * @return la lista de los 5 productos mas rentados del mes.
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
-	@GetMapping("/prod-mas-rentados")
+	@GetMapping("/rentas/prod-mas-rentados")
 	public ResponseEntity<?> topFiveMasRentados() {
 		List<Object[]> masRentados;
 		HttpStatus status;
@@ -265,6 +266,48 @@ public class RentaRestController {
 		}
 		status = HttpStatus.OK;
 		return new ResponseEntity<List<Object[]>>(masRentados, status);
+	}
+
+	/**
+	 * Regresa una lista de rentas realizadas por el usuario.
+	 * Si existe un error en la base de datos o no existen coincidencias
+	 * se manda un mensaje sobre el tipo de error.
+	 * @param entrada la entrada a la que se le buscaran coincidencias por id
+	 * del usuario.
+	 * @return una lista de rentas realizadas por el usuario.
+	 * Si existe un error en la base de datos o no existen coincidencias
+	 * se manda un mensaje sobre el tipo de error.
+	 */
+	@GetMapping("/rentas/historial")
+	public ResponseEntity<?> historial(@RequestParam String entrada) {
+		List<Renta> historial;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			long temp = 123456789;
+			historial = rentaService.historial(temp);
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		// Entrada correcto
+		if (!historial.isEmpty()) {
+			status = HttpStatus.OK;
+			return new ResponseEntity<List<Renta>>(historial, status);
+		}
+		// Error con la entrada
+		mensaje = String.format("No existen coincidencias con: %s", entrada);
+		response.put("mensaje", mensaje);
+		status = HttpStatus.NOT_FOUND;
+		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 	
 }

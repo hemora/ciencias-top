@@ -319,7 +319,7 @@ public class ProductoRestController {
 	 * cantidad de puma puntos.
 	 * Si existe un error en la base de datos se manda un mensaje sobre el tipo de error.
 	 */
-	@GetMapping("/top-5-baratos")
+	@GetMapping("/productos/top-5-baratos")
 	public ResponseEntity<?> topFiveBaratos() {
 		List<Producto> topFive;
 		HttpStatus status;

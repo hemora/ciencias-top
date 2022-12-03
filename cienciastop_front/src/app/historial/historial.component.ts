@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HistorialService } from './historial.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-historial',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialComponent implements OnInit {
 
-  constructor() { }
+  entrada: string = "123456789"
+  // rentas: Renta[];
+
+  constructor(
+    private historialService: HistorialService
+  ) { }
 
   ngOnInit(): void {
+    // this.historial();
   }
+
+  /*
+  public historial(): void {
+    this.historialService.getHistorial(this.entrada).subscribe(
+      rentas => this.rentas = rentas
+    );
+  }
+  */
 
 }

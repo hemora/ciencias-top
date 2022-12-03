@@ -15,7 +15,7 @@ export class ReportesService {
 
   agrupamientoCarrera(): Observable<Object[]> {
     var newUrl: string = this.urlEndPoint;
-    newUrl += "/agrupado-carrera";
+    newUrl += "/usuarios/agrupado-carrera";
     return this.http.get<Object[]>(newUrl)
       .pipe(
       catchError(e => {
@@ -28,7 +28,7 @@ export class ReportesService {
 
   topFiveBaratos(): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
-    newUrl += "/top-5-baratos";
+    newUrl += "/productos/top-5-baratos";
     return this.http.get<Producto[]>(newUrl)
       .pipe(
       catchError(e => {
@@ -40,7 +40,7 @@ export class ReportesService {
 
   agrupamientoStatus(): Observable<Object[]> {
     var newUrl: string = this.urlEndPoint;
-    newUrl += "/agrupado-status";
+    newUrl += "/usuarios/agrupado-status";
     return this.http.get<Object[]>(newUrl)
       .pipe(
       catchError(e => {
@@ -52,7 +52,7 @@ export class ReportesService {
 
   topFiveConMasRentas(): Observable<Object[]> {
     var newUrl: string = this.urlEndPoint;
-    newUrl += "/con-mas-rentas";
+    newUrl += "/rentas/con-mas-rentas";
     return this.http.get<Object[]>(newUrl)
       .pipe(
       catchError(e => {
@@ -65,7 +65,7 @@ export class ReportesService {
 
   topFiveMasRentados(): Observable<Object[]> {
     var newUrl: string = this.urlEndPoint;
-    newUrl += "/prod-mas-rentados";
+    newUrl += "/rentas/prod-mas-rentados";
     return this.http.get<Object[]>(newUrl)
       .pipe(
       catchError(e => {

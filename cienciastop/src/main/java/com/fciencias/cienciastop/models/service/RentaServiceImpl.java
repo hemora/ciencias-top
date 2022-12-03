@@ -62,4 +62,15 @@ public class RentaServiceImpl implements IRentaService {
 		return rentaDao.topFiveMasRentados();
 	}
 
+	/**
+	 * Busca rentas por usuario_id en la base de datos.
+	 * @param usuario_id el usuario_id que se buscara.
+	 * @return una lista de rentas que contienen el usuario_id.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Renta> historial(long usuario_id) {
+		return rentaDao.historial(usuario_id);
+	}
+
 }
