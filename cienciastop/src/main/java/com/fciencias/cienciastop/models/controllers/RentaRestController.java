@@ -1,5 +1,6 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -200,6 +201,38 @@ public class RentaRestController {
 		response.put("mensaje", "La renta se ha eliminado exitosamente");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		
+	}
+
+	/**
+	 * Regresa la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/con-mas-rentas")
+	public ResponseEntity<?> topFiveConMasRentas() {
+		List<Object[]> conMasRentas;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			conMasRentas = rentaService.topFiveConMasRentas();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (conMasRentas == null) {
+			conMasRentas = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(conMasRentas, status);
 	}
 	
 }

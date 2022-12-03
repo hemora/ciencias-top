@@ -16,4 +16,10 @@ public interface IRentaService {
 	
 	public void delete(Long id);
 
+	/**
+	 * Regresa la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 */
+	public List<Object[]> topFiveConMasRentas();
+
 }
