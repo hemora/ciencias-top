@@ -62,4 +62,17 @@ export class ReportesService {
       })
     )
   }
+
+  topFiveMasRentados(): Observable<Object[]> {
+    var newUrl: string = this.urlEndPoint;
+    newUrl += "/prod-mas-rentados";
+    return this.http.get<Object[]>(newUrl)
+      .pipe(
+      catchError(e => {
+        // console.log("error");
+        Swal.fire('Error al buscar', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
+  }
 }

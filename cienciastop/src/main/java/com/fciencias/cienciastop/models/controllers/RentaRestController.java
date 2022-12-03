@@ -234,5 +234,37 @@ public class RentaRestController {
 		status = HttpStatus.OK;
 		return new ResponseEntity<List<Object[]>>(conMasRentas, status);
 	}
+
+	/**
+	 * Regresa la lista de los 5 productos mas rentados del mes.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 5 productos mas rentados del mes.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/prod-mas-rentados")
+	public ResponseEntity<?> topFiveMasRentados() {
+		List<Object[]> masRentados;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			masRentados = rentaService.topFiveMasRentados();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (masRentados == null) {
+			masRentados = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(masRentados, status);
+	}
 	
 }

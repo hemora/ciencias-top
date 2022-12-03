@@ -22,4 +22,10 @@ public interface IRentaService {
 	 */
 	public List<Object[]> topFiveConMasRentas();
 
+	/**
+	 * Regresa la lista de los 5 productos mas rentados del mes.
+	 * @return la lista de los 5 productos mas rentados del mes.
+	 */
+	public List<Object[]> topFiveMasRentados();
+
 }

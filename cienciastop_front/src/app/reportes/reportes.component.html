@@ -20,23 +20,18 @@
 
     <!-- Top 5 productos mas rentados -->
     <table class="tab2">
-        <thead> 
+        <thead>         
             <tr>
-                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 productos mas rentados</th>
-            </tr>           
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 5 productos mas rentados del mes</th>
+            </tr>
             <tr>
-                <th>Nombre</th>
-                <th>Puma puntos</th>
-                <th>Codigo</th>
-                <th>Veces que se rento</th>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="usrActivosC">Numero de rentas</th>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="carrera">ID del Producto</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Twilight</th>
-                <th>321</th>
-                <th>321</th>
-                <th>3</th>
+            <tr *ngFor="let row of masRentados; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
             </tr>
         </tbody>
     </table>

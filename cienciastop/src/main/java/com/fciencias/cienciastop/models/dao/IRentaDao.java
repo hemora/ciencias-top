@@ -25,4 +25,17 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 			nativeQuery = true)
 	public List<Object[]> topFiveConMasRentas();
 
+	/**
+	 * Regresa la lista de los 5 productos mas rentados del mes.
+	 * @return la lista de los 5 productos mas rentados del mes.
+	 */
+	@Query(
+			value= "WITH aux AS ("
+				+ "SELECT * FROM rentas WHERE "
+				+ "fecha_renta BETWEEN NOW() - INTERVAL '1 month' AND NOW()) "
+				+ "SELECT count(producto_id) AS rentas, producto_id FROM aux "
+				+ "GROUP BY producto_id ORDER BY rentas DESC LIMIT 5;", 
+			nativeQuery = true)
+	public List<Object[]> topFiveMasRentados();
+
 }
