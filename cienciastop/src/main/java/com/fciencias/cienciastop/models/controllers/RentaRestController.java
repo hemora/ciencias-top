@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,44 @@ public class RentaRestController {
 	public List<Renta> index() {
 		return rentaService.findAll();
 	}*/
+
+	@GetMapping("aqui no estoy seguro cual seria la direccion")
+	public ResponseEntity<?> rentasDeUsr(@RequestBody Usuario usuario) {
+		List<Renta> historialDeUsr = null;
+		Map<String,Object> response = new HashMap<String, Object>();
+		try {
+			historialDeUsr  = this.rentaService.historialRentasUsr(usuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+			String cadenaError = "";
+			cadenaError += e.getMessage() + ": ";
+			cadenaError += e.getMostSpecificCause().getMessage();
+			response.put("error", cadenaError);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (historialDeUsr  == null || historialDeUsr .isEmpty()) {
+			response.put("mensaje", "No se encontraron rentas pasadas del usuario");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
+		}
+		response.put("historial",historialDeUsr);
+		List<Renta> rentasDeUsr = null;
+		try {
+			rentasDeUsr  = this.rentaService.rentasActualesUsr(usuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+			String cadenaError = "";
+			cadenaError += e.getMessage() + ": ";
+			cadenaError += e.getMostSpecificCause().getMessage();
+			response.put("error", cadenaError);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (rentasDeUsr  == null || rentasDeUsr .isEmpty()) {
+			response.put("mensaje", "No se encontraron rentas actuales del usuario.");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
+		}
+		response.put("rentasActuales", rentasDeUsr);
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	}
 	
 	@GetMapping("/rentas")
 	public ResponseEntity<?> verRentas() {
@@ -65,7 +104,7 @@ public class RentaRestController {
 	}
 	
 	/**
-	 * Regresa la rentaque tenga como ID el parametro recibido.
+	 * Regresa la renta que tenga como ID el parametro recibido.
 	 * Si existe un error en la base de datos o no existen coincidencias
 	 * se manda un mensaje sobre el tipo de error. 
 	 * @param id el id de la renta que se buscara.
