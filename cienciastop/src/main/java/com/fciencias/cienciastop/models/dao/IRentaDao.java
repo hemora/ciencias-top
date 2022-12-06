@@ -38,6 +38,20 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 			nativeQuery = true)
 	public List<Object[]> topFiveMasRentados();
 
+
+	/**
+	 * Regresa la lista de los 10 usuarios con mas retardos.
+	 * @return la lista de los 10 usuarios con mas retardos.
+	 */
+	@Query(
+			value= "WITH aux AS ("
+				+ "SELECT * FROM rentas WHERE status_entrega = FALSE AND "
+				+ "fecha_entrega > NOW()) "
+				+ "SELECT count(usuario_id) AS retardos, usuario_id FROM aux "
+				+ "GROUP BY usuario_id ORDER BY retardos DESC LIMIT 10;", 
+			nativeQuery = true)
+	public List<Object[]> topTenConMasRetardos();
+
 	/**
 	 * Busca rentas por usuario_id en la base de datos.
 	 * @param usuario_id el usuario_id que se buscara.

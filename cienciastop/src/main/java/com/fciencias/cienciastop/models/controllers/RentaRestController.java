@@ -269,6 +269,38 @@ public class RentaRestController {
 	}
 
 	/**
+	 * Regresa la lista de los 10 usuarios con mas retardos.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 10 usuarios con mas retardos.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/rentas/usr-mas-retardos")
+	public ResponseEntity<?> topTenConMasRetardos() {
+		List<Object[]> conMasRetardos;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			conMasRetardos = rentaService.topTenConMasRetardos();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (conMasRetardos == null) {
+			conMasRetardos = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(conMasRetardos, status);
+	}
+
+	/**
 	 * Regresa una lista de rentas realizadas por el usuario.
 	 * Si existe un error en la base de datos o no existen coincidencias
 	 * se manda un mensaje sobre el tipo de error.
