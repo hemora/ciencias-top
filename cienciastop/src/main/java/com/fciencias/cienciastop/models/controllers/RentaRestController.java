@@ -49,7 +49,7 @@ public class RentaRestController {
 		List<Renta> historialDeUsr = null;
 		Map<String,Object> response = new HashMap<String, Object>();
 		try {
-			historialDeUsr  = this.rentaService.historialRentasUsr(usuario);
+			historialDeUsr  = this.rentaService.rentasVencidasUsr(usuario);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
 			String cadenaError = "";
@@ -62,7 +62,7 @@ public class RentaRestController {
 			response.put("mensaje", "No se encontraron rentas pasadas del usuario");
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
 		}
-		response.put("historial",historialDeUsr);
+		response.put("rentasVencidas",historialDeUsr);
 		List<Renta> rentasDeUsr = null;
 		try {
 			rentasDeUsr  = this.rentaService.rentasActualesUsr(usuario);

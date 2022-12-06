@@ -44,8 +44,8 @@ public class RentaServiceImpl implements IRentaService {
 	}
 
 	@Override
-	public List<Renta> historialRentasUsr(Usuario usuario) {
-		return rentaDao.encontrarRentasUsuario(true, usuario);
+	public List<Renta> rentasVencidasUsr(Usuario usuario) {
+		return rentaDao.encontrarRentasVencidas(usuario);
 	}
 
 	@Override

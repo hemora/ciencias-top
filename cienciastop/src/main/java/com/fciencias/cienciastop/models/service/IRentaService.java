@@ -17,7 +17,7 @@ public interface IRentaService {
 	
 	public void delete(Long id);
 
-	public List<Renta> historialRentasUsr(Usuario usuario);
+	public List<Renta> rentasVencidasUsr(Usuario usuario);
 
 	public List<Renta> rentasActualesUsr(Usuario usuario);
 
