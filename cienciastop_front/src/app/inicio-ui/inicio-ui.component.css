@@ -1,8 +1,10 @@
 /* Para el color del fondo */
 .outer {
     height: 100vh;
-    /*background: linear-gradient(to top, #c9c9ff 50%, #6e6ef6 90%) no-repeat;*/
     background: linear-gradient(to top, #ffe0c9 50%, #f69b6e 90%) no-repeat;
+
+    background-image: url("../../assets/images/facultadDeCiencias.jpg");
+    background-size: cover;
 }
 
 .panel-heading {
