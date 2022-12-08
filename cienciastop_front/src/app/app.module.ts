@@ -24,6 +24,7 @@ import { SrchUserProdComponent } from './srch-user-prod/srch-user-prod.component
 import { AgregaPrdComponent } from './agrega-prd/agrega-prd.component';
 import { RentaAdminComponent } from './renta-admin/renta-admin.component';
 import { RentasUsrComponent } from './rentas-usr/rentas-usr.component';
+import { InicioUiComponent } from './inicio-ui/inicio-ui.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -60,7 +61,8 @@ const routes: Routes = [
     SrchUserProdComponent,
     AgregaPrdComponent,
     RentaAdminComponent,
-    RentasUsrComponent
+    RentasUsrComponent,
+    InicioUiComponent
   ],
   
   imports: [
