@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
+import { UserAuthService } from '../util/user-auth.service';
 import { SesionService } from './sesion.service';
 import { Usuario } from './usuario';
 
@@ -20,7 +21,8 @@ export class InicioUiComponent implements OnInit {
   private usuario: Usuario;
 
   constructor(private fb: FormBuilder
-      , private sesionService: SesionService) { }
+      , private sesionService: SesionService
+      , private userAuthService: UserAuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -40,24 +42,26 @@ export class InicioUiComponent implements OnInit {
       console.log(this.loginForm.value);
       const noCta = (this.loginForm.value).username;
       const pw = (this.loginForm.value).password;
-      var foo = this.sesionService.verifSesion(noCta, pw).subscribe(
-        (u: Usuario) => { 
-          console.log(u);
-          if(u.contrasenya == pw) {
-            alert('Autenticación exitosa');
-          }
-          this.usuario = u;
+      const payload = { "userName" : noCta , "userPassword" : pw } 
+      var foo = this.sesionService.authentication(payload).subscribe(
+        (response: any) => { 
+          console.log("Response:")
+          console.log(response.jwtToken);
+          console.log(response.usuario.rol);
+          this.userAuthService.setRole(response.usuario.rol);
+          this.userAuthService.setToken(response.jwtToken);
+
+          console.log("Local Storage:")
+          console.log(this.userAuthService.getRol());
+          console.log(this.userAuthService.getToken());
+        },
+        (error) => {
+          console.log(error);
         }
       );
     } else {
       console.log("ERROR: Form is not valid");
     }
   }
-
-  //TODO: Obtener usuario y contraseña del form y pasárselos a verifSesion
-  //RESOURCE: https://www.youtube.com/watch?v=p9ScsROLjdI
-  //iniciarSesion() {
-  //  this.usuario = this.sesionService.verifSesion();
-  //}
 
 }
