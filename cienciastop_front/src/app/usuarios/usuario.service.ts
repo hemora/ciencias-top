@@ -12,8 +12,6 @@ import { UserAuthService } from '../util/user-auth.service';
 })
 export class UsuarioService {
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
-
   constructor(private http: HttpClient
     , private userAuthService: UserAuthService) { }
   
@@ -25,7 +23,7 @@ export class UsuarioService {
       .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
   }
   
-  private testHeaders = new HttpHeaders()
+  private httpHeaders = new HttpHeaders()
       .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
       .set('Content-Type',  'application/json')
 
@@ -39,7 +37,7 @@ export class UsuarioService {
   }
 
   eliminar(noCT: Number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.testHeaders}).pipe(
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders}).pipe(
       catchError( e => {
         Swal.fire({
           position: 'top-end',
