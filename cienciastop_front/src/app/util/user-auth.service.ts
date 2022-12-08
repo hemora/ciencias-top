@@ -31,4 +31,12 @@ export class UserAuthService {
     return this.getRol() && this.getToken();
   }
 
+  getNoCta(): number {
+    return Number(localStorage.getItem("noCt"));
+  }
+
+  setNoCta(noCt: string) {
+    localStorage.setItem("noCt", noCt);
+  }
+
 }

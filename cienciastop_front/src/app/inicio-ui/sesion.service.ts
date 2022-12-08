@@ -24,7 +24,7 @@ export class SesionService {
     //  then 
   }
 
-  authentication(loginData) {
+  authentication(loginData: any) {
     return this.http.post(this.authEndpoint, loginData, {headers : this.requestHeader})
   }
 

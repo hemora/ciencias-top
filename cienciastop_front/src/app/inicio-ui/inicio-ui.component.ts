@@ -52,10 +52,13 @@ export class InicioUiComponent implements OnInit {
           console.log(response.usuario.rol);
           this.userAuthService.setRole(response.usuario.rol);
           this.userAuthService.setToken(response.jwtToken);
+          // Set NoCta.
+          this.userAuthService.setNoCta(response.usuario.noCT);
 
           console.log("Local Storage:")
           console.log(this.userAuthService.getRol());
           console.log(this.userAuthService.getToken());
+          console.log(this.userAuthService.getNoCta());
 
           this.router.navigate(['/productos'])
         },
