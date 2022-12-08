@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { USUARIOS } from './usuarios.json';
 import Swal from 'sweetalert2';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,23 @@ export class UsuarioService {
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient
+    , private userAuthService: UserAuthService) { }
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
   private monederoEndPoint:string = 'http://localhost:8080/api/monederos';
 
+  private authHeader = {
+    headers: new HttpHeaders()
+      .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+  }
+  
+  private testHeaders = new HttpHeaders()
+      .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+      .set('Content-Type',  'application/json')
+
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.urlEndPoint).pipe(
+    return this.http.get<Usuario[]>(this.urlEndPoint, this.authHeader).pipe(
       catchError(e => {
         Swal.fire('Error al cargar los usuarios', e.error.mensaje, 'error');
         return throwError( () => e);
@@ -28,7 +39,7 @@ export class UsuarioService {
   }
 
   eliminar(noCT: Number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.httpHeaders}).pipe(
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${noCT}`, {headers: this.testHeaders}).pipe(
       catchError( e => {
         Swal.fire({
           position: 'top-end',
@@ -69,7 +80,7 @@ export class UsuarioService {
   }
 
   buscarUsuario(noCT: number) {
-    return this.http.get<any>(this.urlEndPoint + '/' + noCT).pipe(
+    return this.http.get<any>(this.urlEndPoint + '/' + noCT, this.authHeader).pipe(
       catchError( e => {
         Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
         return throwError( () => e );
@@ -78,7 +89,7 @@ export class UsuarioService {
   }
 
   buscarUsuarioC(correo: String) {
-    return this.http.get<any>(this.urlEndPoint + '/correo/' + correo).pipe(
+    return this.http.get<any>(this.urlEndPoint + '/correo/' + correo, this.authHeader).pipe(
       catchError( e => {
         Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
         return throwError( () => e );
@@ -87,7 +98,7 @@ export class UsuarioService {
   }
 
   buscarUsuarioN(nombre: String) {
-    return this.http.get<any>(this.urlEndPoint + '/nombre/' + nombre).pipe(
+    return this.http.get<any>(this.urlEndPoint + '/nombre/' + nombre, this.authHeader).pipe(
       catchError( e => {
         Swal.fire('Error al obtener el usuario', e.error.mensaje, 'error');
         return throwError( () => e );
@@ -117,7 +128,7 @@ export class UsuarioService {
 
   
   editarUsuario(noCT: number, usuario: Usuario) {
-    return this.http.put<any>(this.urlEndPoint + '/' + noCT, usuario).pipe(
+    return this.http.put<any>(this.urlEndPoint + '/' + noCT, usuario, this.authHeader).pipe(
       catchError( e => {
         Swal.fire('Error al editar el usuario', e.error.mensaje, 'error');
         return throwError( () => e );
