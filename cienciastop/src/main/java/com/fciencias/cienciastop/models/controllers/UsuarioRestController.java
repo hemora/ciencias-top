@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -193,6 +194,8 @@ public class UsuarioRestController {
 	}
 
     @DeleteMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
+	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long noCT) {
         Map<String, Object> response = new HashMap<String, Object>();
         if(usuarioService.borrar(noCT) == 0) {
