@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { UserAuthService } from '../util/user-auth.service';
 import { SesionService } from './sesion.service';
@@ -22,7 +23,8 @@ export class InicioUiComponent implements OnInit {
 
   constructor(private fb: FormBuilder
       , private sesionService: SesionService
-      , private userAuthService: UserAuthService) { }
+      , private userAuthService: UserAuthService
+      , private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -54,6 +56,8 @@ export class InicioUiComponent implements OnInit {
           console.log("Local Storage:")
           console.log(this.userAuthService.getRol());
           console.log(this.userAuthService.getToken());
+
+          this.router.navigate(['/productos'])
         },
         (error) => {
           console.log(error);
@@ -62,6 +66,10 @@ export class InicioUiComponent implements OnInit {
     } else {
       console.log("ERROR: Form is not valid");
     }
+  }
+
+  isLoggedIn() {
+    return this.userAuthService.isLoggedIn();
   }
 
 }

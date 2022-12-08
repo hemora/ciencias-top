@@ -38,7 +38,8 @@ const routes: Routes = [
   {path: "usuarios/pumapuntos", component: EditarPumaPuntosComponent},
   {path: 'ver-productos/:codigo', component: VerProductosComponent },
   {path: 'renta-admin', component: RentaAdminComponent },
-  {path: 'rentas-usr', component: RentasUsrComponent}
+  {path: 'rentas-usr', component: RentasUsrComponent},
+  {path: 'login', component: InicioUiComponent}
 ]
 
 @NgModule({

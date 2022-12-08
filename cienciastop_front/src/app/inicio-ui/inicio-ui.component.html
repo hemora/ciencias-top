@@ -1,4 +1,4 @@
-<div class="outer">
+<div class="outer" *ngIf="!isLoggedIn()">
     <div class="container">
         <div class="row">
             <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
@@ -44,4 +44,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="isLoggedIn()">
+    <app-header></app-header>
+    <app-menu></app-menu>
+    <router-outlet></router-outlet>
 </div>
