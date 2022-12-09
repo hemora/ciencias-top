@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fciencias.cienciastop.models.dao.IRentaDao;
 import com.fciencias.cienciastop.models.entity.Renta;
+import com.fciencias.cienciastop.models.entity.Usuario;
 
 @Service
 public class RentaServiceImpl implements IRentaService {
@@ -41,5 +42,17 @@ public class RentaServiceImpl implements IRentaService {
 		rentaDao.deleteById(id);
 
 	}
+
+	@Override
+	public List<Renta> rentasVencidasUsr(Usuario usuario) {
+		return rentaDao.encontrarRentasVencidas(usuario);
+	}
+
+	@Override
+	public List<Renta> rentasActualesUsr(Usuario usuario) {
+		return rentaDao.encontrarRentasUsuario(false, usuario);
+	}
+
+	
 
 }
