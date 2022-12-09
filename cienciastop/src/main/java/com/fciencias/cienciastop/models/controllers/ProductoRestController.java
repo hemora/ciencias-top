@@ -41,6 +41,7 @@ public class ProductoRestController {
 	private IUsuarioService usuarioService;
 	
 	@GetMapping("/productos")
+	@PreAuthorize("hasRole('Administrador')")
 	public List<Producto> index() {
 		return productoService.findAll();
 	}
@@ -55,6 +56,7 @@ public class ProductoRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/productos/{codigo}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> show(@PathVariable String codigo) {
 		Producto producto = null;
 		HttpStatus status;
@@ -190,6 +192,8 @@ public class ProductoRestController {
 	 * @param codigo identificador del producto que queremos editar
 	 *///317804511
 	@PutMapping("/productos/{codigo}/editar/{noCT}") // el noCT del que agrego este producto /{noCT} 
+	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {

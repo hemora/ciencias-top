@@ -3,18 +3,26 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, catchError } from 'rxjs';
 import { Producto } from '../productos/producto';
 import Swal from 'sweetalert2';
+import { HttpHeaders } from '@angular/common/http';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SrchAdminProdService {
 
-  private urlEndPoint:string = 'http://localhost:8080/api';
+  constructor(private http: HttpClient, 
+    private userAuthService: UserAuthService) { }
+  
+    private urlEndPoint:string = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) { }
+  private authHeader = {
+    headers: new HttpHeaders()
+      .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+  }
 
   allProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.urlEndPoint + "/productos ");
+    return this.http.get<Producto[]>(this.urlEndPoint + "/productos ", this.authHeader);
   }
 
   getBuscado(entrada: string): Observable<Producto[]> {
