@@ -27,6 +27,7 @@ import { RentasUsrComponent } from './rentas-usr/rentas-usr.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { EditarProdComponent } from './editar-prod/editar-prod.component';
 import { HistorialComponent } from './historial/historial.component';
+import { InicioUiComponent } from './inicio-ui/inicio-ui.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -44,7 +45,8 @@ const routes: Routes = [
   {path: 'reportes', component: ReportesComponent},
   {path: 'productos/editar-prod', component: EditarProdComponent},
   {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
-  {path: 'productos/historial', component: HistorialComponent}
+  {path: 'productos/historial', component: HistorialComponent},
+  {path: 'login', component: InicioUiComponent}
 ]
 
 @NgModule({
@@ -70,7 +72,8 @@ const routes: Routes = [
     RentasUsrComponent,
     ReportesComponent,
     EditarProdComponent,
-    HistorialComponent
+    HistorialComponent,
+    InicioUiComponent
   ],
   
   imports: [

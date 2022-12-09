@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class UsuarioRestController {
     private IUsuarioService usuarioService;
 
 	@GetMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> verUsuarios() {
 		List<Usuario> usuariosActivos = null;
 		Map<String,Object> response = new HashMap<String, Object>();
@@ -61,6 +63,7 @@ public class UsuarioRestController {
 	/**Buscar usuarios por nombre */
 
 	@RequestMapping("/usuarios/nombre/{nombre}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuarioNombre(@PathVariable(value="nombre") String nombre) {
 		System.out.println("Buscando usuarios...");
 		List<Usuario> usuarios;
@@ -93,6 +96,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por correo */
 	@GetMapping("/usuarios/correo/{correo}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable(value="correo") String correo){
         System.out.println("Buscando usuario con correo " + correo);
 		Usuario usuario= null;
@@ -118,6 +122,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por numero de cuenta */
 	@RequestMapping(value = "/usuarios/{noCT}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable("noCT") Long noCT) {
         System.out.println("Buscando usuario con numero de cuenta " + noCT);
 		Usuario usuario= null;
@@ -142,6 +147,7 @@ public class UsuarioRestController {
     }
 	
 	@PostMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> agregarUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioNuevo = null;
@@ -166,6 +172,7 @@ public class UsuarioRestController {
 	}
 
 	@PutMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> editarUsuario(@RequestBody Usuario usuario, @PathVariable Long noCT) {
 		Usuario currentUsuario = usuarioService.buscarUsuarioPorNoCT(noCT);
@@ -193,6 +200,8 @@ public class UsuarioRestController {
 	}
 
     @DeleteMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
+	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long noCT) {
         Map<String, Object> response = new HashMap<String, Object>();
         if(usuarioService.borrar(noCT) == 0) {

@@ -54,6 +54,19 @@
 		    <artifactId>spring-boot-starter-validation</artifactId>
 		    <version>2.6.3</version>
 		</dependency>
+
+		<!-- Uso para autenticación/login -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
