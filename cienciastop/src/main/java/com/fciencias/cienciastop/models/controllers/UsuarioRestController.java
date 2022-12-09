@@ -221,6 +221,7 @@ public class UsuarioRestController {
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
 	@GetMapping("/usuarios/agrupado-carrera")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> agruparPorCarrera() {
 		List<Object[]> agrupamiento;
 		HttpStatus status;
@@ -253,6 +254,7 @@ public class UsuarioRestController {
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
 	@GetMapping("/usuarios/agrupado-status")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> agruparPorStatus() {
 		List<Object[]> agrupamiento;
 		HttpStatus status;

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router'; // Para realizar el redireccionamiento
+import { UserAuthService } from '../util/user-auth.service';
 
 
 @Injectable({
@@ -14,10 +15,20 @@ import { Router } from '@angular/router'; // Para realizar el redireccionamiento
 export class ProductoService {
   miStorage = window.localStorage;
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router:Router,
+    private userAuthService: UserAuthService) { }
 
   private urlEndPoint:string = 'http://localhost:8080/api/productos';
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+  public httpHeaders = new HttpHeaders()
+      .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+      .set('Content-Type',  'application/json')
+
+  public authHeader = {
+    headers: new HttpHeaders()
+      .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+  }
 
   getProductos(): Observable<Producto[]>{
     return this.http.get<Producto[]>(this.urlEndPoint);

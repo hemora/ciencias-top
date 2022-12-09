@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -211,6 +212,7 @@ public class RentaRestController {
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
 	@GetMapping("/rentas/con-mas-rentas")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> topFiveConMasRentas() {
 		List<Object[]> conMasRentas;
 		HttpStatus status;
@@ -243,6 +245,7 @@ public class RentaRestController {
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
 	@GetMapping("/rentas/prod-mas-rentados")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> topFiveMasRentados() {
 		List<Object[]> masRentados;
 		HttpStatus status;
@@ -275,6 +278,7 @@ public class RentaRestController {
 	 * Si existe un error en la base de datos se manda un mensaje de error.
 	 */
 	@GetMapping("/rentas/usr-mas-retardos")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> topTenConMasRetardos() {
 		List<Object[]> conMasRetardos;
 		HttpStatus status;
@@ -311,6 +315,7 @@ public class RentaRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/rentas/historial")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> historial(@RequestParam String entrada) {
 		List<Renta> historial;
 		HttpStatus status;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -320,6 +321,7 @@ public class ProductoRestController {
 	 * Si existe un error en la base de datos se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/productos/top-5-baratos")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> topFiveBaratos() {
 		List<Producto> topFive;
 		HttpStatus status;
