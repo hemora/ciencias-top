@@ -51,7 +51,7 @@ export class UsuarioService {
   }
 
   crearUsuario(usuario: Usuario): Observable<any>{
-    return this.http.post<any>(this.urlEndPoint, usuario).pipe(
+    return this.http.post<any>(this.urlEndPoint, usuario, this.authHeader).pipe(
       catchError(e => {
         Swal.fire('Error al crear un usuario', e.error.mensaje, 'error');
         return throwError( () => e);
