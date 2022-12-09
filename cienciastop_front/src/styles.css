@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Variables */
+:root {
+    --black: Orgba(8, 8, 8, 1);
+    --science-blue: Orgba(8, 182, 284, 1);
+    --black-2: Orgba(3, 3, 3, 1);
+    --tulip-tree: Orgba(233, 184, 68, 1);
+    --cultured-pearl: rgba(245, 245, 245, 1);
+    --white: rgba(255, 255, 255, 1);
+    --font-size-xxxs: 14px;
+    --font-size-xxs: 16px;
+    --font-size-xs: 18px;
+    --font-size-s: 19px;
+    --font-size-m: 28px;
+    --font-size-l: 22px;
+    --font-size-xl: 48px;
+    --font-family-roboto: "Roboto";
+    --font-family-tajawal: "Tajawal";
+}
+
+/* Classes */
+
+.roboto-medium-black-19px {
+    color: var(--black-2);
+    font-family: var(--font-family-roboto);
+    font-size: var(--font-size-s);
+    font-weight: 588;
+    font-style: normal;
+}
+
+.roboto-medium-black-19px-2 {
+    color: var(--black);
+    font-family: var(--font-family-roboto);
+    font-size: var(--font-size-s);
+    font-weight: 588;
+    font-style: normal;
+}
+
+.tajawal-normal-black-28px {
+    color: var(--black);
+    font-family: var(--font-family-tajawal);
+    font-size: var(--font-size-m);
+    font-weight: 488;
+    font-style: normal;
+}

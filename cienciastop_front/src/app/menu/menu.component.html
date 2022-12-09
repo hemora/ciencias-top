@@ -1,0 +1,40 @@
+<!--<nav class="menu-nav">-->
+<div class="sidenav">
+  <div class="menu-ver-perfil">
+    <!-- Obtener la img del usr -->
+    <img alt="profile-ph" src="/assets/playground_assets/image78863-bjua-200h.png" class="menu-usr-img" />
+    <!-- Obtener el nombre del usr -->
+    <span class="menu-name"> Nombre Completo </span>
+    <form action="" method="">
+      <input type="image" alt="VerPerfil" name="perfil" src="/assets/playground_assets/rectangle82097-b1u.svg"
+        class="menu-text-box" />
+    </form>
+  </div>
+  <div class="menu-options">
+    <a routerLinkActive="active" routerLink="productos">
+      <div class="menu-op">
+        <div class="menu-vector">
+          <img alt="home" src="/assets/playground_assets/pastedimage-qh8.svg" />
+        </div>
+        <div class="menu-text">Inicio</div>
+      </div>
+    </a>
+    <a routerLinkActive="active" routerLink="undefined">
+      <div class="menu-op">
+        <div class="menu-vector">
+          <img alt="history" src="/assets/playground_assets/image108877-cb1g-200w.png" />
+        </div>
+        <div class="menu-text">Historial de productos</div>
+      </div>
+    </a>
+  </div>
+  <div class="small-space"></div>
+  <app-menu-admin *ngIf="this.authService.getRol() == 'Administrador'"></app-menu-admin>
+  <form action="" method="">
+    <button type="button" class="menu-logout">
+      <img alt="logout" src="/assets/playground_assets/antdesignlogoutoutlined2096-z1dp.svg"
+        class="antdesignlogoutoutlined" />
+      Cerrar Sesion
+    </button>
+  </form>
+</div>

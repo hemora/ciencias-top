@@ -1,0 +1,55 @@
+:host {
+    display: contents;
+  }
+  
+  img {
+    max-width:30px;
+  }
+  
+  .ver-rentas-container {
+    width: 80%;
+    left: 20%;
+    position: absolute;  
+  }
+  
+  .titulo{
+    left: 50px;
+    top: 30px;
+    position: absolute;  
+  }
+  
+  
+  
+  .ver-usr-add-usr {  
+    left: 15px;
+    color: rgb(255, 255, 255);
+    width: 180px;
+    position: absolute;
+    font-size: medium;  
+    font-weight: 600;
+    font-family: 'Trebuchet MS', sans-serif;    
+    text-decoration: none;
+  }
+  
+  .ver-usr-oplus {  
+    left: 10px;
+    width: 15%;
+    height: auto;
+    position: absolute;
+  }
+  
+  table {
+    left: 50px;
+    top: 120px;
+    position: absolute;      
+    border-collapse: collapse;
+    width: 90%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tbody tr:hover {background-color: coral;}
