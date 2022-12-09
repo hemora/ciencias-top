@@ -38,6 +38,7 @@ public class UsuarioRestController {
     private IUsuarioService usuarioService;
 
 	@GetMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> verUsuarios() {
 		List<Usuario> usuariosActivos = null;
 		Map<String,Object> response = new HashMap<String, Object>();
@@ -62,6 +63,7 @@ public class UsuarioRestController {
 	/**Buscar usuarios por nombre */
 
 	@RequestMapping("/usuarios/nombre/{nombre}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuarioNombre(@PathVariable(value="nombre") String nombre) {
 		System.out.println("Buscando usuarios...");
 		List<Usuario> usuarios;
@@ -94,6 +96,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por correo */
 	@GetMapping("/usuarios/correo/{correo}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable(value="correo") String correo){
         System.out.println("Buscando usuario con correo " + correo);
 		Usuario usuario= null;
@@ -119,6 +122,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por numero de cuenta */
 	@RequestMapping(value = "/usuarios/{noCT}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable("noCT") Long noCT) {
         System.out.println("Buscando usuario con numero de cuenta " + noCT);
 		Usuario usuario= null;
@@ -143,6 +147,7 @@ public class UsuarioRestController {
     }
 	
 	@PostMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> agregarUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioNuevo = null;
@@ -167,6 +172,7 @@ public class UsuarioRestController {
 	}
 
 	@PutMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> editarUsuario(@RequestBody Usuario usuario, @PathVariable Long noCT) {
 		Usuario currentUsuario = usuarioService.buscarUsuarioPorNoCT(noCT);

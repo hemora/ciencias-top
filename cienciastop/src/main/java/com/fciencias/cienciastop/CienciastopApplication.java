@@ -21,6 +21,9 @@ public class CienciastopApplication {
 		// Gretel
 		endocedPassword = passwordEncoder.encode("Abc_8123");
 		System.out.println(endocedPassword);
+		// América Abc_1283
+		endocedPassword = passwordEncoder.encode("Abc_1283");
+		System.out.println(endocedPassword);
 
 	}
 
