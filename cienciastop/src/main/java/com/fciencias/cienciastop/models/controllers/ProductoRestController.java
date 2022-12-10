@@ -192,10 +192,10 @@ public class ProductoRestController {
 	 * @param Producto producto - representado en un Json
 	 * @param codigo identificador del producto que queremos editar
 	 *///317804511
-	@PutMapping("/productos/{codigo}/editar/{noCT}") // el noCT del que agrego este producto /{noCT} 
+	@PutMapping("/productos/{codigo}/editar/{noCT}/{rol}") // el noCT del que se encuentra logeado /{noCT} 
 	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
-	@PreAuthorize("hasRole('Administrador')")
-	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT) {//
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
+	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT,  @PathVariable String rol) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {
 			Map<String,Object> response = new HashMap<>();
@@ -222,10 +222,13 @@ public class ProductoRestController {
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		long original = currentProd.getnoCT();
-		if(noCT != original) {
-			//Usuario sin permisos sobre el producto.
-			response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
+		String prov = "Proveedor";
+		if(rol==prov) {
+			if(noCT != original) {
+				//Usuario sin permisos sobre el producto.
+				response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
+			}
 		}
 		try {
 			// actualizacion de los atributos
