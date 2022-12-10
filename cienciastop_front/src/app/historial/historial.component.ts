@@ -18,7 +18,7 @@ export class HistorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.historial();
-    console.log(this.rentas)
+    //console.log(this.rentas)
   }
 
   public historial(): void {

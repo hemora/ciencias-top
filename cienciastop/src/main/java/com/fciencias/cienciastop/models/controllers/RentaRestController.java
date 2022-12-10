@@ -323,7 +323,7 @@ public class RentaRestController {
 		String mensaje;
 		try {
 			Long aux = Long.parseLong(entrada);
-			System.out.println(aux);
+			// System.out.println(aux);
 			historial = rentaService.historial(aux);
 		} catch (DataAccessException e) {
 			// Error en la base de datos
@@ -342,7 +342,8 @@ public class RentaRestController {
 			return new ResponseEntity<List<Renta>>(historial, status);
 		}
 		// Error con la entrada
-		mensaje = String.format("No existen coincidencias con: %s", entrada);
+		//mensaje = String.format("No existen coincidencias con: %s", entrada);
+		mensaje = "Historial vacio";		
 		response.put("mensaje", mensaje);
 		status = HttpStatus.NOT_FOUND;
 		return new ResponseEntity<Map<String, Object>>(response, status);

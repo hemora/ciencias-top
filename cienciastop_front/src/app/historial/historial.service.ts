@@ -23,7 +23,7 @@ export class HistorialService {
   getHistorial(): Observable<Renta[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/rentas/historial?entrada=" + this.noCT;
-    console.log("por buscar"+ this.noCT);
+    console.log("por buscar "+ this.noCT);
     return this.http.get<Renta[]>(newUrl, this.authHeader)
       .pipe(
       catchError(e => {
