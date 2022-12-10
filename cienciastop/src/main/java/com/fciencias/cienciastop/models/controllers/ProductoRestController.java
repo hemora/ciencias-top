@@ -193,7 +193,7 @@ public class ProductoRestController {
 	 * @param codigo identificador del producto que queremos editar
 	 *///317804511
 	@PutMapping("/productos/{codigo}/editar/{noCT}/{rol}") // el noCT del que se encuentra logeado /{noCT} 
-	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
+	// @PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
 	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
 	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT,  @PathVariable String rol) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
@@ -223,7 +223,7 @@ public class ProductoRestController {
 		}
 		long original = currentProd.getnoCT();
 		String prov = "Proveedor";
-		if(rol==prov) {
+		if(rol.equals(prov)) {
 			if(noCT != original) {
 				//Usuario sin permisos sobre el producto.
 				response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");

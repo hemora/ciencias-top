@@ -20,6 +20,9 @@ export class ProductoService {
     private router:Router,
     private userAuthService: UserAuthService) { }
 
+  public noCT: number = this.userAuthService.getNoCta();
+  public rol: string = this.userAuthService.getRol();
+
   private urlEndPoint:string = 'http://localhost:8080/api/productos';
   public httpHeaders = new HttpHeaders()
       .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
@@ -69,7 +72,8 @@ export class ProductoService {
     //  En este caso simulando el noCT del que esta editando este producto
     // Colocando el noCT del usuario que agrego este producto y es el que esta logeado(conectado)
     //return this.http.put<Producto>(`${this.urlEndPoint}/${prod.codigo}/editar/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders}).pipe(
-    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,this.authHeader).pipe( // 153249375 para poder editar dead of winter
+    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/${this.noCT}/${this.rol}`, prod,this.authHeader).pipe( // 153249375 para poder editar dead of winter
+    //return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,this.authHeader).pipe( // 153249375 para poder editar dead of winter
       catchError( e => {
         Swal.fire(e.error.mensaje,  e.error.error, 'error');
         return throwError( () => e );

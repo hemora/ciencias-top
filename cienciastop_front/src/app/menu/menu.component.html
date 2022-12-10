@@ -29,7 +29,10 @@
     </a>
   </div>
   <div class="small-space"></div>
-  <app-menu-admin *ngIf="this.authService.getRol() == 'Administrador'"></app-menu-admin>
+  <!--
+    <app-menu-admin *ngIf="this.authService.getRol() == 'Administrador'"></app-menu-admin>
+  -->
+  <app-menu-admin></app-menu-admin>
   <form action="" method="">
     <button type="button" class="menu-logout">
       <img alt="logout" src="/assets/playground_assets/antdesignlogoutoutlined2096-z1dp.svg"
