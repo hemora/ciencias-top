@@ -31,7 +31,12 @@ export class ProductoService {
   }
 
   getProductos(): Observable<Producto[]>{
-    return this.http.get<Producto[]>(this.urlEndPoint);
+    return this.http.get<Producto[]>(this.urlEndPoint, this.authHeader).pipe(
+      catchError(e => {
+        Swal.fire('Error al cargar los productos', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    );
   }
 
   create(producto: Producto): Observable<Producto>{
@@ -40,7 +45,7 @@ export class ProductoService {
   }
 
   getProducto(codigo:string): Observable<Producto>{
-    return this.http.get<Producto>(`${this.urlEndPoint}/${codigo}`).pipe(
+    return this.http.get<Producto>(`${this.urlEndPoint}/${codigo}`,this.authHeader).pipe(
       catchError(e => {
         this.router.navigate(['/productos']); // Para redireccionar a productos
         Swal.fire('Error al encontrar el prod', e.error.mensaje, 'error');
@@ -60,11 +65,11 @@ export class ProductoService {
    * @param prod Producto que guardaremos
    */
   editarProd(prod:Producto): Observable<any>{
-    //console.log(localStorage.getItem("noCT"));
+    console.log(localStorage.getItem("noCT"));
     //  En este caso simulando el noCT del que esta editando este producto
     // Colocando el noCT del usuario que agrego este producto y es el que esta logeado(conectado)
     //return this.http.put<Producto>(`${this.urlEndPoint}/${prod.codigo}/editar/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders}).pipe(
-    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,{headers: this.httpHeaders}).pipe( // 153249375 para poder editar dead of winter
+    return this.http.put<any>(`${this.urlEndPoint}/${prod.codigo}/editar/153249375`, prod,this.authHeader).pipe( // 153249375 para poder editar dead of winter
       catchError( e => {
         Swal.fire(e.error.mensaje,  e.error.error, 'error');
         return throwError( () => e );

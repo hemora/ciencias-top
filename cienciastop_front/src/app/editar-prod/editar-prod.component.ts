@@ -26,7 +26,7 @@ export class EditarProdComponent implements OnInit {
     private fb: FormBuilder) {
     this.createForm();
   }
-
+  
   /**
    * Metodo que usamos para cargar el producto correspondiente
    * al codigo proporcionado como parametro cuando seleccionamos

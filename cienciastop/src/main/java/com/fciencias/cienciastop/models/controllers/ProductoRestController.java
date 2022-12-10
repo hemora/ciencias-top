@@ -193,6 +193,8 @@ public class ProductoRestController {
 	 * @param codigo identificador del producto que queremos editar
 	 *///317804511
 	@PutMapping("/productos/{codigo}/editar/{noCT}") // el noCT del que agrego este producto /{noCT} 
+	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {
