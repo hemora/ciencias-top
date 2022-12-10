@@ -322,7 +322,7 @@ public class ProductoRestController {
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();
 		Usuario user = this.usuarioService.buscarUsuarioPorNoCT(noCT);
-		if((user.getRol() == "Administrador") || (noCT == original)) {
+		if((user.getRol().equals("Administrador")) || (noCT == original)) {
 			//Eliminacion exitosa del producto.
 			productoService.delete(codigo);
 			response.put("mensaje", "El producto ha sido eliminado con exito");
