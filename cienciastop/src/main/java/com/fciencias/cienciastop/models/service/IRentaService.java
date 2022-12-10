@@ -39,6 +39,6 @@ public interface IRentaService {
 	 * @param usuario_id el usuario_id que se buscara.
 	 * @return una lista de rentas que contienen el usuario_id.
 	 */
-	public List<Renta> historial(long usuario_id);
+	public List<Renta> historial(Long usuario_id);
 
 }

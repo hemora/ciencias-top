@@ -315,15 +315,16 @@ public class RentaRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/rentas/historial")
-	@PreAuthorize("hasRole('Administrador')")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public ResponseEntity<?> historial(@RequestParam String entrada) {
 		List<Renta> historial;
 		HttpStatus status;
 		Map<String, Object> response = new HashMap<>();
 		String mensaje;
 		try {
-			long temp = 123456789;
-			historial = rentaService.historial(temp);
+			Long aux = Long.parseLong(entrada);
+			System.out.println(aux);
+			historial = rentaService.historial(aux);
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";

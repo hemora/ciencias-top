@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HistorialService } from './historial.service';
 import Swal from 'sweetalert2';
+import { Renta } from '../rentas-usr/renta';
 
 @Component({
   selector: 'app-historial',
@@ -9,23 +10,21 @@ import Swal from 'sweetalert2';
 })
 export class HistorialComponent implements OnInit {
 
-  entrada: string = "123456789"
-  // rentas: Renta[];
+  rentas: Renta[];
 
   constructor(
     private historialService: HistorialService
   ) { }
 
   ngOnInit(): void {
-    // this.historial();
+    this.historial();
+    console.log(this.rentas)
   }
 
-  /*
   public historial(): void {
-    this.historialService.getHistorial(this.entrada).subscribe(
+    this.historialService.getHistorial().subscribe(
       rentas => this.rentas = rentas
     );
   }
-  */
 
 }

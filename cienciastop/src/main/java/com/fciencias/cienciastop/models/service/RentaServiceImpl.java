@@ -79,7 +79,7 @@ public class RentaServiceImpl implements IRentaService {
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public List<Renta> historial(long usuario_id) {
+	public List<Renta> historial(Long usuario_id) {
 		return rentaDao.historial(usuario_id);
 	}
 

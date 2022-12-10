@@ -58,8 +58,8 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 	 * @return una lista de rentas que contienen el usuario_id.
 	 */
 	@Query(
-			value= "SELECT * FROM rentas WHERE usuario_id = ?1;", 
+			value= "SELECT * FROM rentas WHERE usuario_id = :usuario_id;", 
 			nativeQuery = true)
-	public List<Renta> historial(long usuario_id);
+	public List<Renta> historial(Long usuario_id);
 
 }
