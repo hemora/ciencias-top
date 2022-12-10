@@ -41,6 +41,7 @@ public class ProductoRestController {
 	private IUsuarioService usuarioService;
 	
 	@GetMapping("/productos")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public List<Producto> index() {
 		return productoService.findAll();
 	}
@@ -55,6 +56,7 @@ public class ProductoRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/productos/{codigo}")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public ResponseEntity<?> show(@PathVariable String codigo) {
 		Producto producto = null;
 		HttpStatus status;
@@ -98,6 +100,7 @@ public class ProductoRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/busqueda")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public ResponseEntity<?> busqueda(@RequestParam String entrada) {
 		Producto porCodigo = null;
 		List<Producto> porNombre;
