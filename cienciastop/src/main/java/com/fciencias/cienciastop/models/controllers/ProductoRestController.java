@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -146,11 +147,23 @@ public class ProductoRestController {
 	 */
 	@PostMapping("/productos/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
 	public ResponseEntity<?> create(@RequestBody Producto producto, @PathVariable long noCT) {
 		producto.setCurrentStock(producto.getStockInicial());
 		producto.setnoCT(noCT);
 		Producto productoN = null;
+		Producto existente = productoService.findByCodigo(producto.getCodigo());
 		Map<String, Object> response = new HashMap<>();
+		try {
+			if(existente != null) {
+				throw new DuplicateKeyException("Intento de insercion que peligra la integridad.");
+			}
+		}catch(DuplicateKeyException e) {
+			response.put("mensaje", "Error, el código ya esta siendo usado.");
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			productoN = productoService.save(producto);
 		}catch(DataAccessException e) {
@@ -160,7 +173,7 @@ public class ProductoRestController {
 			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "El producto ha sido creado con exito");
+		response.put("mensaje", "El producto ha sido creadooo con exito");
 		response.put("producto", productoN);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
@@ -303,6 +316,7 @@ public class ProductoRestController {
 	 */
 	@DeleteMapping("/productos/{codigo}/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
 	public ResponseEntity<?> delete(@PathVariable String codigo, @PathVariable long noCT) {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
