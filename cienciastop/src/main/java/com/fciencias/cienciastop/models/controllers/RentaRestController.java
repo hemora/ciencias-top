@@ -1,5 +1,6 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fciencias.cienciastop.models.entity.Producto;
@@ -200,6 +203,150 @@ public class RentaRestController {
 		response.put("mensaje", "La renta se ha eliminado exitosamente");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		
+	}
+
+	/**
+	 * Regresa la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/rentas/con-mas-rentas")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> topFiveConMasRentas() {
+		List<Object[]> conMasRentas;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			conMasRentas = rentaService.topFiveConMasRentas();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (conMasRentas == null) {
+			conMasRentas = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(conMasRentas, status);
+	}
+
+	/**
+	 * Regresa la lista de los 5 productos mas rentados del mes.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 5 productos mas rentados del mes.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/rentas/prod-mas-rentados")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> topFiveMasRentados() {
+		List<Object[]> masRentados;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			masRentados = rentaService.topFiveMasRentados();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (masRentados == null) {
+			masRentados = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(masRentados, status);
+	}
+
+	/**
+	 * Regresa la lista de los 10 usuarios con mas retardos.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de los 10 usuarios con mas retardos.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/rentas/usr-mas-retardos")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> topTenConMasRetardos() {
+		List<Object[]> conMasRetardos;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			conMasRetardos = rentaService.topTenConMasRetardos();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (conMasRetardos == null) {
+			conMasRetardos = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(conMasRetardos, status);
+	}
+
+	/**
+	 * Regresa una lista de rentas realizadas por el usuario.
+	 * Si existe un error en la base de datos o no existen coincidencias
+	 * se manda un mensaje sobre el tipo de error.
+	 * @param entrada la entrada a la que se le buscaran coincidencias por id
+	 * del usuario.
+	 * @return una lista de rentas realizadas por el usuario.
+	 * Si existe un error en la base de datos o no existen coincidencias
+	 * se manda un mensaje sobre el tipo de error.
+	 */
+	@GetMapping("/rentas/historial")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
+	public ResponseEntity<?> historial(@RequestParam String entrada) {
+		List<Renta> historial;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			Long aux = Long.parseLong(entrada);
+			// System.out.println(aux);
+			historial = rentaService.historial(aux);
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		// Entrada correcto
+		if (!historial.isEmpty()) {
+			status = HttpStatus.OK;
+			return new ResponseEntity<List<Renta>>(historial, status);
+		}
+		// Error con la entrada
+		//mensaje = String.format("No existen coincidencias con: %s", entrada);
+		mensaje = "Historial vacio";		
+		response.put("mensaje", mensaje);
+		status = HttpStatus.NOT_FOUND;
+		return new ResponseEntity<Map<String, Object>>(response, status);
 	}
 	
 }

@@ -9,8 +9,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +42,7 @@ public class ProductoRestController {
 	private IUsuarioService usuarioService;
 	
 	@GetMapping("/productos")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public List<Producto> index() {
 		return productoService.findAll();
 	}
@@ -54,6 +57,7 @@ public class ProductoRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/productos/{codigo}")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public ResponseEntity<?> show(@PathVariable String codigo) {
 		Producto producto = null;
 		HttpStatus status;
@@ -97,6 +101,7 @@ public class ProductoRestController {
 	 * se manda un mensaje sobre el tipo de error.
 	 */
 	@GetMapping("/busqueda")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public ResponseEntity<?> busqueda(@RequestParam String entrada) {
 		Producto porCodigo = null;
 		List<Producto> porNombre;
@@ -142,11 +147,23 @@ public class ProductoRestController {
 	 */
 	@PostMapping("/productos/{noCT}")
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
 	public ResponseEntity<?> create(@RequestBody Producto producto, @PathVariable long noCT) {
 		producto.setCurrentStock(producto.getStockInicial());
 		producto.setnoCT(noCT);
 		Producto productoN = null;
+		Producto existente = productoService.findByCodigo(producto.getCodigo());
 		Map<String, Object> response = new HashMap<>();
+		try {
+			if(existente != null) {
+				throw new DuplicateKeyException("Intento de insercion que peligra la integridad.");
+			}
+		}catch(DuplicateKeyException e) {
+			response.put("mensaje", "Error, el código ya esta siendo usado.");
+			String aux = "" + e.getMessage() + ": ";
+			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			productoN = productoService.save(producto);
 		}catch(DataAccessException e) {
@@ -156,7 +173,7 @@ public class ProductoRestController {
 			response.put("error", aux.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "El producto ha sido creado con exito");
+		response.put("mensaje", "El producto ha sido creadooo con exito");
 		response.put("producto", productoN);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
@@ -188,8 +205,10 @@ public class ProductoRestController {
 	 * @param Producto producto - representado en un Json
 	 * @param codigo identificador del producto que queremos editar
 	 *///317804511
-	@PutMapping("/productos/{codigo}/editar/{noCT}") // el noCT del que agrego este producto /{noCT} 
-	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT) {//
+	@PutMapping("/productos/{codigo}/editar/{noCT}/{rol}") // el noCT del que se encuentra logeado /{noCT} 
+	// @PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
+	public ResponseEntity<?> editarProducto (@Valid @RequestBody Producto producto,  BindingResult bindingResult, @PathVariable String codigo, @PathVariable long noCT,  @PathVariable String rol) {//
 		// Verificamos que no tengamos errores en el JSON de acuerdo a nuestra Identidad
 		if(bindingResult.hasErrors()) {
 			Map<String,Object> response = new HashMap<>();
@@ -216,10 +235,13 @@ public class ProductoRestController {
 			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		long original = currentProd.getnoCT();
-		if(noCT != original) {
-			//Usuario sin permisos sobre el producto.
-			response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
+		String prov = "Proveedor";
+		if(rol.equals(prov)) {
+			if(noCT != original) {
+				//Usuario sin permisos sobre el producto.
+				response.put("mensaje", "No se tiene los permisos necesarios para eliminar este producto.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.UNAUTHORIZED);
+			}
 		}
 		try {
 			// actualizacion de los atributos
@@ -294,6 +316,7 @@ public class ProductoRestController {
 	 */
 	@DeleteMapping("/productos/{codigo}/{noCT}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasRole('Administrador') || hasRole('Proveedor')")
 	public ResponseEntity<?> delete(@PathVariable String codigo, @PathVariable long noCT) {
 		Map<String, Object> response = new HashMap<>();
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
@@ -319,7 +342,8 @@ public class ProductoRestController {
 	 * cantidad de puma puntos.
 	 * Si existe un error en la base de datos se manda un mensaje sobre el tipo de error.
 	 */
-	@GetMapping("/top-5-baratos")
+	@GetMapping("/productos/top-5-baratos")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> topFiveBaratos() {
 		List<Producto> topFive;
 		HttpStatus status;

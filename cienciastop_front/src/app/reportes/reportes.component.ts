@@ -15,6 +15,9 @@ export class ReportesComponent implements OnInit {
   groupCarrera: Object[];
   pMasBaratos: Producto[];
   groupStatus: Object[];
+  conMasRentas: Object[];
+  masRentados: Object[];
+  masRetardos: Object[];
 
   constructor(
     private route: Router,
@@ -25,6 +28,9 @@ export class ReportesComponent implements OnInit {
     this.agrupamientoCarrera();
     this.topFiveBaratos();
     this.agrupamientoStatus();
+    this.topFiveConMasRentas();
+    this.topFiveMasRentados();
+    this.topTenConMasRetardos();
   }
 
   public agrupamientoCarrera(): void {
@@ -42,6 +48,24 @@ export class ReportesComponent implements OnInit {
   public agrupamientoStatus(): void {
     this.reportesService.agrupamientoStatus().subscribe(
       groupStatus => this.groupStatus = groupStatus
+    );
+  }
+
+  public topFiveConMasRentas(): void {
+    this.reportesService.topFiveConMasRentas().subscribe(
+      conMasRentas => this.conMasRentas = conMasRentas
+    );
+  }
+
+  public topFiveMasRentados(): void {
+    this.reportesService.topFiveMasRentados().subscribe(
+      masRentados => this.masRentados = masRentados
+    );
+  }
+
+  public topTenConMasRetardos(): void {
+    this.reportesService.topTenConMasRetardos().subscribe(
+      masRetardos => this.masRetardos = masRetardos
     );
   }
 

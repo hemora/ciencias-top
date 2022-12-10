@@ -1,10 +1,10 @@
-.agrega-prd-container {
+.agregar-prd-container {
     width: 80%;
     left: 20%;
     position: absolute;
 }
 
-.agrega-prd-text {
+.agregar-prd-text {
     top: 40px;
     left: 5%;
     color: rgba(82, 87, 92, 1);
@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 
-.agrega-prd-btn {
+.agregar-prd-btn {
     width: auto;
     height: 40px;
     display: flex;
@@ -36,7 +36,12 @@ form {
     width: 90%;
     margin: 90px auto 0 auto;
     box-sizing: border-box;
-    column-count: 2;
+}
+
+.izq, .der {
+    width: 50%;
+    float: left;
+    padding: 10px;
 }
 
 label:not(.boxes label) {
@@ -106,14 +111,14 @@ input[type="radio"] {
 }
 
 .small-space {
-    height: 20px;
-    padding: 20px 0;
+    height: 30px;
+    padding: 60px 0;
 }
 
 .error {
     display: block;
     margin: 5px 0;
-    color: #fff;
+    color: #f00;
 }
 
 .error-border {

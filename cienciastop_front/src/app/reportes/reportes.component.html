@@ -20,23 +20,18 @@
 
     <!-- Top 5 productos mas rentados -->
     <table class="tab2">
-        <thead> 
+        <thead>         
             <tr>
-                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 productos mas rentados</th>
-            </tr>           
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 5 productos mas rentados del mes</th>
+            </tr>
             <tr>
-                <th>Nombre</th>
-                <th>Puma puntos</th>
-                <th>Codigo</th>
-                <th>Veces que se rento</th>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="usrActivosC">Veces rentado</th>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="carrera">ID del Producto</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Twilight</th>
-                <th>321</th>
-                <th>321</th>
-                <th>3</th>
+            <tr *ngFor="let row of masRentados; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
             </tr>
         </tbody>
     </table>
@@ -82,46 +77,36 @@
 
     <!-- Top 10 usuarios con mas retardos -->
     <table class="tab5">
-        <thead> 
+        <thead>         
             <tr>
-                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 10 usuarios con mas retardos</th>
-            </tr>           
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 10 usuarios con mas retardos</th>
+            </tr>
             <tr>
-                <th>Nombre</th>
-                <th>Rol</th>
-                <th>Numero de cuenta o Trabajador</th>
-                <th>Correo</th>
+                <th scope="col" [appSort]="masRetardos" data-order="asc" data-name="usrActivosC">Retardos</th>
+                <th scope="col" [appSort]="masRetardos" data-order="asc" data-name="carrera">ID del Usuario</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Pepe</th>
-                <th>Admin</th>
-                <th>1234567890</th>
-                <th>hola@false.moc</th>
+            <tr *ngFor="let row of masRetardos; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
             </tr>
         </tbody>
     </table>
 
     <!-- Top 5 usuarios con mas rentas en la semana -->
     <table class="tab6">
-        <thead> 
+        <thead>         
             <tr>
-                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Top 5 usuarios con mas rentas en la semana</th>
-            </tr>           
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 5 usuarios con mas rentas en la semana</th>
+            </tr>
             <tr>
-                <th>Nombre</th>
-                <th>Rol</th>
-                <th>Numero de cuenta o Trabajador</th>
-                <th>Correo</th>
+                <th scope="col" [appSort]="conMasRentas" data-order="asc" data-name="usrActivosC">Numero de rentas</th>
+                <th scope="col" [appSort]="conMasRentas" data-order="asc" data-name="carrera">ID del Usuario</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Pepe</th>
-                <th>Admin</th>
-                <th>1234567890</th>
-                <th>hola@false.moc</th>
+            <tr *ngFor="let row of conMasRentas; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
             </tr>
         </tbody>
     </table>
