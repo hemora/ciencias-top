@@ -322,9 +322,11 @@ public class RentaRestController {
 		Map<String, Object> response = new HashMap<>();
 		String mensaje;
 		try {
-			Long aux = Long.parseLong(entrada);
-			// System.out.println(aux);
-			historial = rentaService.historial(aux);
+			Long auxEntrada = Long.parseLong(entrada);
+			historial = rentaService.findAll();
+			historial = auxHistorial(historial, auxEntrada);
+			// historial = rentaService.historial(auxEntrada);
+			//System.out.println(historial.get(0).getUsuario().getNoCT());
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
@@ -347,6 +349,27 @@ public class RentaRestController {
 		response.put("mensaje", mensaje);
 		status = HttpStatus.NOT_FOUND;
 		return new ResponseEntity<Map<String, Object>>(response, status);
+	}
+
+	// Auxiliar para historial
+	private List<Renta> auxHistorial(List<Renta> historial, Long entrada) {
+		if (historial == null) {
+			historial = new ArrayList<Renta>();
+		}
+		if (historial.isEmpty()) {
+			return historial;
+		}
+		List<Renta> aux = new ArrayList<Renta>();
+		for (Renta renta : historial) {
+			//System.out.println(renta.getUsuario().getNoCT());
+			//System.out.println(entrada);
+			Long noCT = renta.getUsuario().getNoCT();
+			int com = Long.compare(entrada, noCT);
+			if (com == 0) {
+				aux.add(renta);
+			}
+		}
+		return aux;
 	}
 	
 }
