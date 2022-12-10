@@ -43,8 +43,13 @@ export class ProductoService {
   }
 
   create(producto: Producto): Observable<Producto>{
-    console.log(localStorage.getItem("noCT"));
-    return this.http.post<Producto>(`${this.urlEndPoint}/${localStorage.getItem("noCT")}`, producto, {headers: this.httpHeaders} )
+    return this.http.post<Producto>(`${this.urlEndPoint}/${this.noCT}`, producto,  this.authHeader).pipe(
+      catchError(e => {
+        this.router.navigate(['/productos']);
+        Swal.fire('El código ya esta asociado a un producto existente.', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
   }
 
   getProducto(codigo:string): Observable<Producto>{
@@ -58,8 +63,13 @@ export class ProductoService {
   }
 
   delete(codigo: string): Observable<Producto>{
-    console.log("adios");
-    return this.http.delete<Producto>(`${this.urlEndPoint}/${codigo}/${localStorage.getItem("noCT")}`, {headers: this.httpHeaders})
+    return this.http.delete<Producto>(`${this.urlEndPoint}/${codigo}/${this.noCT}`, this.authHeader).pipe(
+      catchError(e => {
+        this.router.navigate(['/productos']);
+        Swal.fire('No ha sido posible eliminar el producto.', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
   }
 
   /**
