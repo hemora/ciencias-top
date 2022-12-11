@@ -43,7 +43,7 @@ export class PerfilComponent implements OnInit {
     
     this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
       response => {                
-        this.monedero = JSON.parse(response.monedero);      
+        this.monedero = response.monedero;      
       }
     );    
 
