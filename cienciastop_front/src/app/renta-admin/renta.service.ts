@@ -15,8 +15,7 @@ export class RentaService {
 
   constructor(private http: HttpClient, private router: Router, private userAuthService: UserAuthService) { }
 
-  private urlEndPoint:string = 'http://localhost:8080/api/rentas';
-  private urlEndPoint_perfil: string = 'http://localhost:8080/api/ver-perfil';
+  private urlEndPoint:string = 'http://localhost:8080/api/rentas';  
 
   private authHeader = {
     headers: new HttpHeaders()
@@ -40,20 +39,5 @@ export class RentaService {
       })
     );
   }
-  
-  getRentasUsr(noCT: number): Observable<Object> {
-    return this.http.get(this.urlEndPoint_perfil + '/' + noCT, { headers: this.httpHeaders }).pipe(
-      catchError(e => {
-        swal.fire(
-          { 
-            title: 'No se encontro informacion de rentas del usuario',  
-            text: e.error.mensaje,  
-            icon: 'warning'
-          }
-        );
-        return throwError(() => e);
-
-      })
-    );
-  }
+    
 }

@@ -46,8 +46,8 @@ const routes: Routes = [
   {path: 'productos/editar-prod', component: EditarProdComponent},
   {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
   {path: 'productos/historial', component: HistorialComponent},
-  {path: 'login', component: InicioUiComponent},
-  {path: 'ver-perfil/:noCT', component: PerfilComponent}
+  {path: 'login', component: InicioUiComponent},  
+  {path: 'usuarios/ver-perfil/:noCT', component: PerfilComponent}
 ]
 
 @NgModule({

@@ -133,4 +133,20 @@ export class UsuarioService {
       })
     )
   }
+
+  getPerfilData(noCT: number): Observable<Object> {
+    return this.http.get(this.urlEndPoint + '/ver-perfil/' + noCT, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        Swal.fire(
+          { 
+            title: 'No se encontro informacion de rentas del usuario',  
+            text: e.error.mensaje,  
+            icon: 'warning'
+          }
+        );
+        return throwError(() => e);
+
+      })
+    );
+  }
 }

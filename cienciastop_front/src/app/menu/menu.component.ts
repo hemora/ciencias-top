@@ -10,20 +10,15 @@ import { Usuario } from '../usuarios/usuario';
 })
 export class MenuComponent implements OnInit {
 
-  usuario : Usuario = new Usuario();
+  noCT : number;
   
   constructor(public authService: UserAuthService, private usuarioService: UsuarioService) {
   }
   
   
   ngOnInit(): void {        
-    let cta = this.authService.getNoCta();
-    this.usuarioService.buscarUsuario(cta).subscribe(
-      response => {
-        this.usuario = response;
-      }
-    );
-    console.log(this.usuario);
+    this.noCT = this.authService.getNoCta();    
+    console.log(this.noCT);
   }
 
 }

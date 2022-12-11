@@ -44,38 +44,7 @@ public class RentaRestController {
 	/*@GetMapping("/rentas")
 	public List<Renta> index() {
 		return rentaService.findAll();
-	}*/
-
-	@GetMapping("/ver-perfil/{noCT}")
-	public ResponseEntity<?> rentasDeUsr(@PathVariable Long noCT) {
-		List<Renta> historialDeUsr = null;
-		List<Renta> rentasDeUsr = null;
-		Map<String,Object> response = new HashMap<String, Object>();
-
-		try {
-			Usuario usuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
-			historialDeUsr  = this.rentaService.rentasVencidasUsr(usuario);
-			rentasDeUsr  = this.rentaService.rentasActualesUsr(usuario);
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
-			String cadenaError = "";
-			cadenaError += e.getMessage() + ": ";
-			cadenaError += e.getMostSpecificCause().getMessage();
-			response.put("error", cadenaError);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-		}				
-		if (historialDeUsr != null) {
-			response.put("rentasVencidas",historialDeUsr);
-		}
-		if (rentasDeUsr != null) {
-			response.put("rentasActuales", rentasDeUsr);
-		}
-		if (historialDeUsr.isEmpty() && rentasDeUsr.isEmpty()) {
-			response.put("mensaje", "El usuario no tiene rentas activas que mostrar.");
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
-		}		
-		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-	}
+	}*/	
 	
 	@GetMapping("/rentas")
 	public ResponseEntity<?> verRentas() {
