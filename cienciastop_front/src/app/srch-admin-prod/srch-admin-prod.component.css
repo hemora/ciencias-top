@@ -85,6 +85,12 @@ img {
   text-decoration: none;
 }
 
+.btn-srch-admin-prod {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+}
+
 table {
   left: 50px;
   top: 120px;

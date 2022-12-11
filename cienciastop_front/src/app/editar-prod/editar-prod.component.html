@@ -1,0 +1,146 @@
+<div class="ver-prod-container">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+
+        <!-- ngSubmit: nombre del metodo que se invocara cuando se envie el formulario -->
+        <form (ngSubmit)="onSubmitForm()" [formGroup]="angForm" novalidate>
+            
+            <!-- Para el nombre -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input formControlName="nombre" type="text" class="form-control" 
+                    [(ngModel)]="producto.nombre" name = "nombre"> 
+                    <!-- en ngModel va el atributo que estara en la clase component
+                         en class va el nombre del campo -->
+                </div>  
+            </div>
+            <!-- Para validaciones -->
+            <div *ngIf="angForm.controls['nombre'].invalid && (angForm.controls['nombre'].dirty || angForm.controls['nombre'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['nombre'].errors">
+                    Ingresa el nuevo nombre del producto.
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Stock Inicial</label>
+                <div class="col-sm-6">
+                    <input formControlName= "stockInicial" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.stock_inicial" name="stock_inicial">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['stockInicial'].invalid && (angForm.controls['stockInicial'].dirty || angForm.controls['stockInicial'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['stockInicial'].errors">
+                    Ingrese el número de existencias inicales del producto.
+                </div>
+            </div>
+            <!-- ¿Por qué se mandan 2 veces? -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Current Stock</label>
+                <div class="col-sm-6">
+                    <input formControlName= "currentStock" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.current_stock" name="currentStock">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['currentStock'].invalid && (angForm.controls['currentStock'].dirty || angForm.controls['currentStock'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['currentStock'].errors">
+                    Ingrese el número de existencias inicales del producto.
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Precio</label>
+                <div class="col-sm-6">
+                    <input formControlName= "precio" type="number" pattern="[0-9]*" min="0" max="500" class="form-control" [(ngModel)]="producto.precio" name="precio">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['precio'].invalid && (angForm.controls['precio'].dirty || angForm.controls['precio'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['precio'].errors">
+                    El precio de un producto debe valer entre 0 y 500 pumapuntos.
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Descripción</label>
+                <div class="col-sm-6">
+                    <input formControlName= "descripcion" type="text" class="form-control" [(ngModel)]="producto.descripcion" name="descripcion">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['descripcion'].invalid && (angForm.controls['descripcion'].dirty || angForm.controls['descripcion'].touched)"  class="alert alert-danger">
+                <div *ngIf="angForm.controls['descripcion'].errors">
+                    Ingrese una descripción del producto (max: 120 caracteres).
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Categoria</label>
+                <div class="col-sm-6">
+                    <input formControlName= "categoria" type="text" class="form-control" [(ngModel)]="producto.categoria" name="categoria">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['categoria'].invalid && (angForm.controls['categoria'].dirty || angForm.controls['categoria'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['categoria'].errors">
+                    Ingrese la categoria del producto.
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Tipo</label>
+                <div class="col-sm-6">
+                    <input formControlName= "tipo" type="text" class="form-control" [(ngModel)]="producto.tipo" name="tipo">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['tipo'].invalid && (angForm.controls['tipo'].dirty || angForm.controls['tipo'].touched)"  class="alert alert-danger">
+                <div *ngIf="angForm.controls['tipo'].errors">
+                    Ingresa el tipo del producto.
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Dias que se renta</label>
+                <div class="col-sm-6">
+                    <input formControlName= "periodoRenta" type="number" pattern="[3-7]*" min="3" max="7" class="form-control" [(ngModel)]="producto.periodo_renta"  name="periodoRenta">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['periodoRenta'].invalid && (angForm.controls['periodoRenta'].dirty || angForm.controls['periodoRenta'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['periodoRenta'].errors">
+                    El periodo de Renta de un producto debe ser entre 3 y 7 dias.
+                </div>
+            </div>
+            <!-- <br
+            <div class="form-group row">
+                <label for=""class="col-form-label col-sm-2">  NoCT del que agrego el prod </label>
+                <div class="col-sm-6">
+                    <input type="number" formControlName= "noCT" pattern="[0-9]*"class="form-control" name="noCT">
+                </div>
+                <div *ngIf="angForm.controls['noCT'].invalid && (angForm.controls['noCT'].dirty || angForm.controls['noCT'].touched)" class="alert alert-danger">
+                    <div *ngIf="agregForm.controls['noCT'].errors">
+                        Es necesario el NoCT del que agrego el prod
+                    </div>
+                </div>
+            </div> /> -->
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Imagen</label>
+                <div class="col-sm-6">
+                    <input formControlName= "imagen" type="file"  accept=".jpg, .jpeg, .png" class="form-control" [(ngModel)]="producto.imagen" name="imagen">
+                </div>
+            </div>
+            <div *ngIf="angForm.controls['imagen'].invalid && (angForm.controls['imagen'].dirty || angForm.controls['imagen'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['imagen'].errors">
+                    Debe ingresar la imagen del producto.
+                </div>
+            </div>
+            
+            <button type= "submit"
+            [disabled]="angForm.invalid" class="btn btn-success">Editar</button>
+
+            
+            <p>Form value: {{ angForm.value | json}}</p>
+            <p>Form status: {{ angForm.status | json}}</p>
+            
+        </form>
+        <br />
+        <!-- <br /> -->
+    </div>
+
+</div>
