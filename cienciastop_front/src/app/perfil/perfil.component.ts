@@ -3,8 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Monedero } from '../editar-puma-puntos/monedero';
 import { MonederoService } from '../editar-puma-puntos/monedero.service';
 import { Renta } from '../renta-admin/renta';
-import { RentaService } from '../rentas-usr/renta.service';
+import { RentaService } from '../renta-admin/renta.service';
+import { ProductoService } from '../productos/producto.service';
 import { Usuario } from '../usuarios/usuario';
+import { Producto } from '../productos/producto';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
@@ -15,24 +18,10 @@ export class PerfilComponent implements OnInit {
 
   usuario: Usuario = new Usuario();    
   monedero: Monedero = new Monedero();
-  /* 
-   Datos provicionales
-   Sustituir con las rentas del periodo actual y 
-   devoluciones (status-false) dado un usuario.
-  */
-  rentas = [
-    {nombre: 'Balón de Voleibol', codigo:'Ss045', cantidad:1, imagen:''},
-    {nombre: 'Replicas', codigo:'Vs816', cantidad:1, imagen:''},
-    {nombre: 'Audifonos', codigo:'Ts200', cantidad:2, imagen:''},
-    {nombre: 'Producto', codigo:'Ps500', cantidad:1, imagen:''},
-    {nombre: 'Producto', codigo:'Ps500', cantidad:1, imagen:''},
-    {nombre: 'Producto', codigo:'Ps500', cantidad:1, imagen:''}
-  ];
-  devoluciones = [
-    {nombre: 'UNO', codigo:'Gs001', cantidad:2, renta:'28/11/2022'},
-    {nombre: 'Un Verano Sin Ti', codigo:'Ms200', cantidad:1, renta:'10/11/2022'},
-    {nombre: 'Set de Pin-Pong', codigo:'Ss120', cantidad:1, renta:'11/11/2022'}
-  ];
+  
+  map_rentas = new Map();
+  rentas = new Array<Renta> ();
+  devoluciones = new Array<Renta> ();
 
   mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
@@ -42,9 +31,10 @@ export class PerfilComponent implements OnInit {
   month = this.mes[this.myDate.getUTCMonth()];
 
 
-  constructor(private monederoService: MonederoService, private rentasService: RentaService) { }  
+  constructor(private monederoService: MonederoService, private rentaService: RentaService, 
+    private productoService: ProductoService) { }  
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.usuario = history.state;
     console.log(this.usuario);      
     
@@ -52,20 +42,19 @@ export class PerfilComponent implements OnInit {
     let periodo = periodoAux[2] + '-' + periodoAux[1];
     
     this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
-      response => {
-        this.monedero = response.monedero;
+      response => {                
+        this.monedero = JSON.parse(response.monedero);      
       }
     );    
 
-    /*this.rentasService.getRentas(this.usuario.noCT).subscribe(
+    this.rentaService.getRentasUsr(this.usuario.noCT).subscribe(
       response => {
-        this.rentas = response.rentas;
+        this.map_rentas = new Map(Object.entries(response));
+        console.log(this.map_rentas);        
+        this.rentas = this.map_rentas.get("rentasActuales");        
+        this.devoluciones = this.map_rentas.get("rentasVencidas");        
       }
-      this.rentasService.getDevoluciones(this.usuario.noCT, status false).subscribe(
-      response => {
-        this.devoluciones = response.devoluciones;
-      }
-    );*/
+    );
   }
 
   /**
@@ -75,8 +64,8 @@ export class PerfilComponent implements OnInit {
    * @returns true si han pasado mas de 7 dias,
    *          false en otro caso.
    */
-  esMalo(renta:string) {
-    var fecha_renta = renta.split("/").reverse().join("/");    
+  esMalo(fecha_entrega:Date) {    
+    var fecha_renta = fecha_entrega.toString().split("/").reverse().join("/");  
     var current = this.myDate.toString().split("/").reverse().join("/");
     var fechadesde = new Date(fecha_renta).getTime();
     var fechahasta = new Date(current).getTime();    
@@ -84,5 +73,9 @@ export class PerfilComponent implements OnInit {
     var diff = dias/(1000 * 60 * 60 * 24);
     return diff>7;
   }  
+  
+  getDateFormat(date:Date) {
+    return (date.toString().split("T")[0]).split("-").reverse().join("/");
+  }
 
 }

@@ -17,6 +17,8 @@ export class RentaService {
   constructor(private http: HttpClient, private router: Router) { }
 
   private urlEndPoint:string = 'http://localhost:8080/api/rentas';
+  private urlEndPoint_perfil: string = 'http://localhost:8080/api/ver-perfil';
+  
   getRentas(): Observable<Renta[]> {
     return this.http.get<Renta[]>(this.urlEndPoint);
   }
@@ -27,6 +29,22 @@ export class RentaService {
         swal.fire('Error al actualizar producto', e.error.mensaje, "error");
         return throwError( () => e);
         
+      })
+    );
+  }
+  
+  getRentasUsr(noCT: number): Observable<Object> {
+    return this.http.get(this.urlEndPoint_perfil + '/' + noCT, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        swal.fire(
+          { 
+            title: 'No se encontro informacion de rentas del usuario',  
+            text: e.error.mensaje,  
+            icon: 'warning'
+          }
+        );
+        return throwError(() => e);
+
       })
     );
   }

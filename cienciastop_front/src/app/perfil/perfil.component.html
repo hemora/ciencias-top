@@ -7,16 +7,16 @@
                     <thead>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let prod of rentas">
+                        <tr *ngFor="let renta of rentas">
                             <td>
                                 <div class="rectangle52">
-                                    <img class="producto" src="{{prod.imagen}}" alt="producto" />
+                                    <img class="producto" src="{{renta.producto.imagen}}" alt="producto" />
                                 </div>
                             </td>
                             <td>
-                                <span class="nombre">{{prod.nombre}}</span><br>
-                                <span class="cod">{{prod.codigo}}</span> <br>
-                                <span class="cantidad"> X {{prod.cantidad}}</span>
+                                <span class="nombre">{{renta.producto.nombre}}</span><br>
+                                <span class="cod">{{renta.producto.codigo}}</span> <br>
+                                <span class="cantidad"> X 1</span>
                             </td>
                         </tr>
                     </tbody>
@@ -33,15 +33,15 @@
                     <tbody>
                         <tr *ngFor="let dev of devoluciones">
                             <td>
-                                <span class="nombre">{{dev.nombre}} </span><br>
-                                <span class="cod">{{dev.codigo}}</span>
-                                <span class="cantidad"> X {{dev.cantidad}}</span>
+                                <span class="nombre">{{dev.producto.nombre}} </span><br>
+                                <span class="cod">{{dev.producto.codigo}}</span>
+                                <span class="cantidad"> X 1</span>                                
                             </td>
-                            <div *ngIf="!esMalo(dev.renta); else elseBlock">
-                                <td><span class="date">{{dev.renta}}</span></td>
+                            <div *ngIf="!esMalo(dev.fecha_entrega); else elseBlock">
+                                <td><span class="date">{{getDateFormat(dev.fecha_entrega)}}</span></td>
                             </div>
                             <ng-template #elseBlock>
-                                <td><span class="bad-date">{{dev.renta}}</span></td>
+                                <td><span class="bad-date">{{getDateFormat(dev.fecha_entrega)}}</span></td>
                             </ng-template>
                         </tr>
                     </tbody>
