@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from '../util/user-auth.service';
+import { UsuarioService } from '../usuarios/usuario.service';
+import { Usuario } from '../usuarios/usuario';
 
 @Component({
   selector: 'app-menu',
@@ -8,16 +10,20 @@ import { UserAuthService } from '../util/user-auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  public usuario: any
-
-  constructor(public authService: UserAuthService) {
+  usuario : Usuario = new Usuario();
+  
+  constructor(public authService: UserAuthService, private usuarioService: UsuarioService) {
   }
   
   
-  ngOnInit(): void {
-    console.log("aaaaaaaaaaaa")
-    console.log(this.usuario)
-    this.usuario = this.authService.getNoCta()
+  ngOnInit(): void {        
+    let cta = this.authService.getNoCta();
+    this.usuarioService.buscarUsuario(cta).subscribe(
+      response => {
+        this.usuario = response;
+      }
+    );
+    console.log(this.usuario);
   }
 
 }
