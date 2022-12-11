@@ -5,7 +5,7 @@
     <img alt="profile-ph" src="/assets/playground_assets/image78863-bjua-200h.png" class="menu-usr-img" />
     <!-- Obtener el nombre del usr -->
     <span class="menu-name"> Nombre Completo </span>
-    <form action="" method="">
+    <form [routerLink]="['/ver-perfil/', usuario.noCT]" [state]="usuario">
       <input type="image" alt="VerPerfil" name="perfil" src="/assets/playground_assets/rectangle82097-b1u.svg"
         class="menu-text-box" />
     </form>
