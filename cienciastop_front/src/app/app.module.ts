@@ -6,7 +6,6 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductosComponent } from './productos/productos.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
-import { NavegacionComponent } from './navegacion/navegacion.component';
 import { VerProductosComponent } from './ver-productos/ver-productos.component';
 import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
@@ -46,8 +45,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ProductosComponent,
-    BusquedaComponent,
-    NavegacionComponent,
+    BusquedaComponent,    
     VerProductosComponent,
     HeaderComponent,
     MenuComponent,
