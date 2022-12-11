@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +39,8 @@ public class UsuarioRestController {
 
     @Autowired
     private IUsuarioService usuarioService;
+
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@GetMapping("/usuarios")
 	@PreAuthorize("hasRole('Administrador')")
@@ -153,7 +158,9 @@ public class UsuarioRestController {
 		Usuario usuarioNuevo = null;
 		Map<String,Object> response = new HashMap<>();
 		try {
-			usuarioNuevo = usuarioService.guardar(usuario);
+			Usuario usuarioAux = usuario;
+			usuarioAux.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
+			usuarioNuevo = usuarioService.guardar(usuarioAux);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			String aux = "" + e.getMessage() + ": ";
