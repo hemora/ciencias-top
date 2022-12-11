@@ -28,6 +28,7 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { EditarProdComponent } from './editar-prod/editar-prod.component';
 import { HistorialComponent } from './historial/historial.component';
 import { InicioUiComponent } from './inicio-ui/inicio-ui.component';
+import { ReestablecerContraseniaComponent } from './reestablecer-contrasenia/reestablecer-contrasenia.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -46,7 +47,8 @@ const routes: Routes = [
   {path: 'productos/editar-prod', component: EditarProdComponent},
   {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
   {path: 'productos/historial', component: HistorialComponent},
-  {path: 'login', component: InicioUiComponent}
+  {path: 'login', component: InicioUiComponent},
+  {path: 'usuarios/reestablecer-contrasenia', component: ReestablecerContraseniaComponent}
 ]
 
 @NgModule({
@@ -73,7 +75,8 @@ const routes: Routes = [
     ReportesComponent,
     EditarProdComponent,
     HistorialComponent,
-    InicioUiComponent
+    InicioUiComponent,
+    ReestablecerContraseniaComponent
   ],
   
   imports: [
