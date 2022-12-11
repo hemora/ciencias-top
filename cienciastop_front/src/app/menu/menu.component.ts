@@ -8,9 +8,16 @@ import { UserAuthService } from '../util/user-auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(public authService: UserAuthService) { }
+  public usuario: any
 
+  constructor(public authService: UserAuthService) {
+  }
+  
+  
   ngOnInit(): void {
+    console.log("aaaaaaaaaaaa")
+    console.log(this.usuario)
+    this.usuario = this.authService.getNoCta()
   }
 
 }

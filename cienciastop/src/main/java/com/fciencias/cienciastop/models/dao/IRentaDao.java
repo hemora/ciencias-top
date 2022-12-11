@@ -63,7 +63,6 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 			nativeQuery = true)
 	public List<Renta> historial(Long usuario_id);
 
-}
 	@Query(value = "SELECT * FROM rentas WHERE usuario_id = :usuario AND status_entrega = :status AND fecha_entrega >= CURRENT_DATE", nativeQuery = true)
 	List<Renta> encontrarRentasUsuario(@Param ("status") boolean status, @Param ("usuario") Usuario usuario);
 	

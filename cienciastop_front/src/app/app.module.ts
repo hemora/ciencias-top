@@ -46,7 +46,7 @@ const routes: Routes = [
   {path: 'productos/editar-prod', component: EditarProdComponent},
   {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
   {path: 'productos/historial', component: HistorialComponent},
-  {path: 'login', component: InicioUiComponent}
+  {path: 'login', component: InicioUiComponent},
   {path: 'ver-perfil/:noCT', component: PerfilComponent}
 ]
 
