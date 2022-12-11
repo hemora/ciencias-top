@@ -19,7 +19,7 @@
         <div class="menu-text">Inicio</div>
       </div>
     </a>
-    <a routerLinkActive="active" routerLink="undefined">
+    <a routerLinkActive="active" routerLink="productos/historial">
       <div class="menu-op">
         <div class="menu-vector">
           <img alt="history" src="/assets/playground_assets/image108877-cb1g-200w.png" />
@@ -29,15 +29,10 @@
     </a>
   </div>
   <div class="small-space"></div>
-  <app-menu-admin></app-menu-admin>
-  <!-- Opcion 2
-  <div *ngIf="condition; else elseBlock">
-    <app-menu-admin></app-menu-admin>
-  </div>
-  <ng-template #elseBlock>
-    <app-menu-prove></app-menu-prove>
-  </ng-template> 
+  <!--
+    <app-menu-admin *ngIf="this.authService.getRol() == 'Administrador'"></app-menu-admin>
   -->
+  <app-menu-admin></app-menu-admin>
   <form action="" method="">
     <button type="button" class="menu-logout">
       <img alt="logout" src="/assets/playground_assets/antdesignlogoutoutlined2096-z1dp.svg"

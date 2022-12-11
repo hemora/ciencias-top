@@ -1,0 +1,39 @@
+:host {
+    display: contents;
+  }
+  
+  .ver-prod-container {
+    width: 80%;
+    left: 20%;
+    position: absolute;  
+  }
+  
+  .ver-prod-content {
+    height: 36px;  
+    padding: 8px;  
+    margin-right: 8px;
+    border-color: transparent;  
+    border-radius: 6px;
+    background-color: rgba(245, 245, 245, 1);
+  }
+
+  .titleTalbe {
+    font-size: x-large;
+    text-align: center;
+  }
+
+  .tab1 {
+    left: 50px;
+    top: 80px;
+    position: relative;      
+    border-collapse: collapse;
+    width: 90%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tbody tr:hover {background-color: coral;}

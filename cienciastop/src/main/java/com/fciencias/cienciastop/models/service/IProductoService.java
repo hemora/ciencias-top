@@ -28,4 +28,12 @@ public interface IProductoService {
 	public Producto save(Producto producto);
 	
 	public void delete(String codigo);
+
+	/**
+	 * Regresa la lista del top 5 de los productos que requieren menor
+	 * cantidad de puma puntos.
+	 * @return la lista del top 5 de los productos que requieren menor
+	 * cantidad de puma puntos.
+	 */
+	public List<Producto> topFiveBaratos();
 }

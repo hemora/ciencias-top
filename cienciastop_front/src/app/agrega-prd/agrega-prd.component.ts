@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { FormGroup,  FormBuilder,  Validators, FormControl } from '@angular/forms';
 import { Producto } from '../productos/producto';
 import { ProductoService } from '../productos/producto.service';
@@ -38,8 +37,8 @@ export class AgregaPrdComponent implements OnInit {
   }
 
   createForm() {
-    this.agregForm = this.fb.group({
-      nombre: new FormControl('', [Validators.required] ),
+    this.agregForm = new FormGroup({
+      nombre: new FormControl({nombre: ''},Validators.compose([Validators.required])),
       codigo: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(12)] ),
       stockInicial: new FormControl('', [Validators.required] ),
       precio: new FormControl('', [Validators.required] ),
@@ -50,5 +49,4 @@ export class AgregaPrdComponent implements OnInit {
       imagen: new FormControl('', [Validators.required])
     });
   }
-
 }

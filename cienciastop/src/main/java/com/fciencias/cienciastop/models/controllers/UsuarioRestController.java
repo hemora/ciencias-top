@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class UsuarioRestController {
     private IUsuarioService usuarioService;
 
 	@GetMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> verUsuarios() {
 		List<Usuario> usuariosActivos = null;
 		Map<String,Object> response = new HashMap<String, Object>();
@@ -61,6 +63,7 @@ public class UsuarioRestController {
 	/**Buscar usuarios por nombre */
 
 	@RequestMapping("/usuarios/nombre/{nombre}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuarioNombre(@PathVariable(value="nombre") String nombre) {
 		System.out.println("Buscando usuarios...");
 		List<Usuario> usuarios;
@@ -93,6 +96,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por correo */
 	@GetMapping("/usuarios/correo/{correo}")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable(value="correo") String correo){
         System.out.println("Buscando usuario con correo " + correo);
 		Usuario usuario= null;
@@ -118,6 +122,7 @@ public class UsuarioRestController {
 
 	/**Buscar usuarios por numero de cuenta */
 	@RequestMapping(value = "/usuarios/{noCT}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> buscarUsuario(@PathVariable("noCT") Long noCT) {
         System.out.println("Buscando usuario con numero de cuenta " + noCT);
 		Usuario usuario= null;
@@ -142,6 +147,7 @@ public class UsuarioRestController {
     }
 	
 	@PostMapping("/usuarios")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> agregarUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioNuevo = null;
@@ -166,6 +172,7 @@ public class UsuarioRestController {
 	}
 
 	@PutMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> editarUsuario(@RequestBody Usuario usuario, @PathVariable Long noCT) {
 		Usuario currentUsuario = usuarioService.buscarUsuarioPorNoCT(noCT);
@@ -193,6 +200,8 @@ public class UsuarioRestController {
 	}
 
     @DeleteMapping("/usuarios/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
+	//@PreAuthorize("hasRole('Administrador') || hasRole('Alumno')")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long noCT) {
         Map<String, Object> response = new HashMap<String, Object>();
         if(usuarioService.borrar(noCT) == 0) {
@@ -204,4 +213,84 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
         //return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
     }
+
+	/**
+	 * Agrupar usuarios por carrera.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return una lista de usuarios agrupados por su carrera.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/usuarios/agrupado-carrera")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> agruparPorCarrera() {
+		List<Object[]> agrupamiento;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			agrupamiento = usuarioService.agruparPorCarrera();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (agrupamiento == null) {
+			agrupamiento = new ArrayList<Object[]>();
+		}
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
+	}
+
+	/**
+	 * Regresa la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * Si existe un error en la base de datos se manda un mensaje sobre el error.
+	 * @return la lista de usuarios agrupada por cuentas activas e inactivas.
+	 * Si existe un error en la base de datos se manda un mensaje de error.
+	 */
+	@GetMapping("/usuarios/agrupado-status")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> agruparPorStatus() {
+		List<Object[]> agrupamiento;
+		HttpStatus status;
+		Map<String, Object> response = new HashMap<>();
+		String mensaje;
+		try {
+			agrupamiento = usuarioService.agruparPorStatus();
+		} catch (DataAccessException e) {
+			// Error en la base de datos
+			mensaje = "Error al realizar la consulta en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			return new ResponseEntity<Map<String, Object>>(response, status);
+		}
+		if (agrupamiento == null) {
+			agrupamiento = new ArrayList<Object[]>();
+		}
+		
+		// Cambia 0 por Inactivos y 1 por Activos
+		for (int i = 0; i < agrupamiento.size(); i++) {
+			Object objetos[] = agrupamiento.get(i);
+			int cast = Integer.valueOf(objetos[1].toString());
+			if (cast == 0) {
+				objetos[1] = "Inactivos";
+			}
+			if (cast == 1) {
+				objetos[1] = "Activos";
+			}
+			agrupamiento.set(i, objetos);
+		}
+
+		status = HttpStatus.OK;
+		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
+	}
 }

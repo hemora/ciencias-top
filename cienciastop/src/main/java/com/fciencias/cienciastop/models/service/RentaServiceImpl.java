@@ -42,4 +42,45 @@ public class RentaServiceImpl implements IRentaService {
 
 	}
 
+	/**
+	 * Regresa la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Object[]> topFiveConMasRentas() {
+		return rentaDao.topFiveConMasRentas();
+	}
+
+	/**
+	 * Regresa la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 * @return la lista de los 5 usuarios con mayor cantidad de rentas en la semana.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Object[]> topFiveMasRentados() {
+		return rentaDao.topFiveMasRentados();
+	}
+
+	/**
+	 * Regresa la lista de los 10 usuarios con mas retardos.
+	 * @return la lista de los 10 usuarios con mas retardos.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Object[]> topTenConMasRetardos() {
+		return rentaDao.topTenConMasRetardos();	
+	}
+
+	/**
+	 * Busca rentas por usuario_id en la base de datos.
+	 * @param usuario_id el usuario_id que se buscara.
+	 * @return una lista de rentas que contienen el usuario_id.
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public List<Renta> historial(Long usuario_id) {
+		return rentaDao.historial(usuario_id);
+	}
+
 }

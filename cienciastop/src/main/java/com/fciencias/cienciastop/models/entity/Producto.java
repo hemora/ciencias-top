@@ -34,15 +34,17 @@ public class Producto implements Serializable {
 	
 	/* Stock inicial del producto. */
 	@Column(name="stock_inicial")
+	@JsonProperty("stock_inicial")
 	@NotNull(message="El stock inicial es requerido")
 	@Min(value=0, message="El stock inicial debe ser más grande que 1")
-	private int stockInicial;	
+	private int stock_inicial;	
 	
 	/* Stock actual del prodcuto. */
 	@Column(name="current_stock")
+	@JsonProperty("current_stock")
 	@NotNull(message="El stock actual es requerido")
 	@Min(value=0, message="El stock inicial debe ser más grande que 1")
-	private int currentStock;
+	private int current_stock;
 	
 	/* Precio del prodcuto. */
 	@Column(name="precio")
@@ -72,9 +74,10 @@ public class Producto implements Serializable {
 	
 	/* Periodo de renta del producto. */
 	@Column(name="periodo_renta")
-	@Min(value=3, message="El días de renta deben de ser positivos")
+	@JsonProperty("periodo_renta")
+	@Min(value=3, message="El días de renta deben de ser mayor a 3")
 	@Max(value=7, message="El días de renta deben de ser menores a 8")
-	private int periodoRenta;
+	private int periodo_renta;
 
 	// Numero de Cuenta del usuario que agrego el Producto 
 	@Column(name="noCT")
@@ -118,7 +121,7 @@ public class Producto implements Serializable {
 	 * @return el stock inicial del producto.
 	 */
 	public int getStockInicial() {
-		return stockInicial;
+		return stock_inicial;
 	}
 
 	/**
@@ -126,7 +129,7 @@ public class Producto implements Serializable {
 	 * @param stockInicial el nuevo stock inicial del producto.
 	 */
 	public void setStockInicial(int stockInicial) {
-		this.stockInicial = stockInicial;
+		this.stock_inicial = stockInicial;
 	}
 
 	/**
@@ -134,7 +137,7 @@ public class Producto implements Serializable {
 	 * @return el stock actual del producto.
 	 */
 	public int getCurrentStock() {
-		return currentStock;
+		return current_stock;
 	}
 
 	/**
@@ -142,7 +145,7 @@ public class Producto implements Serializable {
 	 * @param currentStock el nuevo stock actual del producto.
 	 */
 	public void setCurrentStock(int currentStock) {
-		this.currentStock = currentStock;
+		this.current_stock = currentStock;
 	}
 
 	/**
@@ -230,7 +233,7 @@ public class Producto implements Serializable {
 	 * @return el perido de renta del producto.
 	 */
 	public int getPeriodoRenta() {
-		return periodoRenta;
+		return periodo_renta;
 	}
 
 	/**
@@ -238,7 +241,7 @@ public class Producto implements Serializable {
 	 * @param periodoRenta el nuevo periodo de renta del producto.
 	 */
 	public void setPeriodoRenta(int periodoRenta) {
-		this.periodoRenta = periodoRenta;
+		this.periodo_renta = periodoRenta;
 	}
 	
 	/**
