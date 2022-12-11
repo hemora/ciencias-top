@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-perfil',
+  selector: 'app-perfil-admin',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })
-export class PerfilComponent implements OnInit {
+export class PerfilAdminComponent implements OnInit {
 
   noCT: number;
   /* Diccionario de datos del usuario */
@@ -48,7 +48,7 @@ export class PerfilComponent implements OnInit {
   }
 
   setPerfilData(noCT: number) {
-    this.usuarioService.getPerfilUsr(noCT).subscribe(
+    this.usuarioService.getPerfilAdmin(noCT).subscribe(
       response => {
         this.map_data = new Map(Object.entries(response));
         console.log(this.map_data);        

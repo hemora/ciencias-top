@@ -28,6 +28,7 @@ import { EditarProdComponent } from './editar-prod/editar-prod.component';
 import { HistorialComponent } from './historial/historial.component';
 import { InicioUiComponent } from './inicio-ui/inicio-ui.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
@@ -46,8 +47,9 @@ const routes: Routes = [
   {path: 'productos/editar-prod', component: EditarProdComponent},
   {path: 'productos/editar-prod/:codigo', component: EditarProdComponent},
   {path: 'productos/historial', component: HistorialComponent},
-  {path: 'login', component: InicioUiComponent},  
-  {path: 'usuarios/ver-perfil/:noCT', component: PerfilComponent}
+  {path: 'login', component: InicioUiComponent},
+  {path: 'ver-perfil/:noCT', component: PerfilComponent},  
+  {path: 'usuarios/ver-perfil/:noCT', component: PerfilAdminComponent}
 ]
 
 @NgModule({
@@ -74,7 +76,8 @@ const routes: Routes = [
     EditarProdComponent,
     HistorialComponent,
     InicioUiComponent,
-    PerfilComponent
+    PerfilComponent,
+    PerfilAdminComponent
   ],
   
   imports: [
