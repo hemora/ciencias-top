@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,9 @@ import com.fciencias.cienciastop.models.service.IUsuarioService;
  * 
  */
 public class UsuarioRestController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -293,4 +297,33 @@ public class UsuarioRestController {
 		status = HttpStatus.OK;
 		return new ResponseEntity<List<Object[]>>(agrupamiento, status);
 	}
+
+
+	@PostMapping("/usuarios/restablecer-contrasenia/{noCTLong}/{contraseniaString}")
+    public ResponseEntity<?> restablecerContrasenia(@PathVariable Long noCTLong, @PathVariable String contraseniaString ) {
+        Usuario usuario;
+		String mensajeError="";
+		Map<String, Object> response = new HashMap<>();
+		try{
+			usuario = usuarioService.buscarUsuarioPorNoCT(noCTLong);
+		}catch(DataAccessException e){
+			mensajeError = "Falla en la consulta a la base de datos";
+			response.put("mensaje", mensajeError);
+			mensajeError = "";
+			mensajeError += e.getMessage() + ": ";
+			mensajeError += e.getMostSpecificCause().getMessage();
+			response.put("Error: ", mensajeError);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+        if (usuario == null) {
+            System.out.println("Usuario con numero de cuenta " + noCTLong + " no ha sido encontrado");
+            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+        }
+        String newPassword = passwordEncoder.encode(contraseniaString);
+        usuario.setContrasenya(newPassword);
+        usuarioService.guardar(usuario);
+		response.put("Contrasenia actualizada", newPassword);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
+
 }
