@@ -105,12 +105,12 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Imagen</label>
-                <input type="file" formControlName="imagen" accept=".jpg, .jpeg, .png" class="form-control" [(ngModel)]="producto.imagen">
+                <input type="text" formControlName="imagen" class="form-control" [(ngModel)]="producto.imagen">
             </div>
             <div *ngIf="agregForm.controls['imagen'].invalid && (agregForm.controls['imagen'].dirty || agregForm.controls['imagen'].touched)"
                 class="error">
                 <small *ngIf="agregForm.controls['imagen'].errors.required">
-                    Campo requerido.
+                    Campo requerido   (ejem: imagen1.png)
                 </small>
             </div>
         </div>

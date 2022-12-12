@@ -1,11 +1,31 @@
 .container {
     width: 80%;
-    left: 20%;
-    top:10%;
+    left: 15%;
+    top: 80px;
     position: absolute;
+    /*
     display: flex;
     overflow: auto;
     min-height: 100vh;
     align-items: flex-end;
     flex-direction: column;
+    */
+}
+
+.imagenProducto {
+    width: 80px;
+    position:absolute;
+    left: 65%;
+    top: 15%;
+    /*
+    height: 350px;
+    top: 104px;
+    object-fit: fill;
+    */
+}
+
+.col {
+    border-color: #dddddd;
+    border-radius: 15px;
+    margin: 5px;
 }

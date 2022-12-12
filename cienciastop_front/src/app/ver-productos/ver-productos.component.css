@@ -20,8 +20,8 @@
 
 .imagenProducto {
     position: absolute;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 350px;
     left: 62px;
     top: 104px;
     object-fit: fill;
