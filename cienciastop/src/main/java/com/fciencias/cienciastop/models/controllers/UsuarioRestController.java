@@ -47,7 +47,7 @@ public class UsuarioRestController {
 	@Autowired
 	private IRentaService rentaService;
 
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	//private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@GetMapping("/usuarios")
 	@PreAuthorize("hasRole('Administrador')")
