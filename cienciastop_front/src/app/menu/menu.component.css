@@ -37,7 +37,7 @@ body {
 }
 
 .menu-name {
-    top: 134px;
+    top: 125px;
     color: rgb(0, 0, 0);
     width: 100%;
     height: auto;
@@ -56,7 +56,7 @@ body {
 .menu-text-box {
     left: 18px;
     width: 142px;
-    bottom: -18px;
+    bottom: -5px;
     height: 76px;
     position: absolute;
 }
@@ -88,7 +88,7 @@ body {
 
 .menu-options {
     display: block;
-    padding-top: 225px;
+    padding-top: 210px;
 }
 
 .menu-admin-site {

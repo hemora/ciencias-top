@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fciencias.cienciastop.models.entity.Renta;
 import com.fciencias.cienciastop.models.entity.Usuario;
+import com.fciencias.cienciastop.models.service.IRentaService;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -40,6 +42,8 @@ public class UsuarioRestController {
 
     @Autowired
     private IUsuarioService usuarioService;
+	@Autowired
+	private IRentaService rentaService;
 
 	@GetMapping("/usuarios")
 	@PreAuthorize("hasRole('Administrador')")
@@ -326,4 +330,82 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
+	
+	@GetMapping("usuarios/ver-perfil/{noCT}")
+	@PreAuthorize("hasRole('Administrador')")
+	public ResponseEntity<?> getPerfilAdmin(@PathVariable Long noCT) {
+		Usuario usuario = new Usuario();
+		List<Renta> historialDeUsr = new ArrayList<Renta>();
+		List<Renta> rentasDeUsr = new ArrayList<Renta>();		
+		Map<String,Object> response = new HashMap<String, Object>();		
+
+		try {		
+			usuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+			if (usuario == null) {
+				response.put("mensaje", "Error: no se puede acceder al usuario con noCT:".concat(noCT.toString().concat(" no existe en la base de datos.")));
+				return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+			}
+			response.put("dataUsuario",usuario);	
+			historialDeUsr  = this.rentaService.rentasVencidasUsr(usuario);
+			rentasDeUsr  = this.rentaService.rentasActualesUsr(usuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+			String cadenaError = "";
+			cadenaError += e.getMessage() + ": ";
+			cadenaError += e.getMostSpecificCause().getMessage();
+			response.put("error", cadenaError);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}						
+		
+		if (historialDeUsr != null) {
+			response.put("rentasVencidas",historialDeUsr);
+		}
+		if (rentasDeUsr != null) {
+			response.put("rentasActuales", rentasDeUsr);
+		}
+		if (historialDeUsr.isEmpty() && rentasDeUsr.isEmpty()) {
+			response.put("mensaje", "No se encontro informacion de rentas del usuario.");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.PARTIAL_CONTENT);
+		}		
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("ver-perfil/{noCT}")
+	@PreAuthorize("@securityService.hasUser(#noCT)")	
+	public ResponseEntity<?> getPerfilUsr(@PathVariable Long noCT) {
+		Usuario usuario = new Usuario();
+		List<Renta> historialDeUsr = new ArrayList<Renta>();
+		List<Renta> rentasDeUsr = new ArrayList<Renta>();		
+		Map<String,Object> response = new HashMap<String, Object>();		
+
+		try {		
+			usuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+			if (usuario == null) {
+				response.put("mensaje", "Error: no se puede acceder al usuario con noCT:".concat(noCT.toString().concat(" no existe en la base de datos.")));
+				return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+			}
+			response.put("dataUsuario",usuario);	
+			historialDeUsr  = this.rentaService.rentasVencidasUsr(usuario);
+			rentasDeUsr  = this.rentaService.rentasActualesUsr(usuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la conexión con la base de datos.");
+			String cadenaError = "";
+			cadenaError += e.getMessage() + ": ";
+			cadenaError += e.getMostSpecificCause().getMessage();
+			response.put("error", cadenaError);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}						
+		
+		if (historialDeUsr != null) {
+			response.put("rentasVencidas",historialDeUsr);
+		}
+		if (rentasDeUsr != null) {
+			response.put("rentasActuales", rentasDeUsr);
+		}
+		if (historialDeUsr.isEmpty() && rentasDeUsr.isEmpty()) {
+			response.put("mensaje", "No se encontro informacion de rentas del usuario.");
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.PARTIAL_CONTENT);
+		}		
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	}
 }

@@ -3,6 +3,7 @@ package com.fciencias.cienciastop.models.service;
 import java.util.List;
 
 import com.fciencias.cienciastop.models.entity.Renta;
+import com.fciencias.cienciastop.models.entity.Usuario;
 
 public interface IRentaService {
 	
@@ -40,5 +41,8 @@ public interface IRentaService {
 	 * @return una lista de rentas que contienen el usuario_id.
 	 */
 	public List<Renta> historial(Long usuario_id);
+	public List<Renta> rentasVencidasUsr(Usuario usuario);
+
+	public List<Renta> rentasActualesUsr(Usuario usuario);
 
 }
