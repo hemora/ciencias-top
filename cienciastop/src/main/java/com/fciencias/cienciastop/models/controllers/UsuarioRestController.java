@@ -320,13 +320,13 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         if (usuario == null) {
-            System.out.println("Usuario con numero de cuenta " + noCTLong + " no ha sido encontrado");
-            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+            response.put("mensaje", "Error: no se puede restablecer contrasenia del usuario con noCT:".concat(noCTLong.toString().concat(" no existe en la base de datos.")));
+			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
         String newPassword = passwordEncoder.encode(contraseniaString);
         usuario.setContrasenya(newPassword);
         usuarioService.guardar(usuario);
-		response.put("Contrasenia actualizada", newPassword);
+		response.put("Contrasenia actualizada:", "exitosamente!!!!");
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
