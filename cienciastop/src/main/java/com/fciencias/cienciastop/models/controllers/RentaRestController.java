@@ -285,7 +285,9 @@ public class RentaRestController {
 		Map<String, Object> response = new HashMap<>();
 		String mensaje;
 		try {
+			System.out.println("Estoy Aqui");
 			conMasRetardos = rentaService.topTenConMasRetardos();
+			System.out.println("long " + conMasRetardos.size());
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
@@ -325,8 +327,6 @@ public class RentaRestController {
 			Long auxEntrada = Long.parseLong(entrada);
 			historial = rentaService.findAll();
 			historial = auxHistorial(historial, auxEntrada);
-			// historial = rentaService.historial(auxEntrada);
-			//System.out.println(historial.get(0).getUsuario().getNoCT());
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
@@ -361,8 +361,6 @@ public class RentaRestController {
 		}
 		List<Renta> aux = new ArrayList<Renta>();
 		for (Renta renta : historial) {
-			//System.out.println(renta.getUsuario().getNoCT());
-			//System.out.println(entrada);
 			Long noCT = renta.getUsuario().getNoCT();
 			int com = Long.compare(entrada, noCT);
 			if (com == 0) {

@@ -47,7 +47,7 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 	@Query(
 			value= "WITH aux AS ("
 				+ "SELECT * FROM rentas WHERE status_entrega = FALSE AND "
-				+ "fecha_entrega > NOW()) "
+				+ "fecha_entrega < NOW()) "
 				+ "SELECT count(usuario_id) AS retardos, usuario_id FROM aux "
 				+ "GROUP BY usuario_id ORDER BY retardos DESC LIMIT 10;", 
 			nativeQuery = true)
