@@ -1,9 +1,12 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fciencias.cienciastop.models.entity.Monedero;
 import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Renta;
 import com.fciencias.cienciastop.models.entity.Usuario;
+import com.fciencias.cienciastop.models.service.IMonederoService;
 import com.fciencias.cienciastop.models.service.IProductoService;
 import com.fciencias.cienciastop.models.service.IRentaService;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
@@ -41,12 +46,16 @@ public class RentaRestController {
 	@Autowired
 	private IProductoService productoService;
 	
+	@Autowired
+	private IMonederoService monederoService;
+	
 	/*@GetMapping("/rentas")
 	public List<Renta> index() {
 		return rentaService.findAll();
 	}*/	
 	
 	@GetMapping("/rentas")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> verRentas() {
 		List<Renta> rentasPorDevolver = null;
 		Map<String,Object> response = new HashMap<String, Object>();
@@ -116,6 +125,11 @@ public class RentaRestController {
 		Usuario usuario = new Usuario();
 		usuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
 		Renta rentaNueva = new Renta();
+		Monedero monedero = new Monedero();
+		String pattern = "yyyy-MM";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
+        String periodoActual = simpleDateFormat.format(new Date());
+		monedero = this.monederoService.obtenerPorDueno(noCT,periodoActual);
 		try {
 			rentaNueva= rentaService.save(rentaNueva);
 		}catch(DataAccessException e){
@@ -136,12 +150,16 @@ public class RentaRestController {
 		rentaNueva.setUsuario(usuario);
 		rentaNueva.setStatus_entrega(false);
 		int stock = producto.getCurrentStock();
-		if(stock<=0) {
-			response.put("mensaje", "No hay productos disponibles por el momento");
+		double pumapuntos = monedero.getPumaPuntos();
+		double precio = producto.getPrecio();
+		if(pumapuntos < precio) {
+			response.put("mensaje", "Pumampuntos insuficientes");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		producto.setCurrentStock(stock-1);
 		productoService.save(producto);
+		monedero.setPumaPuntos(pumapuntos-precio);
+		monederoService.save(monedero);
 		response.put("mensaje", "La renta se ha realizado exitosamente");
 		response.put("renta", rentaNueva);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
