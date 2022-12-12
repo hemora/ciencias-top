@@ -31,7 +31,10 @@
                                  *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"
                                  class="text-danger">*Campo requerido</small>
                                 <div class="form-inline fr mt-4">
-                                    <a id="forget" class="font-weight-bold">Reestablecer Contraseña</a>
+                                    <!-- <button 
+                                    (click) = "reestablecerContrasenia()"
+                                    > Reestablecer Contraseña </button> -->
+                                    <a href="/usuarios/reestablecer-contrasenia">Restabler contraseña </a>
                                 </div>
                                 <button 
                                     (click) = "onSubmit()"
