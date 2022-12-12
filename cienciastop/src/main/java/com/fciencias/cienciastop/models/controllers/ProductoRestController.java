@@ -41,10 +41,24 @@ public class ProductoRestController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	
+	/**
+	 * Regresa una lista con todos los productos.
+	 * @return una lista con todos los productos.
+	 */
 	@GetMapping("/productos")
 	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
 	public List<Producto> index() {
-		return productoService.findAll();
+		return productoService.findAll(false);
+	}
+
+	/**
+	 * Regresa una lista con todos los productos donde stock_inicial > 0
+	 * @return una lista con todos los productos donde stock_inicial > 0
+	 */
+	@GetMapping("/productos-filtro")
+	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
+	public List<Producto> indexFiltro() {
+		return productoService.findAll(true);
 	}
 	
 	/**
@@ -102,7 +116,7 @@ public class ProductoRestController {
 	 */
 	@GetMapping("/busqueda")
 	@PreAuthorize("hasRole('Administrador') || hasRole('Alumno') || hasRole('Proveedor')")
-	public ResponseEntity<?> busqueda(@RequestParam String entrada) {
+	public ResponseEntity<?> busqueda(@RequestParam String entrada, @RequestParam boolean filtro) {
 		Producto porCodigo = null;
 		List<Producto> porNombre;
 		HttpStatus status;
@@ -110,7 +124,7 @@ public class ProductoRestController {
 		String mensaje;
 		try {
 			porCodigo = productoService.findByCodigo(entrada);
-			porNombre = productoService.findByNombre(entrada);
+			porNombre = productoService.findByNombre(entrada, filtro);
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
@@ -126,7 +140,12 @@ public class ProductoRestController {
 			porNombre = new ArrayList<Producto>();
 		}
 		if (porCodigo != null && !porNombre.contains(porCodigo)) {
-			porNombre.add(porCodigo);
+			if (filtro == true && porCodigo.getStockInicial() > 0) {
+				porNombre.add(porCodigo);
+			}
+			if (filtro == false) {
+				porNombre.add(porCodigo);
+			}
 		}
 		// Entrada correcto
 		if (!porNombre.isEmpty()) {
@@ -324,7 +343,9 @@ public class ProductoRestController {
 		Usuario user = this.usuarioService.buscarUsuarioPorNoCT(noCT);
 		System.out.println(user.getRol());
 		if((user.getRol().equals("Administrador")) || (noCT == original)) {
-			//Eliminacion exitosa del producto.
+			// Eliminacion exitosa del producto.
+			// aeliminar.setNombre("☒ " + aeliminar.getNombre());//(0);
+			// aeliminar.setCurrentStock(0);
 			aeliminar.setStockInicial(0);
 			this.productoService.save(aeliminar);
 			response.put("mensaje", "El producto ha sido eliminado con exito");

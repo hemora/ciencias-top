@@ -17,11 +17,17 @@ public class ProductoServiceImpl implements IProductoService {
 	
 	/**
 	 * Regresa una lista con todos los productos.
+	 * @param filtro valor booleano para saber si se aplica un filtro o no.
+	 * <code>True</code> si queremos descartar los productos con stock_inicial < 1,
+	 * <code>False</code> en otro caso.
 	 * @return una lista con todos los productos.
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public List<Producto> findAll() {
+	public List<Producto> findAll(boolean filtro) {
+		if (filtro == true) {
+			return productoDao.findAllFiltro();
+		}
 		return (List<Producto>) productoDao.findAll();
 	}
 	
@@ -39,11 +45,17 @@ public class ProductoServiceImpl implements IProductoService {
 	/**
 	 * Busca productos por nombre en la base de datos.
 	 * @param nombre el nombre que se buscara.
+	 * @param filtro valor booleano para saber si se aplica un filtro o no.
+	 * <code>True</code> si queremos descartar los productos con stock_inicial < 1,
+	 * <code>False</code> en otro caso.
 	 * @return una lista de productos que contienen la cadena ingresada en su nombre.
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public List<Producto> findByNombre(String nombre) {
+	public List<Producto> findByNombre(String nombre, boolean filtro) {
+		if (filtro == true) {
+			return productoDao.buscarPorNombreFiltro(nombre);	
+		}
 		return productoDao.buscarPorNombre(nombre);
 	}
 	

@@ -18,13 +18,13 @@ export class SrchUserProdService {
   public authHeader = this.productoService.authHeader;
 
   allProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.urlEndPoint + "/productos ", this.authHeader);
+    return this.http.get<Producto[]>(this.urlEndPoint + "/productos-filtro ", this.authHeader);
   }
 
   getBuscado(entrada: string): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/busqueda?entrada=" + entrada;
-
+    newUrl += "&filtro=" + true;
     return this.http.get<Producto[]>(newUrl, this.authHeader)
       .pipe(
       catchError(e => {
