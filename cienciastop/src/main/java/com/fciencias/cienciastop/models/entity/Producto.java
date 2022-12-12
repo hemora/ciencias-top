@@ -36,7 +36,7 @@ public class Producto implements Serializable {
 	@Column(name="stock_inicial")
 	@JsonProperty("stock_inicial")
 	@NotNull(message="El stock inicial es requerido")
-	@Min(value=0, message="El stock inicial debe ser más grande que 1")
+	//@Min(value=0, message="El stock inicial debe ser más grande que 1")
 	private int stock_inicial;	
 	
 	/* Stock actual del prodcuto. */

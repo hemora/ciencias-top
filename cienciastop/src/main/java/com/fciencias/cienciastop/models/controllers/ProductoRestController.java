@@ -322,9 +322,11 @@ public class ProductoRestController {
 		Producto aeliminar = this.productoService.findByCodigo(codigo);
 		long original = aeliminar.getnoCT();
 		Usuario user = this.usuarioService.buscarUsuarioPorNoCT(noCT);
+		System.out.println(user.getRol());
 		if((user.getRol().equals("Administrador")) || (noCT == original)) {
 			//Eliminacion exitosa del producto.
-			productoService.delete(codigo);
+			aeliminar.setStockInicial(0);
+			this.productoService.save(aeliminar);
 			response.put("mensaje", "El producto ha sido eliminado con exito");
 			response.put("producto", aeliminar);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
