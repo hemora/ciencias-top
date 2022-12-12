@@ -5,23 +5,33 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Renta } from './renta';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentaService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, 
+    private userAuthService: UserAuthService) { }
+    
+    private urlEndPoint:string = 'http://localhost:8080/api/rentas';
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+    private authHeader = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+    }
+    
+    private httpHeaders = new HttpHeaders()
+        .set('Authorization',  `Bearer ${this.userAuthService.getToken()}`)
+        .set('Content-Type',  'application/json')
 
-  private urlEndPoint:string = 'http://localhost:8080/api/rentas';
-
+ 
   rentarProducto(codigo: String, noCT: number): Observable<Object>{
-    return this.http.post<Renta>(this.urlEndPoint + '/' + codigo + '/' + noCT, {headers: this.httpHeaders}).pipe(
+    return this.http.post<Renta>(this.urlEndPoint + '/' + codigo + '/' + noCT, null, {headers: this.httpHeaders}).pipe(
       catchError( e => {
-        swal.fire('Error al rentar el producto', e.error.mensaje, 'error');
+        Swal.fire('Error al rentar el producto', e.error.mensaje, 'error');
         return throwError( () => e);
 
       })

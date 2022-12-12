@@ -5,8 +5,9 @@ import { ProductoService } from '../productos/producto.service';
 import { catchError } from 'rxjs';
 import { SrchUserProdService } from '../srch-user-prod/srch-user-prod.service';
 import { Usuario } from '../usuarios/usuario';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { RentaService } from '../rentas-usr/renta.service';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Component({
   selector: 'app-ver-productos',
@@ -18,10 +19,13 @@ export class VerProductosComponent implements OnInit {
   producto: any;
   usuario: Usuario = new Usuario;
   miStorage = window.localStorage;
-  noCT: number = 123456789;
+  public noCT: number = this.userAuthService.getNoCta();
 
   constructor(private productoService: ProductoService, 
-    private rentaService: RentaService,private rutaActiva: ActivatedRoute, private router: Router) { }
+    private rentaService: RentaService,
+    private rutaActiva: ActivatedRoute, 
+    private router: Router,
+    private userAuthService: UserAuthService) { }
   
   ngOnInit(): void {
     this.productoService.getProducto(this.rutaActiva.snapshot.params['codigo']).subscribe(
@@ -29,10 +33,12 @@ export class VerProductosComponent implements OnInit {
     );
   }
   public rentar(){
+    console.log(this.producto.codigo);
+    console.log(this.noCT);
     this.rentaService.rentarProducto(this.producto.codigo,this.noCT).subscribe(renta =>
       {
         this.router.navigate(['/rentas-usr'])
-        swal.fire('Nueva Renta', `Renta ${this.producto.codigo} creado con éxito`, 'success')
+        Swal.fire('Nueva Renta', `Renta ${this.producto.codigo} creado con éxito`, 'success')
       }
     )
   }
