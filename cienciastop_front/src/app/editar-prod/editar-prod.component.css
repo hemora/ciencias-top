@@ -110,5 +110,23 @@
   }
   
   #success {
-    color: #28A745;
+    color: #139bd1;
+  }
+
+  .btn-editar:enabled {
+    background: #139bd1;
+	  color: rgb(255, 255, 255);
+	  border: 1px solid #eee;
+	  border-radius: 20px;
+	  box-shadow: 5px 5px 5px #eee;
+	  text-shadow: none;
+  }
+
+  .btn-editar {
+    background: #67c3e7;
+	  color: rgb(114, 112, 112);
+	  border: 1px solid #eee;
+	  border-radius: 20px;
+	  box-shadow: 5px 5px 5px #eee;
+	  text-shadow: none;
   }
