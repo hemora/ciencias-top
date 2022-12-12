@@ -285,9 +285,7 @@ public class RentaRestController {
 		Map<String, Object> response = new HashMap<>();
 		String mensaje;
 		try {
-			System.out.println("Estoy Aqui");
 			conMasRetardos = rentaService.topTenConMasRetardos();
-			System.out.println("long " + conMasRetardos.size());
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
