@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/* Una cadena con un nombre de longitud  igual o menor a xxx */
 	@NotNull(message = "El nombre no puede ser nulo")
 	@NotBlank(message = "El nombre no puede ser caracteres vacios")
