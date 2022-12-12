@@ -156,6 +156,14 @@ public class RentaRestController {
 			response.put("mensaje", "Pumampuntos insuficientes");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
+		List<Renta> rentasHoy;
+		rentasHoy = rentaService.findAll();
+		rentasHoy = auxHistorial(rentasHoy, noCT);
+		rentasHoy = auxRenta(rentasHoy);
+		if(rentasHoy.size() > 3) {
+			response.put("mensaje", "Ya has excedido el limite de rentas por hoy");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		producto.setCurrentStock(stock-1);
 		productoService.save(producto);
 		monedero.setPumaPuntos(pumapuntos-precio);
@@ -210,7 +218,7 @@ public class RentaRestController {
 		try {
 			rentaService.delete(id);
 		}catch(DataAccessException e){
-			mensaje = "Error al eliminar la rent5a en la base de datos";
+			mensaje = "Error al eliminar la renta en la base de datos";
 			response.put("mensaje", mensaje);
 			mensaje = "";
 			mensaje += e.getMessage() + ": ";
@@ -389,5 +397,26 @@ public class RentaRestController {
 		}
 		return aux;
 	}
-	
+	// Auxiliar para historial
+		private List<Renta> auxRenta(List<Renta> rentasHoy) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Calendar fecha = Calendar.getInstance();
+	        Date fechaActual = fecha.getTime();
+			if (rentasHoy == null) {
+				rentasHoy = new ArrayList<Renta>();
+			}
+			if (rentasHoy.isEmpty()) {
+				return rentasHoy;
+			}
+			List<Renta> aux = new ArrayList<Renta>();
+			for (Renta renta : rentasHoy) {
+				//System.out.println(renta.getUsuario().getNoCT());
+				//System.out.println(entrada);
+				Date fecharenta = renta.getFecha_renta();
+				if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
+					aux.add(renta);
+				}
+			}
+			return aux;
+		}
 }
