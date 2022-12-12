@@ -8,7 +8,7 @@
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="producto">Producto</th>
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="usuario" style="max-width: 150px;">NoCT Usuario</th>
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="status_entrega">Status</th>
-                <th></th>
+                <th>Entregado</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                 <td>{{ renta.status_entrega }}</td>
                 <td>
                     <a href="" (click)="update(renta)">
-                        <img src="/assets/playground_assets/pencil.svg">
+                        <img src="/assets/playground_assets/checkmark.svg">
                     </a>
 
                 </td>
