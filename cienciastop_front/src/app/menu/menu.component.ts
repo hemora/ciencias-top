@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from '../util/user-auth.service';
+import { UsuarioService } from '../usuarios/usuario.service';
+import { Usuario } from '../usuarios/usuario';
 
 @Component({
   selector: 'app-menu',
@@ -8,11 +10,15 @@ import { UserAuthService } from '../util/user-auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(public authService: UserAuthService) { }
-
-  ngOnInit(): void {
+  noCT : number;
+  
+  constructor(public authService: UserAuthService, private usuarioService: UsuarioService) {
   }
-
-  public autor = "Monica Miranda";
+  
+  
+  ngOnInit(): void {        
+    this.noCT = this.authService.getNoCta();    
+    console.log(this.noCT);
+  }
 
 }
