@@ -16,6 +16,7 @@ export class UsuarioService {
     , private userAuthService: UserAuthService) { }
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
+  private perfilEndPoint:string = 'http://localhost:8080/api/ver-perfil';
   private monederoEndPoint:string = 'http://localhost:8080/api/monederos';
 
   private authHeader = {
@@ -132,5 +133,37 @@ export class UsuarioService {
         return throwError( () => e );
       })
     )
+  }
+
+  getPerfilAdmin(noCT: number): Observable<Object> {
+    return this.http.get(this.urlEndPoint + '/ver-perfil/' + noCT, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        Swal.fire(
+          { 
+            title: 'No hay rentas activas que mostrar',  
+            text: e.error.mensaje,  
+            icon: 'warning'
+          }
+        );
+        return throwError(() => e);
+
+      })
+    );
+  }
+
+  getPerfilUsr(noCT: number): Observable<Object> {
+    return this.http.get(this.perfilEndPoint + '/' + noCT, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        Swal.fire(
+          { 
+            title: 'No hay rentas activas que mostrar',  
+            text: e.error.mensaje,  
+            icon: 'warning'
+          }
+        );
+        return throwError(() => e);
+
+      })
+    );
   }
 }

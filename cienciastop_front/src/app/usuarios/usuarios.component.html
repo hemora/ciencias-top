@@ -16,16 +16,16 @@
                 <th scope="col" [appSort]="usuarios" data-order="asc" data-name="rol">Rol</th>
                 <th scope="col" [appSort]="usuarios" data-order="asc" data-name="noCT" style="max-width: 150px;">Numero de Cuenta o Trabajador</th>
                 <th scope="col" [appSort]="usuarios" data-order="asc" data-name="correo">Correo</th>
-                <th></th>
+                <th data-name="buttons"></th>                
             </tr>
         </thead>
-        <tbody>
+        <tbody>            
             <tr *ngFor="let usuario of usuarios">
-                <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
-                <td>{{ usuario.rol }}</td>
-                <td>{{ usuario.noCT }}</td>
-                <td>{{ usuario.correo }}</td>
-                <td>
+                <td class="clickable" [routerLink]="['/usuarios/ver-perfil/', usuario.noCT]" [state]="usuario">{{ usuario.nombre }} {{ usuario.apellidos }}</td>
+                <td class="clickable" [routerLink]="['/usuarios/ver-perfil/', usuario.noCT]" [state]="usuario">{{ usuario.rol }}</td>
+                <td class="clickable" [routerLink]="['/usuarios/ver-perfil/', usuario.noCT]" [state]="usuario">{{ usuario.noCT }}</td>
+                <td class="clickable" [routerLink]="['/usuarios/ver-perfil/', usuario.noCT]" [state]="usuario">{{ usuario.correo }}</td>
+                <td class="buttons">
                     <a [routerLink]="['editar']" [state]="usuario">
                     <!--<a href="http://localhost:4200/usuarios/editar/">-->
                         <img src="/assets/playground_assets/pencil.svg">
