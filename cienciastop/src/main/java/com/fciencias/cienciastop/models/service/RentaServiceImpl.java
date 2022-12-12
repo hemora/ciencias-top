@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fciencias.cienciastop.models.dao.IRentaDao;
 import com.fciencias.cienciastop.models.entity.Renta;
+import com.fciencias.cienciastop.models.entity.Usuario;
 
 @Service
 public class RentaServiceImpl implements IRentaService {
@@ -82,5 +83,16 @@ public class RentaServiceImpl implements IRentaService {
 	public List<Renta> historial(Long usuario_id) {
 		return rentaDao.historial(usuario_id);
 	}
+	@Override
+	public List<Renta> rentasVencidasUsr(Usuario usuario) {
+		return rentaDao.encontrarRentasVencidas(usuario);
+	}
+
+	@Override
+	public List<Renta> rentasActualesUsr(Usuario usuario) {
+		return rentaDao.encontrarRentasUsuario(false, usuario);
+	}
+
+	
 
 }

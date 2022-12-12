@@ -44,7 +44,7 @@ public class RentaRestController {
 	/*@GetMapping("/rentas")
 	public List<Renta> index() {
 		return rentaService.findAll();
-	}*/
+	}*/	
 	
 	@GetMapping("/rentas")
 	public ResponseEntity<?> verRentas() {
@@ -68,7 +68,7 @@ public class RentaRestController {
 	}
 	
 	/**
-	 * Regresa la rentaque tenga como ID el parametro recibido.
+	 * Regresa la renta que tenga como ID el parametro recibido.
 	 * Si existe un error en la base de datos o no existen coincidencias
 	 * se manda un mensaje sobre el tipo de error. 
 	 * @param id el id de la renta que se buscara.
