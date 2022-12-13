@@ -30,12 +30,47 @@
                                 <small
                                  *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"
                                  class="text-danger">*Campo requerido</small>
-                                <div class="form-inline fr mt-4">
-                                    <!-- <button 
-                                    (click) = "reestablecerContrasenia()"
-                                    > Reestablecer Contraseña </button> -->
-                                    <a href="/usuarios/reestablecer-contrasenia">Restabler contraseña </a>
-                                </div>
+
+                                 
+
+                                <a class="popup" (click)= "pop()">Restablecer contraseña
+                                <span class="popuptext" id="myPopup">
+                                    <div class="panel-restablecer">
+                                        <h3 class="pt-3">
+                                            Restablecer Contraseña
+                                        </h3>
+                                        <div class="panel-restablecer p-3">
+                                            <form [formGroup]="restablecerForm">
+                                                <div class="form-rest pt-3">
+                                                    <span>No. cuenta o trabajador</span>
+                                                    <div class="input-field-restablecer">
+                                                        <span class="fa fa-user p-2-restablecer"></span>
+                                                        <input formControlName="username" type="text" placeholder="0123456789">
+                                                    </div>
+                                                </div>
+                                                <small
+                                                    *ngIf="restablecerForm.controls['username'].dirty && restablecerForm.hasError('required', 'username')"
+                                                    class="text-danger">*Campo requerido</small>
+                                                <div class="form-group pt-3">
+                                                    <span>Contraseña</span>
+                                                    <div class="input-field-restablecer-p2">
+                                                        <span class="fa fa-lock p-2"></span>
+                                                        <input formControlName="password" [type]="type" placeholder="•••••••">
+                                                        <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                                                    </div>
+                                                </div>
+                                                <small
+                                                    *ngIf="restablecerForm.controls['password'].dirty && restablecerForm.hasError('required', 'password')"
+                                                    class="text-danger">*Campo requerido</small>
+                                                <button (click)="enviar()" [disabled]="restablecerForm.invalid" type="submit"
+                                                    class="btn btn-primary btn-block mt-4 w-100">
+                                                    Actualizar </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </span>
+                            </a>
+                                
                                 <button 
                                     (click) = "onSubmit()"
                                     [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block mt-4 w-100">
