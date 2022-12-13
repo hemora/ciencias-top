@@ -69,6 +69,7 @@ export class InicioUiComponent implements OnInit {
           console.log(this.userAuthService.getNoCta());
 
           this.router.navigate(['/productos'])
+          this.loginForm.reset();
         },
         (error) => {
           console.log(error);

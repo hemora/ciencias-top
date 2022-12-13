@@ -23,9 +23,11 @@ export class MenuComponent implements OnInit {
   }
 
   logOut() {
-    this.authService.clear();
-    //this.router.navigate(['login'])
-    console.log(this.authService.getToken())
+    window.localStorage.clear();
+    console.log(localStorage);
+    this.authService.clear();        
+    console.log(this.authService.getToken());                    
+    this.router.navigate(['login']);           
   }
 
 }

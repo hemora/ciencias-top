@@ -100,7 +100,7 @@ public class UsuarioRestController {
 		if (!usuarios.isEmpty()) {
 			return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 		}
-		mensajeError = "Usuario con nombre" + nombre + " no ha sido encontrado";
+		mensajeError = "Usuario con nombre " + nombre + " no ha sido encontrado";
 		response.put("mensaje", mensajeError);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 	}
@@ -126,8 +126,9 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         if (usuario == null) {
-            System.out.println("Usuario con correo " + correo + " no ha sido encontrado");
-            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+            mensajeError = "Usuario con correo " + correo + " no ha sido encontrado";
+			response.put("mensaje", mensajeError);
+            return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
@@ -152,8 +153,9 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         if (usuario == null) {
-            System.out.println("Usuario con numero de cuenta " + noCT + " no ha sido encontrado");
-            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+            mensajeError = "Usuario con numero de cuenta " + noCT + " no ha sido encontrado";
+			response.put("mensaje", mensajeError);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }

@@ -30,10 +30,12 @@ import { InicioUiComponent } from './inicio-ui/inicio-ui.component';
 import { ReestablecerContraseniaComponent } from './reestablecer-contrasenia/reestablecer-contrasenia.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PerfilAdminComponent } from './perfil/perfil-admin.component';
+import { UsrSrchComponent } from './usuarios/usr-srch.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "/productos", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
+  {path: "usuarios/srch/:busqueda", component: UsrSrchComponent},
   {path: "productos", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
   {path: "productos/agrega-prd", component: AgregaPrdComponent},
@@ -80,7 +82,8 @@ const routes: Routes = [
     InicioUiComponent,
     ReestablecerContraseniaComponent,
     PerfilComponent,
-    PerfilAdminComponent
+    PerfilAdminComponent,
+    UsrSrchComponent
   ],
   
   imports: [

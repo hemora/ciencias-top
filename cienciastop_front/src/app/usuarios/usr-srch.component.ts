@@ -6,24 +6,25 @@ import { UsuarioService } from './usuario.service';
 import { USUARIOS } from './usuarios.json';
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'app-usr-srch',
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit {
+export class UsrSrchComponent implements OnInit {
 
   usuarios: Usuario[];
   busqueda: String;
 
-  constructor(private router : Router, private usuarioService: UsuarioService) { }
+  constructor(private router : Router, private activeRouter : ActivatedRoute, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.usuarioService.getUsuarios().subscribe(
-      usuarios => this.usuarios = usuarios
-    );
+    this.activeRouter.params.subscribe(params => {
+      this.busqueda = params['busqueda'];
+    });
+    this.commitbusqueda();
   }
 
-  commitbusqueda() {        
+  commitbusqueda() {            
     this.usuarioService.busquedaAuxiliar(this.busqueda).subscribe(
       usuarioData => {
         console.log(usuarioData);
@@ -32,9 +33,9 @@ export class UsuariosComponent implements OnInit {
         error => console.log(error));
   }
 
-  onSubmitForm() {
-    console.log(this.busqueda);    
-    this.router.navigate(['/usuarios/srch/' + this.busqueda])    
+  onSubmitForm() {    
+    this.commitbusqueda();    
+    this.router.navigate(['/usuarios/srch/' + this.busqueda]);    
   }
 
   delete(usuario: Usuario): void {

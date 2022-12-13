@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MonederoService } from './monedero.service';
 import {formatDate} from '@angular/common';
 import { Usuario } from '../usuarios/usuario';
+import { UserAuthService } from '../util/user-auth.service';
+import { HeaderService } from '../header/header.service';
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -22,7 +24,8 @@ export class EditarPumaPuntosComponent implements OnInit {
   sumaRestaGroup!: FormGroup;
 
   constructor(private fb: FormBuilder, private monederoService: MonederoService,
-    private router: Router) { }
+    private router: Router,public authService: UserAuthService,     
+    public headerService: HeaderService) { }
 
   ngOnInit(): void {
     this.sumaRestaGroup = this.fb.group({
@@ -83,9 +86,13 @@ export class EditarPumaPuntosComponent implements OnInit {
           , 'Saldo actual: ' + response.monedero.pumaPuntos
           , 'success');
           this.monedero.pumaPuntos = response.monedero.pumaPuntos;
+          if (this.usuario.noCT == this.authService.getNoCta()){
+            console.log("Debe actualizar", this.monedero.pumaPuntos)
+            this.headerService.setPumaPts();
+          }
           console.log(response);
         }
-      );
+      );      
       // Te vuelvo a pasar el estado
       //this.router.navigate(['/usuarios/editar'])
       this.router.navigateByUrl('/usuarios/editar', { state: this.usuario });

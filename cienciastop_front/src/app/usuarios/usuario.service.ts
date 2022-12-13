@@ -106,7 +106,7 @@ export class UsuarioService {
   }
 
   busquedaAuxiliar(cadena: String){
-    const patronN = '[0-9]{9}';
+    const patronN = '[0-9]+';
     const patronNumero = cadena.match(patronN);
     const patron = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const patronCorreo = cadena.match(patron);
