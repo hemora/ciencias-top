@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentaService } from './renta.service';
 import swal from 'sweetalert2';
 import { Renta } from './renta';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-rentas-usr',
@@ -11,11 +11,24 @@ import { Router } from '@angular/router';
 })
 export class RentasUsrComponent implements OnInit {
 
-  renta: Renta = new Renta();
-  constructor(private rentaService: RentaService, private router: Router) { }
+  renta: any;
+  constructor(private rentaService: RentaService, 
+    private rutaActiva: ActivatedRoute, 
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.rentaService.verRenta(this.rutaActiva.snapshot.params['id']).subscribe(
+      busqueda => this.renta = busqueda
+    );
   }
+
+  rentado() {
+    if (this.renta.status_entrega) {
+      return 'Entregado';
+    }
+    return 'Sin entregar';
+  }
+
 
   
 

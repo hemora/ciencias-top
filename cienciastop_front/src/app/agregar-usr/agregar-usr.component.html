@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Apellidos</label>
-                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+ [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$" minlength="7"
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ]+( [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+)*$" minlength="3"
                     formControlName="apellidosUsr" class="form-control" [(ngModel)]="usuario.apellidos">
             </div>
             <div *ngIf="angForm.controls['apellidosUsr'].invalid && (angForm.controls['apellidosUsr'].dirty || angForm.controls['apellidosUsr'].touched)"
@@ -43,7 +43,7 @@
             -->
             <div class="form-group">
                 <label class="control-label">Numero de Cuenta o Trabajador</label>
-                <input type="number" formControlName="noCT" class="form-control" pattern="[0-9]{9}[0-9]?"
+                <input type="number" formControlName="noCT" class="form-control" pattern="[0-9]{8}[0-9]?"
                     [(ngModel)]="usuario.noCT">
             </div>
             <div *ngIf="angForm.controls['noCT'].invalid && (angForm.controls['noCT'].dirty || angForm.controls['noCT'].touched)"
@@ -52,7 +52,7 @@
                     Campo requerido.
                 </small>
                 <small *ngIf="angForm.controls['noCT'].errors?.['pattern'] ">
-                    Verifica que la longitud sea de entre de 9 a 10 digitos.
+                    Verifica que la longitud sea de entre de 8 a 9 digitos.
                 </small>
             </div>
             <div class="form-group">

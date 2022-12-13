@@ -11,8 +11,8 @@ verProducto {
     position: absolute;
     width: 959px;
     height: 62px;
-    left: 416px;
-    top: 162px;
+    left: 320px;
+    top: 120px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
@@ -23,9 +23,9 @@ verProducto {
 
 .imagenProducto {
     position: absolute;
-    width: 300px;
-    height: 400px;
-    left: 420px;
+    width: 220px;
+    height: 320px;
+    left: 320px;
     top: 226px;
 }
 
@@ -33,7 +33,7 @@ verProducto {
     position: absolute;
     width: 500px;
     height: 400px;
-    left: 750px;
+    left: 570px;
     top: 340px;
 }
 table {

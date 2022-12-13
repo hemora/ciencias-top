@@ -9,45 +9,97 @@
                 <h5 class="card-title">{{ producto1.nombre }}</h5>
                 <p class="card-text">{{ producto1.descripcion }}</p>
                 <p class="card-text"><small class="text-muted">Precio: {{ producto1.precio }}</small></p>
+                <img src="/assets/res/images/{{producto1.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto1-{{producto1.codigo}}" class="imagenProducto">
               </div>
             </div>
           </div>
         </div>
       </button>
-      <div class="col">
+      <button class="col" routerLink="/ver-productos/{{producto2.codigo}}">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
-            </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">{{ producto2.nombre }}</h5>
+                <p class="card-text">{{ producto2.descripcion }}</p>
+                <p class="card-text"><small class="text-muted">Precio: {{ producto2.precio }}</small></p>
+                <img src="/assets/res/images/{{producto2.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto2-{{producto2.codigo}}" class="imagenProducto">
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col">
+      </button>
+      <button class="col" routerLink="/ver-productos/{{producto3.codigo}}">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
-            </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">{{ producto3.nombre }}</h5>
+                <p class="card-text">{{ producto3.descripcion }}</p>
+                <p class="card-text"><small class="text-muted">Precio: {{ producto3.precio }}</small></p>
+                <img src="/assets/res/images/{{producto3.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto3-{{producto3.codigo}}" class="imagenProducto">
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </button>
+    </div>
+
+    <div class="row">
+      <button class="col" routerLink="/ver-productos/{{producto4.codigo}}">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ producto4.nombre }}</h5>
+                <p class="card-text">{{ producto4.descripcion }}</p>
+                <p class="card-text"><small class="text-muted">Precio: {{ producto4.precio }}</small></p>
+                <img src="/assets/res/images/{{producto4.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto4-{{producto4.codigo}}" class="imagenProducto">
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+      <button class="col" routerLink="/ver-productos/{{producto5.codigo}}">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ producto5.nombre }}</h5>
+                <p class="card-text">{{ producto5.descripcion }}</p>
+                <p class="card-text"><small class="text-muted">Precio: {{ producto5.precio }}</small></p>
+                <img src="/assets/res/images/{{producto5.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto2-{{producto5.codigo}}" class="imagenProducto">
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+      <button class="col" routerLink="/ver-productos/{{producto6.codigo}}">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ producto6.nombre }}</h5>
+                <p class="card-text">{{ producto6.descripcion }}</p>
+                <p class="card-text"><small class="text-muted">Precio: {{ producto6.precio }}</small></p>
+                <img src="/assets/res/images/{{producto6.imagen}}"
+                onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+                alt="ImagenProducto6-{{producto6.codigo}}" class="imagenProducto">
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
     </div>
   </div>
 </div>

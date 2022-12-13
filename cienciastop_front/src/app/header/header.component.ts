@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
+import { Monedero } from '../editar-puma-puntos/monedero';
+import { MonederoService } from '../editar-puma-puntos/monedero.service';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +12,25 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   
+  // usuario provicional - reemplazar con datos del usuario logeado
+  usuario = {nombre: 'Daniel', apellidos:'Ruelas Milanés', noCT:317804520, telefono:5455111666, correo:'sango265@ciencias.unam.mx', carrera:'Ciencias de la Computación', rol:' Administrador', contrasenya:'12345678', status:1}
+  monedero: Monedero = new Monedero();
   entrada: string = "";
   control = new FormControl();
 
-  constructor(private route : Router) { }
+  constructor(private route : Router, private monederoService: MonederoService) { }
 
   ngOnInit(): void {
-    this.cambiosBusqueda()
+    this.cambiosBusqueda();
+
+    let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');    
+    let periodo = periodoAux[2] + '-' + periodoAux[1];
+
+    this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
+      response => {
+        this.monedero = response.monedero;
+      }
+    );
   }
 
   /**

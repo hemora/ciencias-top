@@ -122,21 +122,17 @@
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Imagen</label>
                 <div class="col-sm-6">
-                    <input formControlName= "imagen" type="file"  accept=".jpg, .jpeg, .png" class="form-control" [(ngModel)]="producto.imagen" name="imagen">
+                    <input formControlName="imagen" type="text" class="form-control" [(ngModel)]="producto.imagen" name="imagen">
                 </div>
             </div>
             <div *ngIf="angForm.controls['imagen'].invalid && (angForm.controls['imagen'].dirty || angForm.controls['imagen'].touched)" class="alert alert-danger">
                 <div *ngIf="angForm.controls['imagen'].errors">
-                    Debe ingresar la imagen del producto.
+                    Campo requerido   (ejem: imagen1.png)
                 </div>
             </div>
             
             <button type= "submit"
-            [disabled]="angForm.invalid" class="btn btn-success">Editar</button>
-
-            
-            <p>Form value: {{ angForm.value | json}}</p>
-            <p>Form status: {{ angForm.status | json}}</p>
+            [disabled]="angForm.invalid" class="btn-editar">Editar</button>
             
         </form>
         <br />

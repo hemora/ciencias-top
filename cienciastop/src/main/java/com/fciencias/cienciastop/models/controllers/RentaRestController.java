@@ -1,9 +1,12 @@
 package com.fciencias.cienciastop.models.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fciencias.cienciastop.models.entity.Monedero;
 import com.fciencias.cienciastop.models.entity.Producto;
 import com.fciencias.cienciastop.models.entity.Renta;
 import com.fciencias.cienciastop.models.entity.Usuario;
+import com.fciencias.cienciastop.models.service.IMonederoService;
 import com.fciencias.cienciastop.models.service.IProductoService;
 import com.fciencias.cienciastop.models.service.IRentaService;
 import com.fciencias.cienciastop.models.service.IUsuarioService;
@@ -41,12 +46,16 @@ public class RentaRestController {
 	@Autowired
 	private IProductoService productoService;
 	
+	@Autowired
+	private IMonederoService monederoService;
+	
 	/*@GetMapping("/rentas")
 	public List<Renta> index() {
 		return rentaService.findAll();
-	}*/
+	}*/	
 	
 	@GetMapping("/rentas")
+	@PreAuthorize("hasRole('Administrador')")
 	public ResponseEntity<?> verRentas() {
 		List<Renta> rentasPorDevolver = null;
 		Map<String,Object> response = new HashMap<String, Object>();
@@ -68,7 +77,7 @@ public class RentaRestController {
 	}
 	
 	/**
-	 * Regresa la rentaque tenga como ID el parametro recibido.
+	 * Regresa la renta que tenga como ID el parametro recibido.
 	 * Si existe un error en la base de datos o no existen coincidencias
 	 * se manda un mensaje sobre el tipo de error. 
 	 * @param id el id de la renta que se buscara.
@@ -116,6 +125,35 @@ public class RentaRestController {
 		Usuario usuario = new Usuario();
 		usuario = this.usuarioService.buscarUsuarioPorNoCT(noCT);
 		Renta rentaNueva = new Renta();
+		Monedero monedero = new Monedero();
+		String pattern = "yyyy-MM";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
+        String periodoActual = simpleDateFormat.format(new Date());
+		monedero = this.monederoService.obtenerPorDueno(noCT,periodoActual);
+		
+		
+		Calendar fecha = Calendar.getInstance();
+		rentaNueva.setFecha_renta(fecha.getTime());
+		fecha.add(Calendar.DATE, producto.getPeriodoRenta());
+		rentaNueva.setFecha_entrega(fecha.getTime());
+		rentaNueva.setProducto(producto);
+		rentaNueva.setUsuario(usuario);
+		rentaNueva.setStatus_entrega(false);
+		int stock = producto.getCurrentStock();
+		double pumapuntos = monedero.getPumaPuntos();
+		double precio = producto.getPrecio();
+		if(pumapuntos < precio) {
+			response.put("mensaje", "Pumampuntos insuficientes");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		List<Renta> rentasHoy;
+		rentasHoy = rentaService.findAll();
+		rentasHoy = auxHistorial(rentasHoy, noCT);
+		rentasHoy = auxRenta(rentasHoy);
+		if(rentasHoy.size() == 3) {
+			response.put("mensaje", "Ya has excedido el limite de rentas por hoy");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			rentaNueva= rentaService.save(rentaNueva);
 		}catch(DataAccessException e){
@@ -127,21 +165,10 @@ public class RentaRestController {
 			response.put("error", mensaje);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		Calendar fecha = Calendar.getInstance();
-		rentaNueva.setFecha_renta(fecha.getTime());
-		fecha.add(Calendar.DATE, producto.getPeriodoRenta());
-		rentaNueva.setFecha_entrega(fecha.getTime());
-		rentaNueva.setProducto(producto);
-		rentaNueva.setUsuario(usuario);
-		rentaNueva.setStatus_entrega(false);
-		int stock = producto.getCurrentStock();
-		if(stock<=0) {
-			response.put("mensaje", "No hay productos disponibles por el momento");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
 		producto.setCurrentStock(stock-1);
 		productoService.save(producto);
+		monedero.setPumaPuntos(pumapuntos-precio);
+		monederoService.save(monedero);
 		response.put("mensaje", "La renta se ha realizado exitosamente");
 		response.put("renta", rentaNueva);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -192,7 +219,7 @@ public class RentaRestController {
 		try {
 			rentaService.delete(id);
 		}catch(DataAccessException e){
-			mensaje = "Error al eliminar la rent5a en la base de datos";
+			mensaje = "Error al eliminar la renta en la base de datos";
 			response.put("mensaje", mensaje);
 			mensaje = "";
 			mensaje += e.getMessage() + ": ";
@@ -325,8 +352,6 @@ public class RentaRestController {
 			Long auxEntrada = Long.parseLong(entrada);
 			historial = rentaService.findAll();
 			historial = auxHistorial(historial, auxEntrada);
-			// historial = rentaService.historial(auxEntrada);
-			//System.out.println(historial.get(0).getUsuario().getNoCT());
 		} catch (DataAccessException e) {
 			// Error en la base de datos
 			mensaje = "Error al realizar la consulta en la base de datos";
@@ -361,8 +386,6 @@ public class RentaRestController {
 		}
 		List<Renta> aux = new ArrayList<Renta>();
 		for (Renta renta : historial) {
-			//System.out.println(renta.getUsuario().getNoCT());
-			//System.out.println(entrada);
 			Long noCT = renta.getUsuario().getNoCT();
 			int com = Long.compare(entrada, noCT);
 			if (com == 0) {
@@ -371,5 +394,26 @@ public class RentaRestController {
 		}
 		return aux;
 	}
-	
+	// Auxiliar para historial
+		private List<Renta> auxRenta(List<Renta> rentasHoy) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Calendar fecha = Calendar.getInstance();
+	        Date fechaActual = fecha.getTime();
+			if (rentasHoy == null) {
+				rentasHoy = new ArrayList<Renta>();
+			}
+			if (rentasHoy.isEmpty()) {
+				return rentasHoy;
+			}
+			List<Renta> aux = new ArrayList<Renta>();
+			for (Renta renta : rentasHoy) {
+				//System.out.println(renta.getUsuario().getNoCT());
+				//System.out.println(entrada);
+				Date fecharenta = renta.getFecha_renta();
+				if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
+					aux.add(renta);
+				}
+			}
+			return aux;
+		}
 }

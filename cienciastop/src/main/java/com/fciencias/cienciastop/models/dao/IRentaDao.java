@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.fciencias.cienciastop.models.entity.Renta;
+import com.fciencias.cienciastop.models.entity.Usuario;
 
 public interface IRentaDao extends CrudRepository<Renta, Long>{
 	@Query(value= "SELECT * FROM rentas WHERE status_entrega = :status", nativeQuery = true)
@@ -46,7 +47,7 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 	@Query(
 			value= "WITH aux AS ("
 				+ "SELECT * FROM rentas WHERE status_entrega = FALSE AND "
-				+ "fecha_entrega > NOW()) "
+				+ "fecha_entrega < NOW()) "
 				+ "SELECT count(usuario_id) AS retardos, usuario_id FROM aux "
 				+ "GROUP BY usuario_id ORDER BY retardos DESC LIMIT 10;", 
 			nativeQuery = true)
@@ -62,4 +63,9 @@ public interface IRentaDao extends CrudRepository<Renta, Long>{
 			nativeQuery = true)
 	public List<Renta> historial(Long usuario_id);
 
+	@Query(value = "SELECT * FROM rentas WHERE usuario_id = :usuario AND status_entrega = :status AND fecha_entrega >= CURRENT_DATE", nativeQuery = true)
+	List<Renta> encontrarRentasUsuario(@Param ("status") boolean status, @Param ("usuario") Usuario usuario);
+	
+	@Query(value= "SELECT * FROM rentas WHERE usuario_id = :usuario AND fecha_entrega < CURRENT_DATE", nativeQuery = true)
+	List<Renta> encontrarRentasVencidas(@Param ("usuario") Usuario usuario);
 }

@@ -25,6 +25,7 @@ export class SrchAdminProdService {
   getBuscado(entrada: string): Observable<Producto[]> {
     var newUrl: string = this.urlEndPoint;
     newUrl += "/busqueda?entrada=" + entrada;
+    newUrl += "&filtro=" + false;
     return this.http.get<Producto[]>(newUrl, this.authHeader)
       .pipe(
       catchError(e => {

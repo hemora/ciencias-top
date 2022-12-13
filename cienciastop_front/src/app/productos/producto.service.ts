@@ -42,6 +42,16 @@ export class ProductoService {
     );
   }
 
+  getProductosFiltro(): Observable<Producto[]>{
+    var aux = 'http://localhost:8080/api/productos-filtro ';
+    return this.http.get<Producto[]>(aux, this.authHeader).pipe(
+      catchError(e => {
+        Swal.fire('Error al cargar los productos', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    );
+  }
+
   create(producto: Producto): Observable<Producto>{
     return this.http.post<Producto>(`${this.urlEndPoint}/${this.noCT}`, producto,  this.authHeader).pipe(
       catchError(e => {

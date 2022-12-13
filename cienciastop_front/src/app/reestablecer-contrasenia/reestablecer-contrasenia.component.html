@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+            <div class="panel border bg-white">
+                <div class="panel-heading">
+                    <h3 class="pt-3 font-weight-bold">
+                        Reestablecer Contraseña
+                    </h3>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="loginForm">
+                            <div class="form-group pt-3">
+                                <span>No. cuenta o trabajador</span>
+                                <div class="input-field">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="username" type="text" placeholder="0123456789">
+                                </div>
+                            </div>
+                            <small
+                                *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')"
+                                class="text-danger">*Campo requerido</small>
+                            <div class="form-group pt-3">
+                                <span>Contraseña</span>
+                                <div class="input-field">
+                                    <span class="fa fa-lock p-2"></span>
+                                    <input formControlName="password" [type]="type" placeholder="•••••••">
+                                    <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                                </div>
+                            </div>
+                            <small
+                                *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"
+                                class="text-danger">*Campo requerido</small>
+                            <button (click)="onSubmit()" [disabled]="loginForm.invalid" type="submit"
+                                class="btn btn-primary btn-block mt-4 w-100">
+                                Actualizar </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

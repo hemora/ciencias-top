@@ -38,10 +38,12 @@ export class EditarPumaPuntosComponent implements OnInit {
     let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
     console.log(periodoAux);
     let periodo = periodoAux[2] + '-' + periodoAux[1];
+    console.log(periodo)
     
     this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
       response => {
         this.monedero = response.monedero;
+        console.log(this.monedero)
       }
     );
   }
@@ -50,14 +52,7 @@ export class EditarPumaPuntosComponent implements OnInit {
     if (this.sumaRestaGroup.valid) {
       console.log(this.sumaRestaGroup.value.defCantidad);
 
-      // Se obtienen los datos del monedero para operar
-      //this.monederoService.getMonedero(this.monederoId).subscribe(
-      //  (m: Monedero) => {
-      //    console.log(m);
-      //    this.monedero = m;
-      //    console.log(this.monedero);
-      //  }
-      //);
+      console.log("aaaaa")
 
       // Se operan los datos del monedero
       let n = this.sumaRestaGroup.value.defCantidad as number;
@@ -70,10 +65,13 @@ export class EditarPumaPuntosComponent implements OnInit {
         updatedPP = (Number(n) + Number(m));
       }
       //let periodo = new Date();
-      let periodoAux = (new Date()).toDateString().split(' ');
-      let periodo = periodoAux[3] + '-' + periodoAux[2];
+      let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
+      console.log(periodoAux)
+      let periodo = periodoAux[2] + '-' + periodoAux[1];
       monederoUpdate.periodo = periodo;
+      console.log(periodo)
       console.log(monederoUpdate);
+
       //const monederoUpdate = {
       //  'status': '',
       //  'pumaPuntos': '',
@@ -85,6 +83,7 @@ export class EditarPumaPuntosComponent implements OnInit {
           , 'Saldo actual: ' + response.monedero.pumaPuntos
           , 'success');
           this.monedero.pumaPuntos = response.monedero.pumaPuntos;
+          console.log(response);
         }
       );
       // Te vuelvo a pasar el estado
