@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Renta } from './renta';
 import { catchError } from 'rxjs';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../util/user-auth.service';
 
@@ -30,13 +30,12 @@ export class RentaService {
     return this.http.get<Renta[]>(this.urlEndPoint, this.authHeader);
   }
   update(id: number): Observable<Renta>{
-    return this.http.put<Renta>( this.urlEndPoint+ '/' + id, null ,{headers: this.httpHeaders}).pipe(
-      catchError(e =>{
-        this.router.navigate(['/renta-admin'])
-        swal.fire('Error al actualizar producto', e.error.mensaje, "error");
-        return throwError( () => e);
-        
-      })
+    return this.http.put<any>( this.urlEndPoint+ '/' + id, null ,{headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire('Error al rentar el producto', e.error.mensaje, 'error');
+         return throwError( () => e);
+
+       })
     );
   }
     

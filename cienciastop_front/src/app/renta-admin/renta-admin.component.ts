@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Renta } from './renta';
 import { RentaService } from './renta.service';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -22,27 +22,16 @@ export class RentaAdminComponent implements OnInit {
     );
   }
   public update(renta: Renta):void{
-    this.rentaService.update(renta.id).subscribe(renta => 
-      {
-        console.log(renta);
-        swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Se ha editado el usuario correctamente',
-          showConfirmButton: false,
-          timer: 3500
-        })
-        //Llamamos al método de redirección para volver a la lista de usuarios
-        this.redirectrentaList();
-      },
-      error => console.log(error));
+    this.rentaService.update(renta.id).subscribe(renta => {
+      console.log(renta);
+      this.router.navigate(['/rentas-admin/'])
+      Swal.fire('Renta Actualizada', `La renta ${renta.id} se ha actualizado correctamente`, 'success')
+    }
+    )
     
   }
  
 
-  //Redirección a lista de usuarios
-  redirectrentaList() {
-    this.router.navigate(['/renta-admin']);
-  }
+ 
 
 }
