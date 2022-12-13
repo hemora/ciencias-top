@@ -8,6 +8,7 @@ import { Usuario } from '../usuarios/usuario';
 import Swal from 'sweetalert2';
 import { RentaService } from '../rentas-usr/renta.service';
 import { UserAuthService } from '../util/user-auth.service';
+import { Renta } from '../rentas-usr/renta';
 
 @Component({
   selector: 'app-ver-productos',
@@ -35,11 +36,11 @@ export class VerProductosComponent implements OnInit {
   public rentar(){
     console.log(this.producto.codigo);
     console.log(this.noCT);
-    this.rentaService.rentarProducto(this.producto.codigo,this.noCT).subscribe(renta =>
-      {
-        this.router.navigate(['/rentas-usr'])
-        Swal.fire('Nueva Renta', `Renta ${this.producto.codigo} creado con éxito`, 'success')
-      }
+    this.rentaService.rentarProducto(this.producto.codigo, this.noCT).subscribe(renta => {
+      console.log(renta);
+      this.router.navigate(['/rentas-usr/' + renta.renta.id])
+      Swal.fire('Nueva Renta', `Renta ${this.producto.codigo} creado con éxito`, 'success')
+    }
     )
   }
 

@@ -28,14 +28,24 @@ export class RentaService {
         .set('Content-Type',  'application/json')
 
  
-  rentarProducto(codigo: String, noCT: number): Observable<Object>{
-    return this.http.post<Renta>(this.urlEndPoint + '/' + codigo + '/' + noCT, null, {headers: this.httpHeaders}).pipe(
-      catchError( e => {
-        Swal.fire('Error al rentar el producto', e.error.mensaje, 'error');
-        return throwError( () => e);
+    rentarProducto(codigo: String, noCT: number): Observable<RentaJSON>{
+      return this.http.post<RentaJSON>(this.urlEndPoint + '/' + codigo + '/' + noCT, null,{headers: this.httpHeaders}).pipe(
+        catchError( e => {
+         Swal.fire('Error al rentar el producto', e.error.mensaje, 'error');
+          return throwError( () => e);
 
-      })
-    );
+        })
+      );
+    }
+
+    verRenta(id: number): Observable<Renta>{
+      return this.http.get<Renta>(this.urlEndPoint + '/' + id, this.authHeader);
+    }
+  
+  }
+  
+  export class RentaJSON{
+    mensaje: string;
+    renta: Renta;
   }
 
-}

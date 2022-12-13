@@ -130,17 +130,7 @@ public class RentaRestController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("es", "MX"));
         String periodoActual = simpleDateFormat.format(new Date());
 		monedero = this.monederoService.obtenerPorDueno(noCT,periodoActual);
-		try {
-			rentaNueva= rentaService.save(rentaNueva);
-		}catch(DataAccessException e){
-			mensaje = "Error al realizar el insert en la base de datos";
-			response.put("mensaje", mensaje);
-			mensaje = "";
-			mensaje += e.getMessage() + ": ";
-			mensaje += e.getMostSpecificCause().getMessage();
-			response.put("error", mensaje);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		
 		
 		Calendar fecha = Calendar.getInstance();
 		rentaNueva.setFecha_renta(fecha.getTime());
@@ -160,9 +150,20 @@ public class RentaRestController {
 		rentasHoy = rentaService.findAll();
 		rentasHoy = auxHistorial(rentasHoy, noCT);
 		rentasHoy = auxRenta(rentasHoy);
-		if(rentasHoy.size() > 3) {
+		if(rentasHoy.size() == 3) {
 			response.put("mensaje", "Ya has excedido el limite de rentas por hoy");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			rentaNueva= rentaService.save(rentaNueva);
+		}catch(DataAccessException e){
+			mensaje = "Error al realizar el insert en la base de datos";
+			response.put("mensaje", mensaje);
+			mensaje = "";
+			mensaje += e.getMessage() + ": ";
+			mensaje += e.getMostSpecificCause().getMessage();
+			response.put("error", mensaje);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		producto.setCurrentStock(stock-1);
 		productoService.save(producto);
