@@ -24,7 +24,7 @@ export class UserAuthService {
   }
 
   clear() {
-    localStorage.clear;
+    localStorage.clear();
   }
 
   isLoggedIn() {
