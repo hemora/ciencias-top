@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { of } from 'rxjs';
 import { UserAuthService } from '../util/user-auth.service';
 import { SesionService } from './sesion.service';
@@ -15,9 +16,11 @@ export class InicioUiComponent implements OnInit {
 
   type: string = "password";
   isText: boolean = false;
+  restablecer: boolean =true;
   eyeIcon: string = "fa-eye-slash";
 
   loginForm!: FormGroup;
+  restablecerForm!: FormGroup;
 
   private usuario: Usuario;
 
@@ -28,6 +31,11 @@ export class InicioUiComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+
+    this.restablecerForm= this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     })
@@ -73,6 +81,45 @@ export class InicioUiComponent implements OnInit {
 
   isLoggedIn() {
     return this.userAuthService.isLoggedIn();
+  }
+
+  enviar() {
+    this.unpop();
+    if(this.restablecerForm.valid) {
+      console.log(this.restablecerForm.value);
+      const noCta = (this.restablecerForm.value).username;
+      const pw = (this.restablecerForm.value).password;
+      const payload = { "userName" : noCta , "userPassword" : pw } 
+      var foo = this.sesionService.reestablecerContrasenia(noCta, pw).subscribe(
+        (response: any) => { 
+          console.log("Contraseña actualizada")
+          console.log(response)
+
+          Swal.fire('Contraseña reestablecida'
+          , 'Aquí va el mensaje de que todo salió bien'
+          , 'success');
+
+          this.router.navigate([''])
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("ERROR: Form is not valid");
+    }
+  }
+
+  pop(){
+    var popup = document.getElementById("myPopup");
+    /*popup.classList.toggle("show");*/
+    popup.classList.add("show");
+  }
+
+
+  unpop(){
+    var popup = document.getElementById("myPopup");
+    popup.style.display = "none";
   }
 
 }

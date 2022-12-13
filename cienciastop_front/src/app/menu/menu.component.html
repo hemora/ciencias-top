@@ -34,7 +34,7 @@
   <app-menu-prove *ngIf="this.authService.getRol() == 'Proveedor'"></app-menu-prove>
     
   <form action="" method="">
-    <button type="button" class="menu-logout">
+    <button (click)="logOut()" type="button" class="menu-logout">
       <img alt="logout" src="/assets/playground_assets/antdesignlogoutoutlined2096-z1dp.svg"
         class="antdesignlogoutoutlined" />
       Cerrar Sesion
