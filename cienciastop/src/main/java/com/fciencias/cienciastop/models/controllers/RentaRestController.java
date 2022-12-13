@@ -185,12 +185,16 @@ public class RentaRestController {
 		String mensaje;
 		Renta rentaActualizada = null;
 		rentaActualizada = this.rentaService.findByID(id);
+		System.out.println("Ando aqui");
 		if (rentaActualizada == null) {
 			mensaje = String.format("La renta con el ID: %s no existe", id);
 			response.put("mensaje", mensaje);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
+			Producto newP = productoService.findByCodigo(rentaActualizada.getProducto().getCodigo());
+			newP.setCurrentStock(newP.getCurrentStock()+1);
+			productoService.save(newP);
 			rentaActualizada.setStatus_entrega(true);
 			rentaActualizada= rentaService.save(rentaActualizada);
 		}catch(DataAccessException e){
@@ -394,26 +398,27 @@ public class RentaRestController {
 		}
 		return aux;
 	}
-	// Auxiliar para historial
-		private List<Renta> auxRenta(List<Renta> rentasHoy) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			Calendar fecha = Calendar.getInstance();
-	        Date fechaActual = fecha.getTime();
-			if (rentasHoy == null) {
-				rentasHoy = new ArrayList<Renta>();
-			}
-			if (rentasHoy.isEmpty()) {
-				return rentasHoy;
-			}
-			List<Renta> aux = new ArrayList<Renta>();
-			for (Renta renta : rentasHoy) {
-				//System.out.println(renta.getUsuario().getNoCT());
-				//System.out.println(entrada);
-				Date fecharenta = renta.getFecha_renta();
-				if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
-					aux.add(renta);
-				}
-			}
-			return aux;
+	
+	// Auxiliar para rentar producto
+	private List<Renta> auxRenta(List<Renta> rentasHoy) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Calendar fecha = Calendar.getInstance();
+	    Date fechaActual = fecha.getTime();
+		if (rentasHoy == null) {
+			rentasHoy = new ArrayList<Renta>();
 		}
+		if (rentasHoy.isEmpty()) {
+			return rentasHoy;
+		}
+		List<Renta> aux = new ArrayList<Renta>();
+		for (Renta renta : rentasHoy) {
+			//System.out.println(renta.getUsuario().getNoCT());
+			//System.out.println(entrada);
+			Date fecharenta = renta.getFecha_renta();
+			if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
+				aux.add(renta);
+			}
+		}
+		return aux;
+	}
 }
