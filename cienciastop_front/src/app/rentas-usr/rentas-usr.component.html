@@ -1,7 +1,8 @@
 <div class="rentarProducto">
   <div class="nombreProducto">Detalles de la Renta</div>
-  <img src="{{renta.producto.imagen}}" alt="ImagenProducto" class="imagenProducto">
- 
+  <img src="/assets/res/images/{{renta.producto.imagen}}"
+    onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+    alt="ImagenProducto-{{renta.producto.codigo}}" class="imagenProducto">
   <div class="tabla">
       <table class="table">
           <thead class="table-dark">
