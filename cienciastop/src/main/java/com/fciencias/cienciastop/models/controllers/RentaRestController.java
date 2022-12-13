@@ -185,7 +185,6 @@ public class RentaRestController {
 		String mensaje;
 		Renta rentaActualizada = null;
 		rentaActualizada = this.rentaService.findByID(id);
-		System.out.println("Ando aqui");
 		if (rentaActualizada == null) {
 			mensaje = String.format("La renta con el ID: %s no existe", id);
 			response.put("mensaje", mensaje);
