@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	/* Una cadena con unos apellidos de longitud  igual o menor a xxx */
 	@NotNull(message = "Los apellidos no pueden ser nulos")
 	@NotBlank(message = "Los apellidos no pueden ser caracteres vacios")
-	@Size(min = 7, max = 200, message 
+	@Size(min = 3, max = 200, message 
       = "Los apellidos deben tener entre 3 y 200 caracteres")
 	@Column(name="apellidos")
 	private String apellidos;
