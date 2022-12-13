@@ -23,8 +23,8 @@ verProducto {
 
 .imagenProducto {
     position: absolute;
-    width: 300px;
-    height: 400px;
+    width: 220px;
+    height: 320px;
     left: 320px;
     top: 226px;
 }
@@ -33,7 +33,7 @@ verProducto {
     position: absolute;
     width: 500px;
     height: 400px;
-    left: 650px;
+    left: 570px;
     top: 340px;
 }
 table {
