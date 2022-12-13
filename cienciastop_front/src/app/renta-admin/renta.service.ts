@@ -38,5 +38,15 @@ export class RentaService {
        })
     );
   }
+
+  delete(id: number): Observable<Renta>{
+    return this.http.put<any>(`${this.urlEndPoint}/${id}`, null ,{headers: this.httpHeaders}).pipe(
+      catchError(e => {
+        //this.router.navigate(['/productos']);
+        Swal.fire('No ha sido posible devolver el producto.', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
+  }
     
 }
