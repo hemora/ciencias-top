@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { Monedero } from '../editar-puma-puntos/monedero';
 import { MonederoService } from '../editar-puma-puntos/monedero.service';
+import { Usuario } from '../usuarios/usuario';
+import { UsuarioService } from '../usuarios/usuario.service';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,20 +16,22 @@ import { MonederoService } from '../editar-puma-puntos/monedero.service';
 export class HeaderComponent implements OnInit {
   
   // usuario provicional - reemplazar con datos del usuario logeado
-  usuario = {nombre: 'Daniel', apellidos:'Ruelas Milanés', noCT:317804520, telefono:5455111666, correo:'sango265@ciencias.unam.mx', carrera:'Ciencias de la Computación', rol:' Administrador', contrasenya:'12345678', status:1}
+  noCT : number;  
   monedero: Monedero = new Monedero();
   entrada: string = "";
   control = new FormControl();
 
-  constructor(private route : Router, private monederoService: MonederoService) { }
+  constructor(private route : Router, public authService: UserAuthService, private usuarioService: UsuarioService, private monederoService: MonederoService) { }
 
   ngOnInit(): void {
+    this.noCT = this.authService.getNoCta();    
+
     this.cambiosBusqueda();
 
     let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');    
     let periodo = periodoAux[2] + '-' + periodoAux[1];
 
-    this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
+    this.monederoService.getMonedero(this.noCT, periodo).subscribe(
       response => {
         this.monedero = response.monedero;
       }
