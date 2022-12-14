@@ -52,6 +52,7 @@ export class EditarUsrComponent implements OnInit {
       apellidosUsr: new FormControl({ apellidos: this.usuario.apellidos }, Validators.compose([Validators.required])),
       telefono: new FormControl({ telefono: this.usuario.telefono }, Validators.compose([Validators.required])),
       rol: new FormControl({ rol: this.usuario.rol }, Validators.compose([Validators.required])),
+      coreo: new FormControl({ correo: this.usuario.correo}, Validators.compose([Validators.required])),
     });
   }
 
