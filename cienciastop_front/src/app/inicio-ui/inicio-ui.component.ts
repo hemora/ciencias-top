@@ -16,7 +16,7 @@ export class InicioUiComponent implements OnInit {
 
   type: string = "password";
   isText: boolean = false;
-  restablecer: boolean =true;
+  restablecer: boolean = false;
   eyeIcon: string = "fa-eye-slash";
 
   loginForm!: FormGroup;
@@ -114,11 +114,13 @@ export class InicioUiComponent implements OnInit {
   pop(){
     var popup = document.getElementById("myPopup");
     /*popup.classList.toggle("show");*/
+    this.restablecer = true;
     popup.classList.add("show");
   }
 
 
   unpop(){
+    this.restablecer = false;
     var popup = document.getElementById("myPopup");
     popup.style.display = "none";
   }

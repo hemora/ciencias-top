@@ -34,7 +34,7 @@
                                  
 
                                 <a class="popup" (click)= "pop()">Restablecer contraseña
-                                <span class="popuptext" id="myPopup">
+                                <span class="popuptext" *ngIf="this.restablecer" id="myPopup">
                                     <div class="panel-restablecer">
                                         <h3 class="pt-3">
                                             Restablecer Contraseña
@@ -56,10 +56,14 @@
                                                     <span>Contraseña</span>
                                                     <div class="input-field-restablecer-p2">
                                                         <span class="fa fa-lock p-2"></span>
-                                                        <input formControlName="password" [type]="type" placeholder="•••••••">
+                                                        <input formControlName="password" [type]="type" placeholder="•••••••" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                                                         <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
                                                     </div>
                                                 </div>
+                                                <small *ngIf="restablecerForm.controls['password'].errors?.['pattern']" class="text-danger">
+                                                    La contraseña debe contener al menos un número, una letra mayúscula y minúscula, y debe ser de al menos
+                                                    8 caracteres.
+                                                </small>
                                                 <small
                                                     *ngIf="restablecerForm.controls['password'].dirty && restablecerForm.hasError('required', 'password')"
                                                     class="text-danger">*Campo requerido</small>
