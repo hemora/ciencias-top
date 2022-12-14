@@ -387,12 +387,18 @@ public class RentaRestController {
 		if (historial.isEmpty()) {
 			return historial;
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+		Calendar fecha = Calendar.getInstance();
+	    Date fechaActual = fecha.getTime();
 		List<Renta> aux = new ArrayList<Renta>();
 		for (Renta renta : historial) {
 			Long noCT = renta.getUsuario().getNoCT();
 			int com = Long.compare(entrada, noCT);
 			if (com == 0) {
-				aux.add(renta);
+				Date fecharenta = renta.getFecha_renta();
+				if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
+					aux.add(renta);
+				}
 			}
 		}
 		return aux;
