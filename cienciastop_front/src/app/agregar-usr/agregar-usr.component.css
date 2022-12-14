@@ -128,3 +128,9 @@ input[type="radio"] {
 #success {
     color: #28A745;
 }
+
+.fa-eye-slash.btn {
+    border: none;
+    outline: none;
+    box-shadow: none;    
+}

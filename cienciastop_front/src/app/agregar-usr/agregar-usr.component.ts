@@ -17,6 +17,10 @@ export class AgregarUsrComponent implements OnInit {
   usuario: Usuario = new Usuario();
   angForm: FormGroup;
 
+  type: string = "password";
+  isText: boolean = false;  
+  eyeIcon: string = "fa-eye-slash";
+
   radio_button_value = null;
 
   box_options = [
@@ -87,5 +91,11 @@ export class AgregarUsrComponent implements OnInit {
   //Redirección a lista de usuarios
   redirectusuarioList() {
     this.router.navigate(['/usuarios']);
+  }
+
+  hideShowPass() {
+    this.isText = !this.isText;
+    this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
+    this.isText ? this.type = "text" : this.type = "password";
   }
 }
