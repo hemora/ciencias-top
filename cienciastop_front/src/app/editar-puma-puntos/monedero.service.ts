@@ -47,4 +47,13 @@ export class MonederoService {
     )
   }
 
+  crearMonedero(id: number) {
+    return this.http.post<any>(`${this.monederoApi}/${id}`, null, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire('Error al crear monedero para el periodo actual: ', e.error, 'error');
+        return throwError( () => e);
+      })
+    )
+  }
+
 }
