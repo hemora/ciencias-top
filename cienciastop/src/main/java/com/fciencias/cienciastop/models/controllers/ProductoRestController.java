@@ -344,7 +344,7 @@ public class ProductoRestController {
 		System.out.println(user.getRol());
 		if((user.getRol().equals("Administrador")) || (noCT == original)) {
 			// Eliminacion exitosa del producto.
-			// aeliminar.setNombre("☒ " + aeliminar.getNombre());//(0);
+			aeliminar.setNombre("☒" + aeliminar.getNombre());
 			// aeliminar.setCurrentStock(0);
 			aeliminar.setStockInicial(0);
 			this.productoService.save(aeliminar);

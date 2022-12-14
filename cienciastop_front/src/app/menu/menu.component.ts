@@ -9,17 +9,21 @@ import { Router } from '@angular/router';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit {  
 
   noCT : number;
   
-  constructor(public authService: UserAuthService, private usuarioService: UsuarioService, private router: Router) {
+  constructor(public authService: UserAuthService, public usuarioService: UsuarioService, private router: Router) {
   }
   
   
-  ngOnInit(): void {        
-    this.noCT = this.authService.getNoCta();    
-    console.log(this.noCT);
+  ngOnInit(): void {      
+    if (localStorage.getItem('update') === null) {
+      localStorage['update'] = true;
+      window.location.reload();
+    }
+    this.noCT = this.authService.getNoCta();          
+    this.usuarioService.setNombre();        
   }
 
   logOut() {

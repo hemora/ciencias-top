@@ -33,17 +33,17 @@ import { PerfilAdminComponent } from './perfil/perfil-admin.component';
 import { UsrSrchComponent } from './usuarios/usr-srch.component';
 
 const routes: Routes = [
-  {path: "", redirectTo: "/productos", pathMatch: "full"},
+  {path: "", redirectTo: "inicio", pathMatch: "full"},
   {path: "usuarios", component: UsuariosComponent},
   {path: "usuarios/srch/:busqueda", component: UsrSrchComponent},
-  {path: "productos", component: ProductosComponent},
+  {path: "inicio", component: ProductosComponent},
   {path: "usuarios/agregar-usr", component: AgregarUsrComponent},
-  {path: "productos/agrega-prd", component: AgregaPrdComponent},
+  {path: "productos/srch-admin-prod/agrega-prd", component: AgregaPrdComponent},
   {path: "productos/srch-admin-prod", component: SrchAdminProdComponent},
-  {path: "productos/srch-user-prod", component: SrchUserProdComponent},
+  {path: "inicio/productos/srch-user-prod", component: SrchUserProdComponent},
   {path: "usuarios/editar", component: EditarUsrComponent},
   {path: "usuarios/pumapuntos", component: EditarPumaPuntosComponent},
-  {path: 'ver-productos/:codigo', component: VerProductosComponent },
+  {path: 'inicio/ver-productos/:codigo', component: VerProductosComponent },
   {path: 'renta-admin', component: RentaAdminComponent },
   {path: 'rentas-usr/:id', component: RentasUsrComponent},
   {path: 'reportes', component: ReportesComponent},

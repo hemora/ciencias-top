@@ -30,6 +30,41 @@ export class RentaAdminComponent implements OnInit {
     )
     
   }
+
+  public devolver(renta: Renta): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Estas seguro?',
+      text: `¿Seguro que desea devolver el producto ${renta.producto.nombre}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Devolver',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.rentaService.delete(renta.id).subscribe(
+          Response => {
+            this.rentas = this.rentas.filter(rent => rent !== renta)
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se ha devuelto el producto',
+              showConfirmButton: false,
+              timer: 3500
+            })
+          }
+        )
+      }
+    })
+  }
  
 
  

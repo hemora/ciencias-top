@@ -61,7 +61,7 @@ export class EditarUsrComponent implements OnInit {
   onSubmitForm() {
     if (this.angForm.valid) {
       console.log(this.usuario);
-      this.commitusuario();
+      this.commitusuario();      
     } else {
       Swal.fire('Error al editar un usuario', 'El form está incompleto o es incorrecto, intenta de nuevo.', 'error');
     }
@@ -81,6 +81,7 @@ export class EditarUsrComponent implements OnInit {
         })
         //Llamamos al método de redirección para volver a la lista de usuarios
         this.redirectusuarioList();
+        this.usuarioService.setNombre();        
       },
       error => console.log(error));
   }
