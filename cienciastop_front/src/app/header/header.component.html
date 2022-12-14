@@ -1,18 +1,15 @@
 <header>
   <div class="top-container">
     <div class="top-search">
-      <form action="" method="">
-        <a routerLinkActive="active" routerLink="productos/srch-user-prod">
-          <div class="menu-op-admin">
-              <!--
-              <div class="msenu-vector">
-                <img alt="ver-prod" src="/assets/playground_assets/image128877-leal-200w.png" />
-              </div>
-              -->
-              <div class="menu-text">Buscar Productos</div>
-          </div>
+      <a routerLinkActive="active" routerLink="inicio/productos/srch-user-prod">
+        <button
+          class="btn-srch-user-prod"    
+          type="button"
+          title="BuscarGeneral">
+          <i class='fa fa-search'></i>
+          Buscar Productos
+        </button>
       </a>
-      </form>
     </div>
     <div class="top-balance">
       <p class="top-text">Puma Puntos</p>
@@ -21,7 +18,7 @@
         <div class="top-coin">
           <img alt="coin" src="/assets/playground_assets/ellipse48881-ck78-200h.png" />
         </div>
-        <div class="top-points">500</div>
+        <div class="top-points">{{headerService.monedero}}</div>        
       </div>
     </div>
   </div>

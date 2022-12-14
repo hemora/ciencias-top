@@ -5,21 +5,27 @@
         <thead>            
             <tr>
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="id">ID</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="id">Producto Codigo</th>
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="producto">Producto</th>
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="usuario" style="max-width: 150px;">NoCT Usuario</th>
+                <!--
                 <th scope="col" [appSort]="rentas" data-order="asc" data-name="status_entrega">Status</th>
-                <th></th>
+                -->
+                <th>Devolver</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let renta of rentas">
                 <td>{{ renta.id}}</td>
-                <td>{{ renta.producto.codigo }}</td>
+                <td>{{ renta.producto.codigo}}</td>
+                <td>{{ renta.producto.nombre }}</td>
                 <td>{{ renta.usuario.noCT }}</td>
+                <!--
                 <td>{{ renta.status_entrega }}</td>
+                -->
                 <td>
-                    <a href="" (click)="update(renta)">
-                        <img src="/assets/playground_assets/pencil.svg">
+                    <a (click)="devolver(renta)">
+                        <img src="/assets/playground_assets/return-box-4.png">
                     </a>
 
                 </td>

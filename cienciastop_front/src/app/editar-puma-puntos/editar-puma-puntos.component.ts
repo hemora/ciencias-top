@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MonederoService } from './monedero.service';
 import {formatDate} from '@angular/common';
 import { Usuario } from '../usuarios/usuario';
+import { UserAuthService } from '../util/user-auth.service';
+import { HeaderService } from '../header/header.service';
 
 @Component({
   selector: 'app-editar-puma-puntos',
@@ -22,7 +24,8 @@ export class EditarPumaPuntosComponent implements OnInit {
   sumaRestaGroup!: FormGroup;
 
   constructor(private fb: FormBuilder, private monederoService: MonederoService,
-    private router: Router) { }
+    private router: Router,public authService: UserAuthService,     
+    public headerService: HeaderService) { }
 
   ngOnInit(): void {
     this.sumaRestaGroup = this.fb.group({
@@ -38,10 +41,12 @@ export class EditarPumaPuntosComponent implements OnInit {
     let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
     console.log(periodoAux);
     let periodo = periodoAux[2] + '-' + periodoAux[1];
+    console.log(periodo)
     
     this.monederoService.getMonedero(this.usuario.noCT, periodo).subscribe(
       response => {
         this.monedero = response.monedero;
+        console.log(this.monedero)
       }
     );
   }
@@ -50,14 +55,7 @@ export class EditarPumaPuntosComponent implements OnInit {
     if (this.sumaRestaGroup.valid) {
       console.log(this.sumaRestaGroup.value.defCantidad);
 
-      // Se obtienen los datos del monedero para operar
-      //this.monederoService.getMonedero(this.monederoId).subscribe(
-      //  (m: Monedero) => {
-      //    console.log(m);
-      //    this.monedero = m;
-      //    console.log(this.monedero);
-      //  }
-      //);
+      console.log("aaaaa")
 
       // Se operan los datos del monedero
       let n = this.sumaRestaGroup.value.defCantidad as number;
@@ -70,10 +68,13 @@ export class EditarPumaPuntosComponent implements OnInit {
         updatedPP = (Number(n) + Number(m));
       }
       //let periodo = new Date();
-      let periodoAux = (new Date()).toDateString().split(' ');
-      let periodo = periodoAux[3] + '-' + periodoAux[2];
+      let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');
+      console.log(periodoAux)
+      let periodo = periodoAux[2] + '-' + periodoAux[1];
       monederoUpdate.periodo = periodo;
+      console.log(periodo)
       console.log(monederoUpdate);
+
       //const monederoUpdate = {
       //  'status': '',
       //  'pumaPuntos': '',
@@ -85,8 +86,13 @@ export class EditarPumaPuntosComponent implements OnInit {
           , 'Saldo actual: ' + response.monedero.pumaPuntos
           , 'success');
           this.monedero.pumaPuntos = response.monedero.pumaPuntos;
+          if (this.usuario.noCT == this.authService.getNoCta()){
+            console.log("Debe actualizar", this.monedero.pumaPuntos)
+            this.headerService.setPumaPts();
+          }
+          console.log(response);
         }
-      );
+      );      
       // Te vuelvo a pasar el estado
       //this.router.navigate(['/usuarios/editar'])
       this.router.navigateByUrl('/usuarios/editar', { state: this.usuario });

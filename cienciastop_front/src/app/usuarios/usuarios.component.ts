@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from './usuario';
 import { UsuarioService } from './usuario.service';
@@ -14,14 +15,15 @@ export class UsuariosComponent implements OnInit {
   usuarios: Usuario[];
   busqueda: String;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private router : Router, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
     );
   }
-  commitbusqueda() {
+
+  commitbusqueda() {        
     this.usuarioService.busquedaAuxiliar(this.busqueda).subscribe(
       usuarioData => {
         console.log(usuarioData);
@@ -31,8 +33,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   onSubmitForm() {
-    console.log(this.busqueda);
-    this.commitbusqueda();
+    console.log(this.busqueda);    
+    this.router.navigate(['/usuarios/srch/' + this.busqueda])    
   }
 
   delete(usuario: Usuario): void {
@@ -41,7 +43,7 @@ export class UsuariosComponent implements OnInit {
         confirmButton: 'btn btn-success',
         cancelButton: 'btn btn-danger'
       },
-      buttonsStyling: false
+      buttonsStyling: true
     })
     
     swalWithBootstrapButtons.fire({

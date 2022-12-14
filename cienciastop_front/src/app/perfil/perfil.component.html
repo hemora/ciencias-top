@@ -1,0 +1,97 @@
+<div class="ver-perfil-container">
+    <div class="ver-perfil-ver-perfil">
+        <div class="ver-perfil-productos">
+            <div class="ver-perfil-rent">
+                <span class="ver-perfil-rentas">Productos rentados</span>
+                <table>
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let renta of rentas">
+                            <td>
+                                <div class="rectangle52">
+                                    <img class="producto" src="/assets/res/images/{{renta.producto.imagen}}" alt="producto" />
+                                </div>
+                            </td>
+                            <td>
+                                <span class="nombre">{{renta.producto.nombre}}</span><br>
+                                <span class="cod">{{renta.producto.codigo}}</span> <br>
+                                <span class="cantidad"> X 1</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ver-perfil-dev">
+                <div class="ver-perfil-cad">
+                    <span class="ver-perfil-text42">Productos por</span>
+                    <span class="ver-perfil-text41"> devolver</span>
+                </div>
+                <table>
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dev of devoluciones">
+                            <td>
+                                <span class="nombre">{{dev.producto.nombre}} </span><br>
+                                <span class="cod">{{dev.producto.codigo}}</span>
+                                <span class="cantidad"> X 1</span>                                
+                            </td>
+                            <div *ngIf="!esMalo(dev.fecha_entrega); else elseBlock">
+                                <td><span class="date">{{getDateFormat(dev.fecha_entrega)}}</span></td>
+                            </div>
+                            <ng-template #elseBlock>
+                                <td><span class="bad-date">{{getDateFormat(dev.fecha_entrega)}}</span></td>
+                            </ng-template>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ver-perfil-perfil">
+            <form class="ver-perfil-personal">
+                <div class="ver-perfil-head">
+                    <img src="assets/playground_assets/profile.png" alt="usuario" class="ver-perfil-ellipse3" />
+                    <p class="rol">{{usuario.rol}}</p>
+                </div>
+                <h3 class="ver-perfil-text32">Ver Perfil</h3>
+                <div class="ver-perfil-noCT">
+                    <label class="ver-perfil-text36">No. de cuenta o trabajador</label>
+                    <input type="text" class="ver-perfil-text34" placeholder="{{usuario.noCT}}" readonly>
+                </div>
+                <div class="small-space"></div>
+                <div class="ver-perfil-nombre">
+                    <label class="ver-perfil-text20">Nombre</label>
+                    <input type="text" class="ver-perfil-text16" placeholder="{{usuario.nombre}}" readonly>
+                    <label class="ver-perfil-text22">Apellidos</label>
+                    <input type="text" class="ver-perfil-text18" placeholder="{{usuario.apellidos}}" readonly>
+                </div>
+                <div class="ver-perfil-correo">
+                    <label class="ver-perfil-text24">Correo</label>
+                    <input type="text" class="ver-perfil-text26" placeholder="{{usuario.correo}}" readonly>
+                </div>
+                <div class="ver-perfil-telefono">
+                    <label class="ver-perfil-text30">Telefono</label>
+                    <input type="text" class="ver-perfil-text28" placeholder="{{usuario.telefono}}" readonly>
+                </div>
+                <div class="ver-perfil-carrera">
+                    <label class="ver-perfil-text14">Carrera</label>
+                    <input class="ver-perfil-text12" placeholder="{{usuario.carrera}}" readonly>
+                </div>
+                <div class="ver-perfil-pumapuntos">
+                    <h5>Puma Puntos</h5>
+                    <h6>{{month}}</h6>
+                    <div class="small-space"></div>
+                    <div class="left">
+                        <h6>Fecha</h6>
+                        <p>{{myDate | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                    <div class="right">
+                        <h6>Balance</h6>
+                        <p class="balance">{{monedero.pumaPuntos}}</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

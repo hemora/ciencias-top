@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { Monedero } from '../editar-puma-puntos/monedero';
+import { MonederoService } from '../editar-puma-puntos/monedero.service';
+import { Usuario } from '../usuarios/usuario';
+import { UsuarioService } from '../usuarios/usuario.service';
+import { UserAuthService } from '../util/user-auth.service';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +16,23 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  private subscription: Subscription; //important to create a subscription 
   
+  // usuario provicional - reemplazar con datos del usuario logeado  
+  monedero: Monedero = new Monedero();
   entrada: string = "";
-  control = new FormControl();
+  control = new FormControl();  
 
-  constructor(private route : Router) { }
+  constructor(private route : Router, 
+    public authService: UserAuthService,     
+    public headerService: HeaderService) { }
 
-  ngOnInit(): void {
-    this.cambiosBusqueda()
+  ngOnInit(): void {       
+
+    this.cambiosBusqueda();       
+
+    this.headerService.setPumaPts();    
   }
 
   /**

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from '../usuarios/usuario';
 import { UsuarioService } from '../usuarios/usuario.service';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Component({
   selector: 'app-editar',
@@ -37,7 +38,8 @@ export class EditarUsrComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private userAuthService: UserAuthService) {
     this.createForm();
   }
 
@@ -52,6 +54,7 @@ export class EditarUsrComponent implements OnInit {
       apellidosUsr: new FormControl({ apellidos: this.usuario.apellidos }, Validators.compose([Validators.required])),
       telefono: new FormControl({ telefono: this.usuario.telefono }, Validators.compose([Validators.required])),
       rol: new FormControl({ rol: this.usuario.rol }, Validators.compose([Validators.required])),
+      correo: new FormControl({ correo: this.usuario.correo}, Validators.compose([Validators.required])),
     });
   }
 
@@ -60,7 +63,10 @@ export class EditarUsrComponent implements OnInit {
   onSubmitForm() {
     if (this.angForm.valid) {
       console.log(this.usuario);
-      this.commitusuario();
+      if(this.usuario.noCT == this.userAuthService.getNoCta()) {
+        this.userAuthService.setRole(this.usuario.rol);
+      }
+      this.commitusuario();      
     } else {
       Swal.fire('Error al editar un usuario', 'El form está incompleto o es incorrecto, intenta de nuevo.', 'error');
     }
@@ -80,6 +86,7 @@ export class EditarUsrComponent implements OnInit {
         })
         //Llamamos al método de redirección para volver a la lista de usuarios
         this.redirectusuarioList();
+        this.usuarioService.setNombre();        
       },
       error => console.log(error));
   }

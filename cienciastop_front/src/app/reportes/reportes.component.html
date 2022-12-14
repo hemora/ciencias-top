@@ -1,0 +1,113 @@
+<div class="ver-prod-container">
+
+    <!-- Inscritos por carrera -->
+    <table class="tab1">
+        <thead>         
+            <tr>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Inscritos por carrera</th>
+            </tr>
+            <tr>
+                <th scope="col" [appSort]="groupCarrera" data-order="asc" data-name="usrActivosC">Usuarios registrados</th>
+                <th scope="col" [appSort]="groupCarrera" data-order="asc" data-name="carrera">Carrera</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of groupCarrera; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 productos mas rentados -->
+    <table class="tab2">
+        <thead>         
+            <tr>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 5 productos más rentados del mes</th>
+            </tr>
+            <tr>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="usrActivosC">Veces rentado</th>
+                <th scope="col" [appSort]="masRentados" data-order="asc" data-name="carrera">ID del Producto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of masRentados; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Status de cuentas -->
+    <table class="tab3">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="4" class="titleTalbe">Estado de las cuentas</th>
+            </tr>           
+            <tr>
+                <th scope="col" [appSort]="groupStatus" data-order="asc" data-name="usrActivosC">Cantidad de usuarios</th>
+                <th scope="col" [appSort]="groupStatus" data-order="asc" data-name="carrera">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of groupStatus; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 productos mas baratos -->
+    <table class="tab4">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="3" class="titleTalbe">Top 5 productos más baratos</th>
+            </tr>           
+            <tr>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="nombre">Nombre</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="precio">Puma puntos</th>
+                <th scope="col" [appSort]="pMasBaratos" data-order="asc" data-name="codigo">Código</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of pMasBaratos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.codigo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 10 usuarios con mas retardos -->
+    <table class="tab5">
+        <thead>         
+            <tr>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 10 usuarios con más retardos</th>
+            </tr>
+            <tr>
+                <th scope="col" [appSort]="masRetardos" data-order="asc" data-name="usrActivosC">Retardos</th>
+                <th scope="col" [appSort]="masRetardos" data-order="asc" data-name="carrera">ID del Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of masRetardos; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Top 5 usuarios con mas rentas en la semana -->
+    <table class="tab6">
+        <thead>         
+            <tr>
+                <th bgcolor="#139bd1" colspan="2" class="titleTalbe">Top 5 usuarios con más rentas en la semana</th>
+            </tr>
+            <tr>
+                <th scope="col" [appSort]="conMasRentas" data-order="asc" data-name="usrActivosC">Número de rentas</th>
+                <th scope="col" [appSort]="conMasRentas" data-order="asc" data-name="carrera">ID del Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of conMasRentas; index as i">     
+                <td *ngFor="let col of row">{{ col }}</td>   
+            </tr>
+        </tbody>
+    </table>
+</div>

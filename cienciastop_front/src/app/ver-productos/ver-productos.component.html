@@ -1,6 +1,8 @@
 <div  class="verProducto">
     <div class="nombreProducto">{{ producto.nombre }}</div>
-    <img src="{{producto.imagen}}" alt="ImagenProducto-{{producto.codigo}}" class="imagenProducto">
+    <img src="/assets/res/images/{{producto.imagen}}"
+    onerror="this.onerror=null; this.src='/assets/res/images/default_img.jpg'"
+    alt="ImagenProducto-{{producto.codigo}}" class="imagenProducto">
     <div class="descripcion">Descripción:
         <p class="descripcionTexto">
             <br>{{producto.descripcion}}

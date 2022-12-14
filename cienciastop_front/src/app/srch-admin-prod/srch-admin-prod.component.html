@@ -9,17 +9,10 @@
         [(ngModel)] ="entrada"
         [formControl]="control">
         
-        <!--
-        <input
-        type="submit"
-        class="ver-prod-buscar button"
-        id="btn-srch-admin-prod"
-        disabled
-        value="Buscar">
-        -->
         <button
             type="button"
             id="btn-srch-admin-prod"
+            class="btn-srch-admin-prod"
             title="Buscar"
             disabled
             (click)="iniciarBusqueda()">
@@ -27,7 +20,7 @@
         </button>
     </form>
 
-    <button type="button" [routerLink]="['/productos/agrega-prd']" class="ver-prod-agregar-prod button">
+    <button type="button" [routerLink]="['/productos/srch-admin-prod/agrega-prd']" class="ver-prod-agregar-prod button">
         <img class="ver-prod-oplus" alt="oplus" src="/assets/playground_assets/carbonaddalt2093-or1v.svg" />
         <span class="ver-prod-add-prod">Agregar producto</span>
     </button> 
@@ -49,11 +42,14 @@
                 <td>{{ producto.codigo }}</td>
                 <td>{{ producto.currentStock }}</td>
                 <td>
-                    <a href="">
+                    <a [routerLink]="['/productos/editar-prod', producto.codigo]">
                         <img src="/assets/playground_assets/pencil.svg">
                     </a>
                     <a (click)="delete(producto)">
                         <img src="/assets/playground_assets/trash.svg">
+                    </a>
+                    <a href="/inicio/ver-productos/{{producto.codigo}}">
+                        <img src="/assets/playground_assets/eye.svg">
                     </a>
                 </td>
             </tr>

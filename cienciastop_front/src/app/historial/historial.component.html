@@ -1,0 +1,26 @@
+<div class="ver-prod-container">
+    <!-- Historial -->
+    <table class="tab1">
+        <thead> 
+            <tr>
+                <th bgcolor="#139bd1" colspan="5" class="titleTalbe">Historial</th>
+            </tr>           
+            <tr>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="codigo">Codigo</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="nombre">Producto</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="fecha_renta">Rentado</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="fecha_entrega">Limite</th>
+                <th scope="col" [appSort]="rentas" data-order="asc" data-name="status_entrega">Entregado ?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let renta of rentas">
+                <td>{{ renta.producto.codigo }}</td>
+                <td>{{ renta.producto.nombre }}</td>
+                <td>{{ renta.fecha_renta }}</td>
+                <td>{{ renta.fecha_entrega }}</td>
+                <td>{{ renta.status_entrega }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,305 @@
+.ver-perfil-container {
+    top: 80px;
+    width: 80%;
+    left: 20%;
+    position: absolute;
+}
+
+.small-space {
+    height: 10px;
+}
+
+.ver-perfil-perfil,
+.ver-perfil-productos {
+    width: 50%;
+    float: left;
+    padding: 10px;
+    height: 100%;
+}
+
+form {
+    top: 5px;
+    padding-left: 5%;
+    width: 90%;
+    margin: 20px auto 0 auto;
+    box-sizing: border-box;
+    border-radius: 0px;
+    border-left: 1px solid #111;
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+}
+
+.left,
+.right {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.right {
+    padding-left: 12%;
+}
+
+.ver-perfil-head {
+    float: right;
+    text-align: center;
+    padding-right: 20px;
+    display: table-cell;
+}
+
+.ver-perfil-ellipse3 {
+    max-width: 120px;
+}
+
+.rol {
+    color: #111;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.ver-perfil-noCT {
+    width: 70%;
+    display: table-cell;
+    padding-top: 10px;
+}
+
+.ver-perfil-noCT input {
+    margin-left: 20px;
+    width: 45%;
+    padding: 8px;
+    outline: none;
+    resize: none;
+    border-radius: 6px;
+    font-family: 'Trebuchet MS', sans-serif;
+    border: 1px solid #111;
+}
+
+.ver-perfil-noCT ::placeholder {
+    color: #111;
+    text-align: center;
+    font-weight: 600;
+}
+
+.ver-perfil-carrera,
+.ver-perfil-telefono {
+    display: table-cell;
+    max-width: 200px;
+}
+
+input:not(.ver-perfil-carrera input, .ver-perfil-telefono input, .ver-perfil-noCT input) {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', sans-serif;
+    outline: none;
+    resize: none;
+    border-radius: 6px;
+    border: 1px solid #bababa;
+}
+
+.ver-perfil-carrera input {
+    padding: 8px;
+    border-radius: 6px;
+    float: left;
+    outline: none;
+    resize: none;
+    font-family: 'Trebuchet MS', sans-serif;
+    border: 1px solid #bababa;
+}
+
+.ver-perfil-telefono input {
+    width: 70%;
+    padding: 8px;
+    border-radius: 6px;
+    outline: none;
+    resize: none;
+    font-family: 'Trebuchet MS', sans-serif;
+    border: 1px solid #bababa;
+}
+
+.ver-perfil-pumapuntos {
+    width: 70%;
+    height: 190px;
+    box-sizing: border-box;
+    display: block;
+    margin: 60px;
+    padding: 30px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: rgb(11, 127, 171);
+}
+
+h3,
+h5 {
+    font-weight: 600;
+}
+
+.balance {
+    text-align: left;
+    font-weight: 600;
+}
+
+.ver-perfil-rent {
+    height: 450px;
+    float: top;
+    padding: 20px;
+    padding-left: 15%;
+}
+
+.ver-perfil-dev {
+    height: 350px;
+    float: top;
+    padding: 20px;
+    padding-left: 15%;
+}
+
+.ver-perfil-cad {
+    width: 400px;
+    height: auto;
+    position: absolute;
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgb(248, 194, 58);
+}
+
+.ver-perfil-text41 {
+    font-size: 24px;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    color: #fafafa;
+}
+
+.ver-perfil-text42 {
+    font-size: 24px;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    color: #626262;
+}
+
+.ver-perfil-rentas {
+    width: 400px;
+    position: absolute;
+    height: auto;
+    font-size: 26.5px;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(11, 127, 171);
+    color: rgba(245, 245, 245, 1);
+}
+
+table {
+    width: 90%;
+    margin: 80px 10px;
+    border-collapse: collapse;
+}
+
+.ver-perfil-rent tbody {
+    display: block;
+    max-height: 325px;
+    overflow-y: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.ver-perfil-rent th,
+.ver-perfil-rent td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid transparent;
+}
+
+.ver-perfil-dev tbody {
+    display: block;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.ver-perfil-dev th,
+.ver-perfil-dev td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid transparent;
+    width: 100%;
+}
+
+.producto {
+    height: 90px;
+    width: auto;
+    float: right;
+    margin-right: 20px;
+}
+
+.rectangle52 {
+    background: rgba(169, 169, 169, 0.3);
+    width: 150px;
+    height: 50px;
+    border-color: transparent;
+    border-radius: 0px 40px 40px 0px;
+}
+
+.nombre {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #8a8a8a;
+}
+
+.cod {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+}
+
+.cantidad {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #bababa;
+}
+
+.date {
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(233, 114, 61, 1);
+}
+
+.bad-date {
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: red;
+}

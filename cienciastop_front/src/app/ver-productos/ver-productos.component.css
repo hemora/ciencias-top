@@ -20,8 +20,8 @@
 
 .imagenProducto {
     position: absolute;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 350px;
     left: 62px;
     top: 104px;
     object-fit: fill;
@@ -31,7 +31,7 @@
     position: absolute;
     width: 600px;
     height: 310px;
-    left: 482px;
+    left: 442px;
     top: 104px;
     font-family: 'Roboto';
     font-style: normal;
@@ -56,7 +56,7 @@
     position: absolute;
     width: 120px;
     height: 20px;
-    left: 482px;
+    left: 442px;
     top: 440px;
     font-family: 'Tajawal';
     font-style: normal;
@@ -91,7 +91,7 @@
     position: absolute;
     width: 190px;
     height: 20px;
-    left: 682px;
+    left: 642px;
     top: 440px;
     font-family: 'Tajawal';
     font-style: normal;
@@ -105,7 +105,7 @@
     position: absolute;
     width: 142px;
     height: 20px;
-    left: 941px;
+    left: 901px;
     top: 440px;
     font-family: 'Tajawal';
     font-style: normal;

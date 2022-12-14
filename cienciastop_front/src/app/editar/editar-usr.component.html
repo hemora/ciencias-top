@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Apellidos</label>
-                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+ [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+$" minlength="7"
+                <input type="text" required pattern="^[A-ZÀ-Ö]{1}[A-Za-zÀ-ÖØ-öø-ÿ]+( [A-Za-zÀ-ÖØ-öø-ÿ ,.'-]+)*$" minlength="3"
                     formControlName="apellidosUsr" class="form-control" [(ngModel)]="usuario.apellidos">
             </div>
             <div *ngIf="angForm.controls['apellidosUsr'].invalid && (angForm.controls['apellidosUsr'].dirty || angForm.controls['apellidosUsr'].touched)"
@@ -50,6 +50,20 @@
                 </small>
                 <small *ngIf="angForm.controls['telefono'].errors?.['pattern'] ">
                     Verifica que el numero comience en 55 y tenga 10 digitos.
+                </small>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Correo Electronico</label>
+                <input type="text" formControlName="correo" class="form-control" pattern="[\w.-]+@ciencias\.unam\.mx"
+                    [(ngModel)]="usuario.correo">
+            </div>
+            <div *ngIf="angForm.controls['correo'].invalid && (angForm.controls['correo'].dirty || angForm.controls['correo'].touched)"
+                class="error">
+                <small *ngIf="angForm.controls['correo'].errors.required">
+                    Campo requerido.
+                </small>
+                <small *ngIf="angForm.controls['correo'].errors?.['pattern'] ">
+                    Verifica que el correo sea de dominio ciencias.
                 </small>
             </div>
 

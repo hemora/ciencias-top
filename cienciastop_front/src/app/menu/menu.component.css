@@ -37,7 +37,7 @@ body {
 }
 
 .menu-name {
-    top: 134px;
+    top: 118px;
     color: rgb(0, 0, 0);
     width: 100%;
     height: auto;
@@ -56,7 +56,7 @@ body {
 .menu-text-box {
     left: 18px;
     width: 142px;
-    bottom: -18px;
+    bottom: -5px;
     height: 76px;
     position: absolute;
 }
@@ -88,7 +88,7 @@ body {
 
 .menu-options {
     display: block;
-    padding-top: 225px;
+    padding-top: 210px;
 }
 
 .menu-admin-site {
@@ -155,5 +155,26 @@ img {
 button.menu-logout {
     position: absolute;
     left: 20%;
-    top: 585px;
+    top: 590px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+    border: 1px solid transparent;
 }
