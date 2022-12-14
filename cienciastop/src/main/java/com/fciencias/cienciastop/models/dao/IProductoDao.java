@@ -14,7 +14,7 @@ public interface IProductoDao extends CrudRepository<Producto, String> {
 	 * @return una lista con todos los productos donde stock_inicial > 0.
 	 */
 	@Query(
-			value= "SELECT * FROM productos WHERE stock_inicial > 0;", 
+			value= "SELECT * FROM productos WHERE stock_inicial > 0 ", 
 			nativeQuery = true)
 	public List<Producto> findAllFiltro();
 
@@ -24,7 +24,7 @@ public interface IProductoDao extends CrudRepository<Producto, String> {
 	 * @return una lista de productos que contienen la cadena ingresada en su nombre.
 	 */
 	@Query(
-			value= "SELECT * FROM productos WHERE LOWER(nombre) LIKE %?1% OR nombre LIKE %?1%;", 
+			value= "SELECT * FROM productos WHERE LOWER(nombre) LIKE %?1% OR nombre LIKE %?1% ", 
 			nativeQuery = true)
 	public List<Producto> buscarPorNombre(String nombre);
 

@@ -191,6 +191,9 @@ public class RentaRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
+			Producto newP = productoService.findByCodigo(rentaActualizada.getProducto().getCodigo());
+			newP.setCurrentStock(newP.getCurrentStock()+1);
+			productoService.save(newP);
 			rentaActualizada.setStatus_entrega(true);
 			rentaActualizada= rentaService.save(rentaActualizada);
 		}catch(DataAccessException e){
@@ -384,36 +387,43 @@ public class RentaRestController {
 		if (historial.isEmpty()) {
 			return historial;
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+		Calendar fecha = Calendar.getInstance();
+	    Date fechaActual = fecha.getTime();
 		List<Renta> aux = new ArrayList<Renta>();
 		for (Renta renta : historial) {
 			Long noCT = renta.getUsuario().getNoCT();
 			int com = Long.compare(entrada, noCT);
 			if (com == 0) {
-				aux.add(renta);
-			}
-		}
-		return aux;
-	}
-	// Auxiliar para historial
-		private List<Renta> auxRenta(List<Renta> rentasHoy) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			Calendar fecha = Calendar.getInstance();
-	        Date fechaActual = fecha.getTime();
-			if (rentasHoy == null) {
-				rentasHoy = new ArrayList<Renta>();
-			}
-			if (rentasHoy.isEmpty()) {
-				return rentasHoy;
-			}
-			List<Renta> aux = new ArrayList<Renta>();
-			for (Renta renta : rentasHoy) {
-				//System.out.println(renta.getUsuario().getNoCT());
-				//System.out.println(entrada);
 				Date fecharenta = renta.getFecha_renta();
 				if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
 					aux.add(renta);
 				}
 			}
-			return aux;
 		}
+		return aux;
+	}
+	
+	// Auxiliar para rentar producto
+	private List<Renta> auxRenta(List<Renta> rentasHoy) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Calendar fecha = Calendar.getInstance();
+	    Date fechaActual = fecha.getTime();
+		if (rentasHoy == null) {
+			rentasHoy = new ArrayList<Renta>();
+		}
+		if (rentasHoy.isEmpty()) {
+			return rentasHoy;
+		}
+		List<Renta> aux = new ArrayList<Renta>();
+		for (Renta renta : rentasHoy) {
+			//System.out.println(renta.getUsuario().getNoCT());
+			//System.out.println(entrada);
+			Date fecharenta = renta.getFecha_renta();
+			if (sdf.format(fechaActual).equals(sdf.format(fecharenta))) {
+				aux.add(renta);
+			}
+		}
+		return aux;
+	}
 }
