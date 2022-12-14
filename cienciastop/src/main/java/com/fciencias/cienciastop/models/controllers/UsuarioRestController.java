@@ -203,6 +203,7 @@ public class UsuarioRestController {
 			currentUsuario.setApellidos(usuario.getApellidos());
 			currentUsuario.setRol(usuario.getRol());
 			currentUsuario.setTelefono(usuario.getTelefono());
+			currentUsuario.setCorreo(usuario.getCorreo());
 			usuarioEditado = usuarioService.guardar(currentUsuario);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el usuario en la base de datos.");
