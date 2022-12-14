@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import  { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,12 @@ export class SesionService {
   }
 
   authentication(loginData: any) {
-    return this.http.post(this.authEndpoint, loginData, {headers : this.requestHeader})
+    return this.http.post(this.authEndpoint, loginData, {headers : this.requestHeader}).pipe(
+      catchError( e => {
+        Swal.fire('Error al iniciar sesión', e.error.message, 'error');
+        return throwError( () => e);
+      })
+    );
   }
 
   reestablecerContrasenia(noCta: number, pw: string) {

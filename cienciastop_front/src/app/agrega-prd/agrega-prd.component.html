@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Código</label>
-                <input type="text" formControlName="codigo" pattern="[a-zA-Z1-9-_.][a-zA-Z0-9-_.]{12}" class="form-control" [(ngModel)]="producto.codigo">
+                <input type="text" formControlName="codigo" pattern="[a-zA-Z1-9-_.][a-zA-Z0-9-_.]{11}" class="form-control" [(ngModel)]="producto.codigo">
             </div>
             <div *ngIf="agregForm.controls['codigo'].invalid && (agregForm.controls['codigo'].dirty || agregForm.controls['codigo'].touched)"
                 class="error">
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Stock</label>
-                <input type="number" formControlName="stockInicial" class="form-control" pattern="[0-9]*" min="0" [(ngModel)]="producto.stock_inicial">
+                <input type="number" formControlName="stockInicial" class="form-control" pattern="[0-9]*" min="1" [(ngModel)]="producto.stock_inicial">
             </div>
             <div *ngIf="agregForm.controls['stockInicial'].invalid && (agregForm.controls['stockInicial'].dirty || agregForm.controls['stockInicial'].touched)"
                 class="error">

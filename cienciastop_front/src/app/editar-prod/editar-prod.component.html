@@ -25,7 +25,7 @@
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Stock Inicial</label>
                 <div class="col-sm-6">
-                    <input formControlName= "stockInicial" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.stock_inicial" name="stock_inicial">
+                    <input formControlName= "stockInicial" type="number" pattern="[0-9]*" min="1" class="form-control" [(ngModel)]="producto.stock_inicial" name="stock_inicial">
                 </div>
             </div>
             <div *ngIf="angForm.controls['stockInicial'].invalid && (angForm.controls['stockInicial'].dirty || angForm.controls['stockInicial'].touched)" class="alert alert-danger">
@@ -33,11 +33,10 @@
                     Ingrese el número de existencias inicales del producto.
                 </div>
             </div>
-            <!-- ¿Por qué se mandan 2 veces? -->
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Current Stock</label>
                 <div class="col-sm-6">
-                    <input formControlName= "currentStock" type="number" pattern="[0-9]*" min="0" class="form-control" [(ngModel)]="producto.current_stock" name="currentStock">
+                    <input formControlName= "currentStock" type="number" pattern="[0-9]*" min="1" class="form-control" [(ngModel)]="producto.current_stock" name="currentStock">
                 </div>
             </div>
             <div *ngIf="angForm.controls['currentStock'].invalid && (angForm.controls['currentStock'].dirty || angForm.controls['currentStock'].touched)" class="alert alert-danger">
