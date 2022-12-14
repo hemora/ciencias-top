@@ -37,7 +37,7 @@ body {
 }
 
 .menu-name {
-    top: 125px;
+    top: 118px;
     color: rgb(0, 0, 0);
     width: 100%;
     height: auto;
@@ -155,5 +155,26 @@ img {
 button.menu-logout {
     position: absolute;
     left: 20%;
-    top: 585px;
+    top: 590px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+    border: 1px solid transparent;
 }

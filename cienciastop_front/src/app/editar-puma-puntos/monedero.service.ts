@@ -41,7 +41,7 @@ export class MonederoService {
   sumarRestarPumaPuntos(id: number, pp: number) {
     return this.http.put<any>(this.monederoApi + '/' + id + '/' + pp, null, {headers: this.httpHeaders}).pipe(
       catchError( e => {
-        Swal.fire('Error al sumar/restar puma puntos', e.error, 'error');
+        Swal.fire('Error al sumar/restar puma puntos', e.error.mensaje, 'error');
         return throwError( () => e);
       })
     )

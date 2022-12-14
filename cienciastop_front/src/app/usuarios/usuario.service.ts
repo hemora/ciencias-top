@@ -12,8 +12,11 @@ import { UserAuthService } from '../util/user-auth.service';
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient
-    , private userAuthService: UserAuthService) { }
+  noCT : number;
+  nombre : string;
+  map_data = new Map();    
+
+  constructor(private http: HttpClient, public userAuthService: UserAuthService) { }
   
   private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
   private perfilEndPoint:string = 'http://localhost:8080/api/ver-perfil';
@@ -165,5 +168,16 @@ export class UsuarioService {
 
       })
     );
+  }
+
+  setNombre() {    
+    this.noCT = this.userAuthService.getNoCta();
+    console.log(this.noCT);
+    this.getPerfilUsr(this.noCT).subscribe(
+      response => {
+        this.map_data = new Map(Object.entries(response));                             
+        console.log(this.map_data.get("dataUsuario"));
+        this.nombre = this.map_data.get("dataUsuario").nombre + " " + this.map_data.get("dataUsuario").apellidos;
+  });            
   }
 }
