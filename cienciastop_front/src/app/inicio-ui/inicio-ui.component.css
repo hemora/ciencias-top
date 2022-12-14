@@ -76,12 +76,13 @@ input[type='password'] {
     text-align: center;
     position: relative;
     display: inline-block;
+    cursor: pointer;
   }
   
   /* The actual popup (appears on top) */
   .popup .popuptext{
     visibility: hidden;
-    width: 600px;
+    width: 480px;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -89,8 +90,8 @@ input[type='password'] {
     padding: 8px 0;
     position: absolute;
     z-index: 1;
-    bottom: -50%;
-    margin-left: -400px;
+    bottom: -110px;
+    margin-left: -328px;
   }
   
   /* Popup arrow */
@@ -122,3 +123,12 @@ input[type='password'] {
     from {opacity: 0;}
     to {opacity:1 ;}
   }
+
+  .deleteMeetingClose {
+    font-size: 1.5em;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    
+}

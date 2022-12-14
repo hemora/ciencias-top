@@ -72,7 +72,7 @@ public class Usuario implements Serializable {
 	@NotNull(message = "La contrasenya no puede ser nula")
 	@NotBlank(message = "La contrasenya no puede ser caracteres vacios")
 	@Size(min = 8, max = 200, message 
-      = "La contrasenya debe tener entre 10 y 200 caracteres")
+      = "La contrasenya debe tener entre 8 y 200 caracteres")
     @Column(name="contrasenya")
 	private String contrasenya;
 	/* Un valor entre 0 y 1 que indica si el usuario est'a desactivado o no */

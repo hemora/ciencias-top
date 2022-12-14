@@ -40,6 +40,11 @@ export class PerfilComponent implements OnInit {
     private productoService: ProductoService) { }
 
   ngOnInit(): void {
+    console.log(localStorage);
+    if (localStorage.getItem('refreshed') === null) {
+      localStorage['refreshed'] = true;
+      window.location.reload();
+    }    
     this.router.params.subscribe(params => {
       this.noCT = params['noCT'];
     });

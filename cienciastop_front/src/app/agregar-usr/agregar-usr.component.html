@@ -86,9 +86,10 @@
         </div>
         <div class="der">
             <div class="form-group">
-                <label class="control-label">Contrasena</label>
-                <input type="password" formControlName="contrasenya" class="form-control"
+                <label class="control-label">Contrasena</label>                                             
+                <input [type]="type"  formControlName="contrasenya" class="form-control"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" [(ngModel)]="usuario.contrasenya">
+                <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
             </div>
             <div *ngIf="angForm.controls['contrasenya'].invalid && (angForm.controls['contrasenya'].dirty || angForm.controls['contrasenya'].touched)"
                 class="error">

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MonederoService } from '../editar-puma-puntos/monedero.service';
 import { Usuario } from '../usuarios/usuario';
 import { UsuarioService } from '../usuarios/usuario.service';
 
@@ -16,6 +17,10 @@ export class AgregarUsrComponent implements OnInit {
   //Cramos un nuevo usuario vacío
   usuario: Usuario = new Usuario();
   angForm: FormGroup;
+
+  type: string = "password";
+  isText: boolean = false;  
+  eyeIcon: string = "fa-eye-slash";
 
   radio_button_value = null;
 
@@ -34,7 +39,7 @@ export class AgregarUsrComponent implements OnInit {
     }
   ]
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private fb: FormBuilder) { 
+  constructor(private usuarioService: UsuarioService, private router: Router, private fb: FormBuilder, private monederoService: MonederoService) { 
     this.createForm();
   }
 
@@ -73,19 +78,33 @@ export class AgregarUsrComponent implements OnInit {
         console.log(usuarioData);
         //Llamamos al método de redirección para volver a la lista de usuarios
         Swal.fire('Se ha creado un nuevo usuario', `El ${usuarioData.usuario.rol} se añadió con éxito`, 'success');
-        this.usuarioService.activarCrearMonedero(this.usuario.noCT).subscribe(
-          monederoData => {
-            console.log(monederoData);
-          },
-          error => console.log(error)
-        )
+        //this.usuarioService.activarCrearMonedero(this.usuario.noCT).subscribe(
+        //  monederoData => {
+        //    console.log(monederoData);
+        //  },
+        //  error => console.log(error)
+        //)
         this.redirectusuarioList();
       },
       error => console.log(error));
+    
+    this.monederoService.crearMonedero(this.usuario.noCT).subscribe(
+      monederoData => {
+        console.log(monederoData);
+        Swal.fire('Se ha creado un monedero para el periodo actual: ', 'Se añaden 100 puma puntos de regalo', 'success');
+      },
+      error => console.log(error)
+    );
   }
 
   //Redirección a lista de usuarios
   redirectusuarioList() {
     this.router.navigate(['/usuarios']);
+  }
+
+  hideShowPass() {
+    this.isText = !this.isText;
+    this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
+    this.isText ? this.type = "text" : this.type = "password";
   }
 }

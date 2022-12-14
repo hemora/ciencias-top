@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { Monedero } from '../editar-puma-puntos/monedero';
 import { MonederoService } from '../editar-puma-puntos/monedero.service';
 import { Usuario } from '../usuarios/usuario';
 import { UsuarioService } from '../usuarios/usuario.service';
 import { UserAuthService } from '../util/user-auth.service';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -14,28 +16,23 @@ import { UserAuthService } from '../util/user-auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  private subscription: Subscription; //important to create a subscription 
   
-  // usuario provicional - reemplazar con datos del usuario logeado
-  noCT : number;  
+  // usuario provicional - reemplazar con datos del usuario logeado  
   monedero: Monedero = new Monedero();
   entrada: string = "";
-  control = new FormControl();
+  control = new FormControl();  
 
-  constructor(private route : Router, public authService: UserAuthService, private usuarioService: UsuarioService, private monederoService: MonederoService) { }
+  constructor(private route : Router, 
+    public authService: UserAuthService,     
+    public headerService: HeaderService) { }
 
-  ngOnInit(): void {
-    this.noCT = this.authService.getNoCta();    
+  ngOnInit(): void {       
 
-    this.cambiosBusqueda();
+    this.cambiosBusqueda();       
 
-    let periodoAux = new Intl.DateTimeFormat('es-MX').format(new Date()).split('/');    
-    let periodo = periodoAux[2] + '-' + periodoAux[1];
-
-    this.monederoService.getMonedero(this.noCT, periodo).subscribe(
-      response => {
-        this.monedero = response.monedero;
-      }
-    );
+    this.headerService.setPumaPts();    
   }
 
   /**

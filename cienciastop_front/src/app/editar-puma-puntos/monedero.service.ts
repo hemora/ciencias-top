@@ -41,7 +41,16 @@ export class MonederoService {
   sumarRestarPumaPuntos(id: number, pp: number) {
     return this.http.put<any>(this.monederoApi + '/' + id + '/' + pp, null, {headers: this.httpHeaders}).pipe(
       catchError( e => {
-        Swal.fire('Error al sumar/restar puma puntos', e.error, 'error');
+        Swal.fire('Error al sumar/restar puma puntos', e.error.mensaje, 'error');
+        return throwError( () => e);
+      })
+    )
+  }
+
+  crearMonedero(id: number) {
+    return this.http.post<any>(`${this.monederoApi}/${id}`, null, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        Swal.fire('Error al crear monedero para el periodo actual: ', e.error, 'error');
         return throwError( () => e);
       })
     )
