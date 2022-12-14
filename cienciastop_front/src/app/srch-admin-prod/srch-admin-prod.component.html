@@ -20,7 +20,7 @@
         </button>
     </form>
 
-    <button type="button" [routerLink]="['/productos/srch-admin-prod/agrega-prd']" class="ver-prod-agregar-prod button">
+    <button type="button" [routerLink]="['/productos/agrega-prd']" class="ver-prod-agregar-prod button">
         <img class="ver-prod-oplus" alt="oplus" src="/assets/playground_assets/carbonaddalt2093-or1v.svg" />
         <span class="ver-prod-add-prod">Agregar producto</span>
     </button> 
@@ -47,6 +47,9 @@
                     </a>
                     <a (click)="delete(producto)">
                         <img src="/assets/playground_assets/trash.svg">
+                    </a>
+                    <a href="/inicio/ver-productos/{{producto.codigo}}">
+                        <img src="/assets/playground_assets/eye.svg">
                     </a>
                 </td>
             </tr>

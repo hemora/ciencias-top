@@ -1,31 +1,154 @@
+.bienvenida {
+    height: 200px;
+    width: 70%;
+    left: 20%;
+    position: absolute;
+}
+
+.bienvenida1 {
+    top: 60px;
+    left: 60px;
+    position: absolute;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 38px;
+    color: black;
+}
+
+.bienvenida2 {
+    top: 110px;
+    left: 60px;
+    position: relative;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 38px;
+    color: black;
+}
+
 .container {
     width: 80%;
-    left: 15%;
-    top: 80px;
+    left: 20%;
+    height: 570px;
+    top: 320px;
+    bottom: 0px;
     position: absolute;
-    /*
-    display: flex;
-    overflow: auto;
-    min-height: 100vh;
-    align-items: flex-end;
-    flex-direction: column;
-    */
 }
 
-.imagenProducto {
-    width: 80px;
-    position:absolute;
-    left: 65%;
-    top: 15%;
-    /*
-    height: 350px;
-    top: 104px;
+.recomendaciones {
+    top: 280px;
+    left: 360px;
+    position: absolute;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 38px;
+    color: black;
+}
+
+.prod1 {
+    top: 10px;
+    left: 33px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod2 {
+    top:  10px;
+    left: 303px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod3 {
+    top:  10px;
+    left: 573px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod4 {
+    top:  10px;
+    left: 843px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod5 {
+    top:  290px;
+    left: 33px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod6 {
+    top:  290px;
+    left: 303px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod7 {
+    top:  290px;
+    left: 573px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.prod8 {
+    top:  290px;
+    left: 843px;
+    width: 220px;
+    height: 260px;
+    position: absolute;
+}
+
+.targeta {
+    width: 100%;
+    height: 100%;
+    border-color: rgba(233, 114, 61, 1);
+    background-color: rgba(233, 114, 61, 1);
+}
+
+.imagen {
+    top: 0px;
+    left: 00px;
+    width: 220px;
+    height: 200px;
+    position: absolute;
     object-fit: fill;
-    */
 }
 
-.col {
-    border-color: #dddddd;
-    border-radius: 15px;
-    margin: 5px;
+.nombre {
+    width: 100%;
+    top: 196px;
+    left: 16px;
+    position: absolute;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 38px;
+    text-align: left;
+    color: black;
+}
+
+.precio {
+    width: 100%;
+    top: 220px;
+    left: 16px;
+    position: absolute;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 38px;
+    text-align: left;
+    color: black;
 }

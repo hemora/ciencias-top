@@ -24,6 +24,10 @@ export class ProductosComponent implements OnInit {
   
   producto6: any;
 
+  producto7: any;
+
+  producto8: any;
+
   constructor(private productoService: ProductoService) { }
   ngOnInit(): void {
     this.productoService.getProductosFiltro().subscribe(
@@ -35,8 +39,18 @@ export class ProductosComponent implements OnInit {
         this.producto4 = productos[3]
         this.producto5 = productos[4]
         this.producto6 = productos[5]
+        this.producto7 = productos[6]
+        this.producto8 = productos[7]
       }
     );
+  }
+
+  maxSizeName(name: string): string{
+    if (name.length > 19) {
+      return name.substring(0, 15) + ' ...';
+    }
+
+    return name;
   }
 
 }
