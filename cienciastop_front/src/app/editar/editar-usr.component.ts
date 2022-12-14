@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from '../usuarios/usuario';
 import { UsuarioService } from '../usuarios/usuario.service';
+import { UserAuthService } from '../util/user-auth.service';
 
 @Component({
   selector: 'app-editar',
@@ -37,7 +38,8 @@ export class EditarUsrComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private userAuthService: UserAuthService) {
     this.createForm();
   }
 
@@ -61,6 +63,9 @@ export class EditarUsrComponent implements OnInit {
   onSubmitForm() {
     if (this.angForm.valid) {
       console.log(this.usuario);
+      if(this.usuario.noCT == this.userAuthService.getNoCta()) {
+        this.userAuthService.setRole(this.usuario.rol);
+      }
       this.commitusuario();      
     } else {
       Swal.fire('Error al editar un usuario', 'El form está incompleto o es incorrecto, intenta de nuevo.', 'error');
