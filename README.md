@@ -1,5 +1,5 @@
-Ciencias Top
 # Ciencias Top
+
 Ciencias Top es un espacio diseñado para cuidar y entretener a la comunidad de la Facultad de Ciencias mediante la renta de productos de entretenimiento que faciliten realizar actividades recreativas. Se cuenta con la posibilidad de rentar:
 
 - Computadoras
@@ -25,7 +25,7 @@ El sistema está diseñado para ofrecer las siguientes funcionalidades:
 
 ## :satellite: Responsables: :satellite:
 
-### Documentation
+### :bookmark_tabs: Documentation :bookmark_tabs:
 
 - [Planteamiento de necesidades](documentation/1-plantamiento-de-necesidades.pdf)
 - [Plan de proyecto](documentacion/2-plan-de-proyecto.pdf)
@@ -81,14 +81,71 @@ El sistema está diseñado para ofrecer las siguientes funcionalidades:
     - Consumidor de API:
         - Postman
 
-### More info
-* Información de administrador para poder hacer Login
+### More info to execute
+
+* Para el Back-End utilizamos el framework de spring pero también puede ejecutarse con maven con todas las dependecias necesitadas en el pom. Se necesita crear previamente la base de datos donde se ejecutara el proyecto, denotada en el properties.
+
+    - También podemos levantar el Back-end usando Spring Tools Suite 4: En la parte de abajo podemos ver los tokes generados para que sirva la autenticación.
+
+| ![](img/Back-Exe-Since-SpringTS4.png) |
+|:---------------------------:|
+| Levantamiento del Back-End usando Spring Tools Suite 4 |
+
+* Para el front utilizamos Angular y podemos utilizar Visual Studio para poder ejecutarlo utilizando: *ng serve* pero primero tenemos que instalar todo lo necesario utilizando:
+    -  *npm install*
+    - Se debe estar posicionado en `cienciastop_front/` y luego correr el comando
+
+```shell
+ng serve
+```
+| ![](img/before-ng-serve.png) |
+|:---------------------------:|
+| Levantamiento del Front-End usando VS ejecutando ng serve. |
+
+
+| ![](img/after-ng-serve.png) |
+|:---------------------------:|
+| Tras ejecutar ng serve. |
+
+* Información de un administrador para poder hacer un Login en la aplicación.
     - noCuenta: 9876543210
     - contraseña: Abc_8123
 
-Para el back utilizamos el framework de spring pero también puede ejecutarse con maven con todas las dependecias necesitadas en el pom. Se necesita crear previamente la base de datos donde se ejecutara el proyecto, denotada en el properties.
+| ![](img/login.png) |
+|:---------------------------:|
+| Interfaz correspondiente al inicio de sesión. |
+------
 
-Para el front utilizamos Angular y podemos utilizar Visual Studio para poder ejecutarlo utilizando: *ng serve* y para instalar todo lo necesario utilizando *npm install*, todo esto dentro de la carpeta cienciastop_front.
+| ![](img/after-login.png) |
+|:---------------------------:|
+| Tras logearte, vemos el menu principal. |
+------
+
+#### Imagenes del caso de uso: Editar Productos
+
+* Como administrador, podemos seleccionar un producto en "Productos" en la parte de "Administración del Sitio" para poder editar sus atributos.
+
+| ![](img/caso-editar-productos/before.png) |
+|:---------------------------:|
+| Antes de editar el producto seleccionado. |
+------
+
+* Una vez seleccionado puedes llenar el formulario que representa los atributos del producto seleccionado.
+| ![](img/caso-editar-productos/edit.png) |
+|:---------------------------:|
+| Formulario que representa el producto seleccionado. |
+------
+
+* Tras dar click en editar, se verifica que los datos enviados cumplan los requisitos y si estos estan bien, se actualiza el producto seleccionado en la BD, el usuario ve la notificación correspondiente.
+| ![](img/caso-editar-productos/noti-update.png) |
+|:---------------------------:|
+| Notificación tras editar. |
+------
+
+* Tras editar el producto, podemos darnos cuenta que el producto ha sido actualizado.
+| ![](img/caso-editar-productos/after.png) |
+|:---------------------------:|
+| Producto editado. |
 ------
 
 ### Leviathan:
@@ -110,6 +167,3 @@ Para el front utilizamos Angular y podemos utilizar Visual Studio para poder eje
 * :+1: Contact and follow me :bowtie:
 ------
 ⌨️ with much :purple_heart: by [Jose-MPM](https://github.com/Jose-MPM) 😊⌨️
-
-
-git co -m "ADD Documentation Completed"
