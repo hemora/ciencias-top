@@ -1,5 +1,10 @@
 # Ciencias Top
 
+| ![](img/after-login.png) |
+|:---------------------------:|
+| Menu principal de Ciencias Top |
+------
+
 Ciencias Top es un espacio diseñado para cuidar y entretener a la comunidad de la Facultad de Ciencias mediante la renta de productos de entretenimiento que faciliten realizar actividades recreativas. Se cuenta con la posibilidad de rentar:
 
 - Computadoras
