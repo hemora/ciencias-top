@@ -37,6 +37,7 @@ El sistema está diseñado para ofrecer las siguientes funcionalidades:
     - Segunda
         - [TeamLeaviathan](documentation/2daIteracion/5.2-Diseno-detallado-TL.pdf)
         - [LoginSeven](documentation/2daIteracion/5.2-Diseno-detallado-LG.pdf)
+- Algunos [queries](documentation/Ciencias_Top_db.postman_collection.json) que pueden importarse en Postman para probar nuestra API.
 - **Tecnologías involucradas:**
     - Lenguaje (o lenguajes) de Programación: 
         - Java 11
@@ -77,6 +78,8 @@ El sistema está diseñado para ofrecer las siguientes funcionalidades:
         - dbeaver
         - pgAdmin
         - línea de comandos
+    - Consumidor de API:
+        - Postman
 
 ### More info
 * Información de administrador para poder hacer Login
@@ -107,3 +110,6 @@ Para el front utilizamos Angular y podemos utilizar Visual Studio para poder eje
 * :+1: Contact and follow me :bowtie:
 ------
 ⌨️ with much :purple_heart: by [Jose-MPM](https://github.com/Jose-MPM) 😊⌨️
+
+
+git co -m "ADD Documentation Completed"
