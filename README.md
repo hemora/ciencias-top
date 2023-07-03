@@ -131,25 +131,26 @@ ng serve
 * Como administrador, podemos seleccionar un producto en "Productos" en la parte de "Administración del Sitio" para poder editar sus atributos.
 
 | ![](img/caso-editar-productos/before.png) |
-|:---------------------------:|
+|:--------------------------------------------------:|
 | Antes de editar el producto seleccionado. |
 ------
 
 * Una vez seleccionado puedes llenar el formulario que representa los atributos del producto seleccionado.
+
 | ![](img/caso-editar-productos/edit.png) |
-|:---------------------------:|
+|:--------------------------------------------------:|
 | Formulario que representa el producto seleccionado. |
 ------
 
 * Tras dar click en editar, se verifica que los datos enviados cumplan los requisitos y si estos estan bien, se actualiza el producto seleccionado en la BD, el usuario ve la notificación correspondiente.
 | ![](img/caso-editar-productos/noti-update.png) |
-|:---------------------------:|
+|:--------------------------------------------------:|
 | Notificación tras editar. |
 ------
 
 * Tras editar el producto, podemos darnos cuenta que el producto ha sido actualizado.
 | ![](img/caso-editar-productos/after.png) |
-|:---------------------------:|
+|:--------------------------------------------------:|
 | Producto editado. |
 ------
 
